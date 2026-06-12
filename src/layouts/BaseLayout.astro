@@ -1,0 +1,36 @@
+---
+import "@styles/global.scss";
+
+const {pageTitle} = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{pageTitle}</title>
+    <!-- Fonts -->
+    <!-- <Font
+      cssVariable="--font-montserrat"
+      preload
+    />
+    <Font
+      cssVariable="--font-lato"
+      preload
+    /> -->
+  </head>
+  <body>
+    <!-- Screen reader skip main nav -->
+    <a
+      class="skip"
+      aria-label="skip to main content"
+      href="#main"
+    >
+      Click To Skip To Main Content
+    </a>
+    <!-- <Header /> -->
+    <main id="main">
+      <slot />
+    </main>
+    <!-- <Footer /> -->
+  </body>
+</html>
