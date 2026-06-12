@@ -11,7 +11,8 @@
       "@components/*": ["./src/components/*"],
       "@lib/*": ["./src/lib/*"],
       "@types/*": ["./src/types/*"],
-      "@scripts/*": ["./src/scripts/*"]
+      "@scripts/*": ["./src/scripts/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }
