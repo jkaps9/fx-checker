@@ -63,12 +63,17 @@
     const quote = formData.get("quote")?.toString();
 
     if (!base || !quote) return;
+    if (base === quote) {
+      results.textContent = `1 ${base} = 1 ${quote}`;
+      outputAmount.value = convertAmount(baseAmount.valueAsNumber, 1);
+      return;
+    }
 
     results.textContent = `Fetching rates ...`;
 
     try {
       const data = await frankfurterAPI.fetchFxRates(base, quote);
-      results.textContent = `1 ${data.base} = ${data.rate} ${data.quote}`;
+      results.textContent = `1 ${data.base} = ${data.rate.toFixed(2)} ${data.quote}`;
       const baseAmt = baseAmount.valueAsNumber;
       if (baseAmt) outputAmount.value = convertAmount(baseAmt, data.rate);
     } catch (error) {
