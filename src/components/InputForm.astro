@@ -64,7 +64,7 @@
 
     if (!base || !quote) return;
     if (base === quote) {
-      results.textContent = `1 ${base} = 1 ${quote}`;
+      results.textContent = `1 ${base} = 1.0000 ${quote}`;
       outputAmount.value = convertAmount(baseAmount.valueAsNumber, 1);
       return;
     }
@@ -73,7 +73,7 @@
 
     try {
       const data = await frankfurterAPI.fetchFxRates(base, quote);
-      results.textContent = `1 ${data.base} = ${data.rate.toFixed(2)} ${data.quote}`;
+      results.textContent = `1 ${data.base} = ${data.rate.toFixed(4)} ${data.quote}`;
       const baseAmt = baseAmount.valueAsNumber;
       if (baseAmt) outputAmount.value = convertAmount(baseAmt, data.rate);
     } catch (error) {
