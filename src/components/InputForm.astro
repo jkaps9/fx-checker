@@ -2,26 +2,55 @@
 
 ---
 
-<form>
+<form id="fx-input">
   <div class="form-group">
-    <label for="base">Send</label>
-    <input
-      type="text"
-      id="base"
+    <label for="base-select">Send</label>
+    <select
       name="base"
-      placeholder="USD"
-    />
+      id="base-select"
+    >
+      <option value="usd">USD</option>
+      <option value="eur">EUR</option>
+    </select>
   </div>
   <div class="form-group">
-    <label for="quote">Receive</label>
-    <input
-      type="text"
-      id="quote"
+    <label for="quote-select">Receive</label>
+    <select
       name="quote"
-      placeholder="EUR"
-    />
+      id="quote-select"
+    >
+      <option value="eur">EUR</option>
+      <option value="usd">USD</option>
+    </select>
   </div>
+  <button>Submit</button>
 </form>
 
 <p>Output:</p>
 <p id="output"></p>
+
+<script>
+  import { FrankfurterAPI } from "@lib/frankfurter_api";
+  const frankfurterAPI = new FrankfurterAPI();
+  const form = document.getElementById("fx-input") as HTMLFormElement;
+  const results = document.getElementById("output") as HTMLParagraphElement;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString();
+    const quote = formData.get("quote")?.toString();
+
+    if (!base || !quote) return;
+
+    results.textContent = `Fetching rates ...`;
+
+    try {
+      const data = await frankfurterAPI.fetchFxRates(base, quote);
+      results.textContent = `1 ${data.base} = ${data.rate} ${data.quote}`;
+    } catch (error) {
+      console.error("Error fetching FX data:", error);
+      results.textContent = `Failed to fetch rates. Please try again.`;
+    }
+  });
+</script>
