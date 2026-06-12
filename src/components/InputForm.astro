@@ -4,26 +4,42 @@
 
 <form id="fx-input">
   <div class="form-group">
-    <label for="base-select">Send</label>
+    <label for="base-amount">Send</label>
+    <input
+      type="number"
+      id="base-amount"
+      name="base-amount"
+      value="1"
+    />
     <select
       name="base"
-      id="base-select"
+      id="base-currency"
     >
       <option value="usd">USD</option>
       <option value="eur">EUR</option>
     </select>
   </div>
   <div class="form-group">
-    <label for="quote-select">Receive</label>
+    <label for="output-amount">Receive</label>
+    <output
+      id="output-amount"
+      name="output-amount"
+      for="base-amount base-currency quote-currency"
+    >
+      0
+    </output>
     <select
       name="quote"
-      id="quote-select"
+      id="quote-currency"
     >
       <option value="eur">EUR</option>
       <option value="usd">USD</option>
     </select>
+
+    <div class="form-group">
+      <button>Convert</button>
+    </div>
   </div>
-  <button>Submit</button>
 </form>
 
 <p>Output:</p>
@@ -31,9 +47,14 @@
 
 <script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
+  import { convertAmount } from "@utils/fxMath";
   const frankfurterAPI = new FrankfurterAPI();
   const form = document.getElementById("fx-input") as HTMLFormElement;
   const results = document.getElementById("output") as HTMLParagraphElement;
+  const baseAmount = document.getElementById("base-amount") as HTMLInputElement;
+  const outputAmount = document.getElementById(
+    "output-amount",
+  ) as HTMLOutputElement;
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -48,6 +69,8 @@
     try {
       const data = await frankfurterAPI.fetchFxRates(base, quote);
       results.textContent = `1 ${data.base} = ${data.rate} ${data.quote}`;
+      const baseAmt = baseAmount.valueAsNumber;
+      if (baseAmt) outputAmount.value = convertAmount(baseAmt, data.rate);
     } catch (error) {
       console.error("Error fetching FX data:", error);
       results.textContent = `Failed to fetch rates. Please try again.`;
