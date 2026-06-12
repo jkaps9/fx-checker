@@ -7,11 +7,10 @@ export class FrankfurterAPI {
 
   async fetchFxRates(
     baseCurrency: string,
-    quoteCurrency: string,
+    targetCurrency: string,
   ): Promise<FxRate> {
     let url =
-      FrankfurterAPI.baseURL +
-      `/rates?base=${baseCurrency}&quotes=${quoteCurrency}`;
+      FrankfurterAPI.baseURL + `/rate/${baseCurrency}/${targetCurrency}`;
 
     const response = await fetch(url);
 
@@ -20,6 +19,6 @@ export class FrankfurterAPI {
     }
 
     const data = (await response.json()) as FxRate[];
-    return data[0];
+    return data;
   }
 }
