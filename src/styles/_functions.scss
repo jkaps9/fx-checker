@@ -1,0 +1,6 @@
+@function space($size) {
+  @if map-has-key($spaces, $size) {
+    @return map-get($spaces, $size);
+  }
+  @error "Unknown spacing size: #{$size}.";
+}
