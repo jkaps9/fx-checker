@@ -31,10 +31,15 @@ $container-max: 85rem;
 $container-padding: 5vw;
 
 // --- Border radius
-$radius-sm: 4px;
-$radius-md: 8px;
-$radius-lg: 16px;
-$radius-pill: 9999px;
+$radius-4: 4px;
+$radius-6: 6px;
+$radius-8: 8px;
+$radius-10: 10px;
+$radius-12: 12px;
+$radius-16: 16px;
+$radius-20: 20px;
+$radius-24: 24px;
+$radius-full: 999px;
 
 // --- Transitions
 $transition-base: 0.3s ease;
