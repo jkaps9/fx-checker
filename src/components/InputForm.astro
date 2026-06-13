@@ -4,136 +4,140 @@ import currencies from "@data/currencies.json";
 const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 ---
 
-<form id="fx-input">
-  <div class="form-group">
-    <label for="base-amount">Send</label>
-    <input
-      type="number"
-      id="base-amount"
-      name="base-amount"
-      value="1"
-    />
-    <select
-      name="base"
-      id="base-currency"
-    >
-      {
-        currencies.map((currency) => (
-          <option
-            value={currency.iso_code}
-            selected={currency.iso_code === defaultBase}
+<section class="input">
+  <div class="container">
+    <h2>Check the Rate</h2>
+    <div class="card">
+      <form id="fx-input">
+        <div class="form-group card--inner">
+          <label for="base-amount">Send</label>
+          <input
+            type="number"
+            id="base-amount"
+            name="base-amount"
+            value="1"
+          />
+          <select
+            name="base"
+            id="base-currency"
           >
-            {currency.iso_code}
-          </option>
-        ))
-      }
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="output-amount">Receive</label>
-    <output
-      id="output-amount"
-      name="output-amount"
-      for="base-amount base-currency target-currency"
-    >
-      0
-    </output>
-    <select
-      name="target"
-      id="target-currency"
-    >
-      {
-        currencies.map((currency) => (
-          <option
-            value={currency.iso_code}
-            selected={currency.iso_code === defaultTarget}
+            {
+              currencies.map((currency) => (
+                <option
+                  value={currency.iso_code}
+                  selected={currency.iso_code === defaultBase}
+                >
+                  {currency.iso_code}
+                </option>
+              ))
+            }
+          </select>
+        </div>
+        <div class="form-group card--inner">
+          <label for="output-amount">Receive</label>
+          <output
+            id="output-amount"
+            name="output-amount"
+            for="base-amount base-currency target-currency"
           >
-            {currency.iso_code}
-          </option>
-        ))
-      }
-    </select>
+            0
+          </output>
+          <select
+            name="target"
+            id="target-currency"
+          >
+            {
+              currencies.map((currency) => (
+                <option
+                  value={currency.iso_code}
+                  selected={currency.iso_code === defaultTarget}
+                >
+                  {currency.iso_code}
+                </option>
+              ))
+            }
+          </select>
+        </div>
+      </form>
+      <p>Output:</p>
+      <p id="output"></p>
+    </div>
   </div>
+</section>
 
-  <p>Output:</p>
-  <p id="output"></p>
+<script>
+  import { FrankfurterAPI } from "@lib/frankfurter_api";
+  import { convertAmount } from "@utils/fxMath";
 
-  <script>
-    import { FrankfurterAPI } from "@lib/frankfurter_api";
-    import { convertAmount } from "@utils/fxMath";
+  const frankfurterAPI = new FrankfurterAPI();
+  const form = document.getElementById("fx-input") as HTMLFormElement;
+  const results = document.getElementById("output") as HTMLParagraphElement;
+  const baseAmount = document.getElementById("base-amount") as HTMLInputElement;
+  const outputAmount = document.getElementById(
+    "output-amount",
+  ) as HTMLOutputElement;
 
-    const frankfurterAPI = new FrankfurterAPI();
-    const form = document.getElementById("fx-input") as HTMLFormElement;
-    const results = document.getElementById("output") as HTMLParagraphElement;
-    const baseAmount = document.getElementById(
-      "base-amount",
-    ) as HTMLInputElement;
-    const outputAmount = document.getElementById(
-      "output-amount",
-    ) as HTMLOutputElement;
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    updateOutput;
+  });
 
-    form?.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      updateOutput;
+  form?.addEventListener("input", updateOutput);
+
+  async function updateOutput() {
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString();
+    const target = formData.get("target")?.toString();
+
+    if (!base || !target) return;
+    if (base === target) {
+      updateResults(base, target, 1);
+      updateTargetAmount(baseAmount.valueAsNumber, 1);
+      return;
+    }
+
+    results.textContent = `Fetching rates ...`;
+
+    try {
+      const data = await frankfurterAPI.fetchFxRates(base, target);
+      updateResults(data.base, data.quote, data.rate);
+      const baseAmt = baseAmount.valueAsNumber;
+      if (baseAmt) updateTargetAmount(baseAmt, data.rate);
+    } catch (error) {
+      console.error("Error fetching FX data:", error);
+      results.textContent = `Failed to fetch rates. Please try again.`;
+    }
+  }
+
+  function updateTargetAmount(baseAmount: number, rate: number) {
+    const result = convertAmount(baseAmount, rate);
+    outputAmount.value = result.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     });
+  }
 
-    form?.addEventListener("input", updateOutput);
+  function updateResults(
+    baseCurrency: string,
+    targetCurrency: string,
+    rate: number,
+  ) {
+    results.textContent = `1 ${baseCurrency} = ${rate.toFixed(4)} ${targetCurrency}`;
+  }
 
-    async function updateOutput() {
-      const formData = new FormData(form);
-      const base = formData.get("base")?.toString();
-      const target = formData.get("target")?.toString();
-
-      if (!base || !target) return;
-      if (base === target) {
-        updateResults(base, target, 1);
-        updateTargetAmount(baseAmount.valueAsNumber, 1);
-        return;
-      }
-
-      results.textContent = `Fetching rates ...`;
-
-      try {
-        const data = await frankfurterAPI.fetchFxRates(base, target);
-        updateResults(data.base, data.quote, data.rate);
-        const baseAmt = baseAmount.valueAsNumber;
-        if (baseAmt) updateTargetAmount(baseAmt, data.rate);
-      } catch (error) {
-        console.error("Error fetching FX data:", error);
-        results.textContent = `Failed to fetch rates. Please try again.`;
-      }
+  async function getHistoricalInformation() {
+    try {
+      const data = await frankfurterAPI.fetchHistoricalRates(
+        "EUR",
+        "USD",
+        "2026-06-12",
+        "2026-06-13",
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    function updateTargetAmount(baseAmount: number, rate: number) {
-      const result = convertAmount(baseAmount, rate);
-      outputAmount.value = result.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
-    }
-
-    function updateResults(
-      baseCurrency: string,
-      targetCurrency: string,
-      rate: number,
-    ) {
-      results.textContent = `1 ${baseCurrency} = ${rate.toFixed(4)} ${targetCurrency}`;
-    }
-
-    async function getHistoricalInformation() {
-      try {
-        const data = await frankfurterAPI.fetchHistoricalRates(
-          "EUR",
-          "USD",
-          "2026-06-12",
-          "2026-06-13",
-        );
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getHistoricalInformation();
-  </script>
-</form>
+  getHistoricalInformation();
+</script>

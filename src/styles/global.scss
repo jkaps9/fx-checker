@@ -75,8 +75,8 @@
 
 body {
   //   @include type-body;
-  //   color: var(--color-body-text);
-  //   background-color: var(--color-background);
+  color: var(--color-body-text-light);
+  background-color: var(--color-background-dark);
   // overflow-x: hidden;
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
@@ -119,7 +119,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--color-header-text);
+  color: var(--color-header-text-light);
   text-wrap: balance;
 }
 
@@ -166,7 +166,7 @@ button {
 
 $fluid-headers: (
   h1: clamp(2.5rem, 5vw + 1rem, 4.5rem),
-  h2: clamp(2rem, 4vw + 1rem, 3.5rem),
+  h2: 1.25rem,
   h3: clamp(1.75rem, 3vw + 1rem, 2.5rem),
   h4: clamp(1.5rem, 2vw + 1rem, 2rem),
   h5: clamp(1.25rem, 1.5vw + 1rem, 1.5rem),
@@ -179,15 +179,21 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: -0.5px;
   line-height: 1.2;
+  text-transform: uppercase;
 }
 
 @each $tag, $clamp-value in $fluid-headers {
   #{$tag} {
     font-size: $clamp-value;
   }
+}
+
+h2 {
+  font-weight: 400;
 }
 
 section {
@@ -207,6 +213,16 @@ section {
   margin-inline: auto; /* TODO: revisit if i like this*/
   max-width: var(--container-max);
   padding-inline: var(--container-padding);
+}
+
+.card {
+  background-color: var(--color-background-card);
+}
+
+.card--inner {
+  background-color: #202022;
+  border: 1px solid #2e2e2e;
+  border-radius: var(--radius-16);
 }
 
 /* Skip to main content link - accessible to keyboard users and screen readers */
