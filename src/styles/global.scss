@@ -3,6 +3,7 @@
 <~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~*/
 
 :root {
+  // Colors
   --color-primary: #{$color-primary};
   --color-primary-dark: #{$color-primary-dark};
   --color-background: #{$color-background};
@@ -16,9 +17,38 @@
   --color-green: #{$color-green};
   --color-white: #{$color-white};
 
+  // Typography
+  --font-heading: #{$font-heading};
+  --font-body: #{$font-body};
+
+  // Spacing
   @each $name, $value in $spaces {
     --space-#{$name}: #{$value};
   }
+
+  // Layout
+  --container-max: #{$container-max};
+  --container-padding: #{$container-padding};
+
+  // Radius
+  --radius-4: #{$radius-4};
+  --radius-6: #{$radius-6};
+  --radius-8: #{$radius-8};
+  --radius-10: #{$radius-10};
+  --radius-12: #{$radius-12};
+  --radius-16: #{$radius-16};
+  --radius-20: #{$radius-20};
+  --radius-24: #{$radius-24};
+  --radius-full: #{$radius-full};
+
+  // Shadows
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+
+  // Transition
+  --transition: #{$transition-base};
+  --transition-slow: #{$transition-slow};
 }
 
 /*~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~>
