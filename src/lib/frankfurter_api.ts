@@ -5,12 +5,8 @@ export class FrankfurterAPI {
 
   constructor() {}
 
-  async fetchFxRates(
-    baseCurrency: string,
-    targetCurrency: string,
-  ): Promise<FxRate> {
-    let url =
-      FrankfurterAPI.baseURL + `/rate/${baseCurrency}/${targetCurrency}`;
+  async fetchFxRates(base: string, target: string): Promise<FxRate> {
+    let url = `${FrankfurterAPI.baseURL}/rate/${base}/${target}`;
 
     const response = await fetch(url);
 
@@ -20,5 +16,18 @@ export class FrankfurterAPI {
 
     const data = (await response.json()) as FxRate[];
     return data;
+  }
+
+  async convert(base: string, quote: string, amount: number): Promise<string> {
+    let url = `${FrankfurterAPI.baseURL}/rate/${base}/${quote}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    return await response
+      .json()
+      .then((data) => (amount * data.rate).toFixed(2));
   }
 }
