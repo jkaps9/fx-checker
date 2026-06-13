@@ -14,7 +14,7 @@ export class FrankfurterAPI {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const data = (await response.json()) as FxRate[];
+    const data = (await response.json()) as FxRate;
     return data;
   }
 
@@ -29,5 +29,22 @@ export class FrankfurterAPI {
     return await response
       .json()
       .then((data) => (amount * data.rate).toFixed(2));
+  }
+
+  async fetchHistoricalRates(
+    base: string,
+    target: string,
+    startDate: string,
+    endDate: string,
+  ): Promise<FxRate> {
+    const url = `${FrankfurterAPI.baseURL}/rates?base=${base}&quotes=${target}&from=${startDate}&to=${endDate}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = (await response.json()) as FxRate;
+    return result;
   }
 }
