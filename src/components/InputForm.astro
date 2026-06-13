@@ -106,7 +106,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
     function updateTargetAmount(baseAmount: number, rate: number) {
       const result = convertAmount(baseAmount, rate);
-      outputAmount.value = result.toFixed(2);
+      outputAmount.value = result.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
     }
 
     function updateResults(
