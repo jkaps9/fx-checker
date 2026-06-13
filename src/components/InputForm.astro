@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import currencies from "@data/currencies.json";
 
 const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
@@ -34,7 +35,12 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           </select>
         </div>
         <div class="form-group">
-          <button type="button">Switch</button>
+          <button
+            type="button"
+            aria-label="switch currencies"
+          >
+            <Icon name="icon-exchange-vertical" />
+          </button>
         </div>
         <div class="form-group card--inner">
           <label for="output-amount">Receive</label>
