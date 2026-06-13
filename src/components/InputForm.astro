@@ -86,7 +86,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
       if (!base || !target) return;
       if (base === target) {
-        results.textContent = `1 ${base} = 1.0000 ${target}`;
+        updateResults(base, target, 1);
         updateTargetAmount(baseAmount.valueAsNumber, 1);
         return;
       }
@@ -95,7 +95,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
       try {
         const data = await frankfurterAPI.fetchFxRates(base, target);
-        results.textContent = `1 ${data.base} = ${data.rate.toFixed(4)} ${data.quote}`;
+        updateResults(data.base, data.quote, data.rate);
         const baseAmt = baseAmount.valueAsNumber;
         if (baseAmt) updateTargetAmount(baseAmt, data.rate);
       } catch (error) {
@@ -107,6 +107,14 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     function updateTargetAmount(baseAmount: number, rate: number) {
       const result = convertAmount(baseAmount, rate);
       outputAmount.value = result.toFixed(2);
+    }
+
+    function updateResults(
+      baseCurrency: string,
+      targetCurrency: string,
+      rate: number,
+    ) {
+      results.textContent = `1 ${baseCurrency} = ${rate.toFixed(4)} ${targetCurrency}`;
     }
   </script>
 </form>
