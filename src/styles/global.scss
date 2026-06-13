@@ -3,6 +3,19 @@
 <~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~*/
 
 :root {
+  --color-primary: #{$color-primary};
+  --color-primary-dark: #{$color-primary-dark};
+  --color-background: #{$color-background};
+  --color-background-dark: #{$color-background-dark};
+  --color-background-card: #{$color-background-card};
+  --color-header-text: #{$color-header-text};
+  --color-body-text: #{$color-body-text};
+  --color-header-text-light: #{$color-header-text-light};
+  --color-body-text-light: #{$color-body-text-light};
+  --color-error: #{$color-error};
+  --color-green: #{$color-green};
+  --color-white: #{$color-white};
+
   @each $name, $value in $spaces {
     --space-#{$name}: #{$value};
   }
