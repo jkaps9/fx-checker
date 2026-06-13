@@ -65,7 +65,13 @@
     if (!base || !quote) return;
     if (base === quote) {
       results.textContent = `1 ${base} = 1.0000 ${quote}`;
-      outputAmount.value = convertAmount(baseAmount.valueAsNumber, 1);
+      outputAmount.value = convertAmount(
+        baseAmount.valueAsNumber,
+        1,
+      ).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
       return;
     }
 
@@ -75,7 +81,14 @@
       const data = await frankfurterAPI.fetchFxRates(base, quote);
       results.textContent = `1 ${data.base} = ${data.rate.toFixed(4)} ${data.quote}`;
       const baseAmt = baseAmount.valueAsNumber;
-      if (baseAmt) outputAmount.value = convertAmount(baseAmt, data.rate);
+      if (baseAmt)
+        outputAmount.value = convertAmount(baseAmt, data.rate).toLocaleString(
+          undefined,
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          },
+        );
     } catch (error) {
       console.error("Error fetching FX data:", error);
       results.textContent = `Failed to fetch rates. Please try again.`;
