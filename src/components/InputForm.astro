@@ -53,10 +53,6 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
         ))
       }
     </select>
-
-    <div class="form-group">
-      <button>Convert</button>
-    </div>
   </div>
 
   <p>Output:</p>
@@ -77,6 +73,12 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
     form?.addEventListener("submit", async (e) => {
       e.preventDefault();
+      updateOutput;
+    });
+
+    form?.addEventListener("input", updateOutput);
+
+    async function updateOutput() {
       const formData = new FormData(form);
       const base = formData.get("base")?.toString();
       const target = formData.get("target")?.toString();
@@ -112,6 +114,6 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
         console.error("Error fetching FX data:", error);
         results.textContent = `Failed to fetch rates. Please try again.`;
       }
-    });
+    }
   </script>
 </form>
