@@ -34,13 +34,13 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     <output
       id="output-amount"
       name="output-amount"
-      for="base-amount base-currency quote-currency"
+      for="base-amount base-currency target-currency"
     >
       0
     </output>
     <select
-      name="quote"
-      id="quote-currency"
+      name="target"
+      id="target-currency"
     >
       {
         currencies.map((currency) => (
@@ -79,11 +79,11 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
       e.preventDefault();
       const formData = new FormData(form);
       const base = formData.get("base")?.toString();
-      const quote = formData.get("quote")?.toString();
+      const target = formData.get("target")?.toString();
 
-      if (!base || !quote) return;
-      if (base === quote) {
-        results.textContent = `1 ${base} = 1.0000 ${quote}`;
+      if (!base || !target) return;
+      if (base === target) {
+        results.textContent = `1 ${base} = 1.0000 ${target}`;
         outputAmount.value = convertAmount(
           baseAmount.valueAsNumber,
           1,
@@ -97,7 +97,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
       results.textContent = `Fetching rates ...`;
 
       try {
-        const data = await frankfurterAPI.fetchFxRates(base, quote);
+        const data = await frankfurterAPI.fetchFxRates(base, target);
         results.textContent = `1 ${data.base} = ${data.rate.toFixed(4)} ${data.quote}`;
         const baseAmt = baseAmount.valueAsNumber;
         if (baseAmt)
