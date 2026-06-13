@@ -61,7 +61,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   <script>
     import { FrankfurterAPI } from "@lib/frankfurter_api";
     import { convertAmount } from "@utils/fxMath";
-    import { undefined } from "astro:schema";
+
     const frankfurterAPI = new FrankfurterAPI();
     const form = document.getElementById("fx-input") as HTMLFormElement;
     const results = document.getElementById("output") as HTMLParagraphElement;
