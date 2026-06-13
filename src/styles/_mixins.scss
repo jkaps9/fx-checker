@@ -1,0 +1,64 @@
+@use "variables" as *;
+
+// --- Responsive breakpoints
+@mixin bp($point) {
+  @if $point == sm {
+    @media (min-width: #{$bp-sm}) {
+      @content;
+    }
+  } @else if $point == md {
+    @media (min-width: #{$bp-md}) {
+      @content;
+    }
+  } @else if $point == lg {
+    @media (min-width: #{$bp-lg}) {
+      @content;
+    }
+  } @else if $point == xl {
+    @media (min-width: #{$bp-xl}) {
+      @content;
+    }
+  }
+}
+
+@mixin bp-max($point) {
+  @if $point == sm {
+    @media (max-width: #{$bp-sm - 1px}) {
+      @content;
+    }
+  } @else if $point == md {
+    @media (max-width: #{$bp-md - 1px}) {
+      @content;
+    }
+  } @else if $point == lg {
+    @media (max-width: #{$bp-lg - 1px}) {
+      @content;
+    }
+  }
+}
+
+// --- Layout utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// --- Visually hidden (accessible)
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
