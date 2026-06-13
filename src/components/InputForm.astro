@@ -1,5 +1,7 @@
 ---
+import currencies from "@data/currencies.json";
 
+const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 ---
 
 <form id="fx-input">
@@ -15,8 +17,16 @@
       name="base"
       id="base-currency"
     >
-      <option value="usd">USD</option>
-      <option value="eur">EUR</option>
+      {
+        currencies.map((currency) => (
+          <option
+            value={currency.iso_code}
+            selected={currency.iso_code === defaultBase}
+          >
+            {currency.iso_code}
+          </option>
+        ))
+      }
     </select>
   </div>
   <div class="form-group">
@@ -32,66 +42,76 @@
       name="quote"
       id="quote-currency"
     >
-      <option value="eur">EUR</option>
-      <option value="usd">USD</option>
+      {
+        currencies.map((currency) => (
+          <option
+            value={currency.iso_code}
+            selected={currency.iso_code === defaultTarget}
+          >
+            {currency.iso_code}
+          </option>
+        ))
+      }
     </select>
 
     <div class="form-group">
       <button>Convert</button>
     </div>
   </div>
+
+  <p>Output:</p>
+  <p id="output"></p>
+
+  <script>
+    import { FrankfurterAPI } from "@lib/frankfurter_api";
+    import { convertAmount } from "@utils/fxMath";
+    const frankfurterAPI = new FrankfurterAPI();
+    const form = document.getElementById("fx-input") as HTMLFormElement;
+    const results = document.getElementById("output") as HTMLParagraphElement;
+    const baseAmount = document.getElementById(
+      "base-amount",
+    ) as HTMLInputElement;
+    const outputAmount = document.getElementById(
+      "output-amount",
+    ) as HTMLOutputElement;
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const base = formData.get("base")?.toString();
+      const quote = formData.get("quote")?.toString();
+
+      if (!base || !quote) return;
+      if (base === quote) {
+        results.textContent = `1 ${base} = 1.0000 ${quote}`;
+        outputAmount.value = convertAmount(
+          baseAmount.valueAsNumber,
+          1,
+        ).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+        return;
+      }
+
+      results.textContent = `Fetching rates ...`;
+
+      try {
+        const data = await frankfurterAPI.fetchFxRates(base, quote);
+        results.textContent = `1 ${data.base} = ${data.rate.toFixed(4)} ${data.quote}`;
+        const baseAmt = baseAmount.valueAsNumber;
+        if (baseAmt)
+          outputAmount.value = convertAmount(baseAmt, data.rate).toLocaleString(
+            undefined,
+            {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            },
+          );
+      } catch (error) {
+        console.error("Error fetching FX data:", error);
+        results.textContent = `Failed to fetch rates. Please try again.`;
+      }
+    });
+  </script>
 </form>
-
-<p>Output:</p>
-<p id="output"></p>
-
-<script>
-  import { FrankfurterAPI } from "@lib/frankfurter_api";
-  import { convertAmount } from "@utils/fxMath";
-  const frankfurterAPI = new FrankfurterAPI();
-  const form = document.getElementById("fx-input") as HTMLFormElement;
-  const results = document.getElementById("output") as HTMLParagraphElement;
-  const baseAmount = document.getElementById("base-amount") as HTMLInputElement;
-  const outputAmount = document.getElementById(
-    "output-amount",
-  ) as HTMLOutputElement;
-
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const base = formData.get("base")?.toString();
-    const quote = formData.get("quote")?.toString();
-
-    if (!base || !quote) return;
-    if (base === quote) {
-      results.textContent = `1 ${base} = 1.0000 ${quote}`;
-      outputAmount.value = convertAmount(
-        baseAmount.valueAsNumber,
-        1,
-      ).toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
-      return;
-    }
-
-    results.textContent = `Fetching rates ...`;
-
-    try {
-      const data = await frankfurterAPI.fetchFxRates(base, quote);
-      results.textContent = `1 ${data.base} = ${data.rate.toFixed(4)} ${data.quote}`;
-      const baseAmt = baseAmount.valueAsNumber;
-      if (baseAmt)
-        outputAmount.value = convertAmount(baseAmt, data.rate).toLocaleString(
-          undefined,
-          {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          },
-        );
-    } catch (error) {
-      console.error("Error fetching FX data:", error);
-      results.textContent = `Failed to fetch rates. Please try again.`;
-    }
-  });
-</script>
