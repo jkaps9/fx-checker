@@ -59,8 +59,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           </select>
         </div>
       </form>
-      <p>Output:</p>
-      <p id="output"></p>
+      <p id="output">1 USD = 0.8530 EUR</p>
     </div>
   </div>
 </section>
@@ -141,3 +140,45 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
   getHistoricalInformation();
 </script>
+
+<style lang="scss">
+  label {
+    display: block;
+    flex-basis: 100%;
+    margin-bottom: 1.25rem;
+  }
+
+  input {
+    background: none;
+    color: inherit;
+    font-family: inherit;
+    border: none;
+    outline: none;
+  }
+
+  input,
+  output {
+    flex: 1;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(var(--space-md), 0.8239rem + 0.7512vw, var(--space-lg));
+    padding: clamp(
+      var(--space-md),
+      0.912rem + 0.3756vw,
+      calc(var(--space-md) * 1.25)
+    );
+  }
+
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    padding: clamp(
+      var(--space-md),
+      0.912rem + 0.3756vw,
+      calc(var(--space-md) * 1.25)
+    );
+  }
+</style>

@@ -77,6 +77,7 @@ body {
   //   @include type-body;
   color: var(--color-body-text-light);
   background-color: var(--color-background-dark);
+  font-family: var(--font-body);
   // overflow-x: hidden;
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
