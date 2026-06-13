@@ -18,13 +18,17 @@ $font-size-base: 1rem;
 $line-height-base: 1.6;
 
 // --- Spacing scale
-$space-xs: 0.5rem;
-$space-sm: 1rem;
-$space-md: 1.5rem;
-$space-lg: 2.5rem;
-$space-xl: 4rem;
-$space-xxl: 6rem;
-$space-3xl: 8rem;
+$space-base: 1rem;
+
+$spaces: (
+  "none": 0,
+  "xs": $space-base * 0.25,
+  "sm": $space-base * 0.5,
+  "md": $space-base,
+  "lg": $space-base * 1.5,
+  "xl": $space-base * 2,
+  "xxl": $space-base * 3,
+);
 
 // Layout
 $container-max: 85rem;
