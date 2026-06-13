@@ -1,0 +1,52 @@
+// Colors
+$color-primary: #2de1fc;
+$color-background: #fafafa;
+$color-background-dark: #023047;
+$color-background-card: #fefefe;
+$color-header-text: #023047;
+$color-body-text: #222222;
+$color-header-text-light: #fafafa;
+$color-body-text-light: #fafafa;
+$color-error: #ff6f5b;
+$color-green: #089000;
+$color-white: #ffffff;
+
+// Typography
+$font-heading: var(--font-jetbrains-mono);
+$font-body: var(--font-jetbrains-mono);
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+
+// --- Spacing scale
+$space-xs: 0.5rem;
+$space-sm: 1rem;
+$space-md: 1.5rem;
+$space-lg: 2.5rem;
+$space-xl: 4rem;
+$space-xxl: 6rem;
+$space-3xl: 8rem;
+
+// Layout
+$container-max: 85rem;
+$container-padding: 5vw;
+
+// --- Border radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+$radius-pill: 9999px;
+
+// --- Transitions
+$transition-base: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// --- Shadows
+$shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.13);
+
+// Breakpoints
+$bp-sm: 425px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1440px;
