@@ -2,18 +2,59 @@
 
 ---
 
+<section class="historical">
+  <div class="container">
+    <div id="output-container"></div>
+  </div>
+</section>
+
 <script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
   const frankfurterAPI = new FrankfurterAPI();
+  const outputContainer = document.getElementById(
+    "output-container",
+  ) as HTMLElement;
+
   async function getHistoricalInformation() {
     try {
       const data = await frankfurterAPI.fetchHistoricalRates(
-        "EUR",
         "USD",
-        "2026-06-12",
-        "2026-06-13",
+        "EUR",
+        "2026-04-14",
+        "2026-05-14",
       );
-      console.log(data);
+      const listItems = data
+        .map(
+          (day) =>
+            `<li>${day.date}: 1 ${day.base} = <strong>${day.rate.toFixed(4)} ${day.quote}</strong></li>`,
+        )
+        .join("");
+
+      const open = data[0].rate;
+      const close = data[data.length - 1].rate;
+      const change = close - open;
+      const changePercentage = (change / open) * 100;
+
+      outputContainer.innerHTML = `<div class="rate-display">
+      <h2>Historical Rates</h2>
+      <div class="card">
+        <h3>Open</h3>
+        <p>${open.toFixed(4)}</p>
+      </div>
+      <div class="card">
+        <h3>Close</h3>
+        <p>${close.toFixed(4)}</p>
+      </div>
+      <div class="card">
+        <h3>Change</h3>
+        <p class=${change > 0 ? "positive" : "negative"}>${change > 0 ? "+" : "-"}${change.toFixed(4)}</p>
+      </div>
+      <div class="card">
+        <h3>% Change</h3>
+        <p class=${change > 0 ? "positive" : "negative"}>${change > 0 ? "+" : "-"}${changePercentage.toFixed(2)}%</p>
+      </div>
+      <ul>${listItems}</ul>
+    </div>`;
     } catch (error) {
       console.error(error);
     }
@@ -21,3 +62,13 @@
 
   getHistoricalInformation();
 </script>
+
+<style lang="scss">
+  :global(.positive) {
+    color: var(--color-green);
+  }
+
+  :global(.negative) {
+    color: var(--color-red);
+  }
+</style>

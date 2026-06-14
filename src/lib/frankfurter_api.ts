@@ -36,7 +36,7 @@ export class FrankfurterAPI {
     target: string,
     startDate: string,
     endDate: string,
-  ): Promise<FxRate> {
+  ): Promise<FxRate[]> {
     const url = `${FrankfurterAPI.baseURL}/rates?base=${base}&quotes=${target}&from=${startDate}&to=${endDate}`;
 
     const response = await fetch(url);
@@ -44,7 +44,9 @@ export class FrankfurterAPI {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const result = (await response.json()) as FxRate;
+    const result = (await response.json()) as FxRate[];
+    if (!result || result.length === 0)
+      throw new Error("No rate data returned.");
     return result;
   }
 }
