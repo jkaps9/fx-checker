@@ -1,0 +1,23 @@
+---
+
+---
+
+<script>
+  import { FrankfurterAPI } from "@lib/frankfurter_api";
+  const frankfurterAPI = new FrankfurterAPI();
+  async function getHistoricalInformation() {
+    try {
+      const data = await frankfurterAPI.fetchHistoricalRates(
+        "EUR",
+        "USD",
+        "2026-06-12",
+        "2026-06-13",
+      );
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  getHistoricalInformation();
+</script>

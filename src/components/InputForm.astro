@@ -140,22 +140,6 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   ) {
     results.textContent = `1 ${baseCurrency} = ${rate.toFixed(4)} ${targetCurrency}`;
   }
-
-  async function getHistoricalInformation() {
-    try {
-      const data = await frankfurterAPI.fetchHistoricalRates(
-        "EUR",
-        "USD",
-        "2026-06-12",
-        "2026-06-13",
-      );
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  getHistoricalInformation();
 </script>
 
 <style lang="scss">
