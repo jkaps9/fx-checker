@@ -22,6 +22,9 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             name="base"
             id="base-currency"
           >
+            <button class="select-button">
+              <selectedcontent></selectedcontent>
+            </button>
             {
               currencies.map((currency) => (
                 <CurrencyOption
@@ -34,6 +37,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
         </div>
         <div>
           <button
+            class="currency-swap"
             type="button"
             aria-label="switch currencies"
           >
@@ -173,6 +177,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     background-color: #2e2e2e;
     color: inherit;
     cursor: pointer;
+    place-items: center;
 
     &,
     &::picker(select) {
@@ -188,6 +193,19 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
         transform: rotate(180deg);
       }
     }
+  }
+
+  .select-button {
+    align-items: center;
+    block-size: 2.5rem;
+    display: flex;
+    inline-size: 100%;
+  }
+
+  selectedcontent {
+    align-items: center;
+    display: flex;
+    gap: var(--space-sm);
   }
 
   form {
@@ -206,7 +224,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     }
   }
 
-  button {
+  .currency-swap {
     align-items: center;
     background: #202022;
     border: 1px solid #2e2e2e;
