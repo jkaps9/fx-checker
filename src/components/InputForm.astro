@@ -29,6 +29,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
               currencies.map((currency) => (
                 <CurrencyOption
                   currencyCode={currency.iso_code}
+                  currencyName={currency.name}
                   defaultCode={defaultBase}
                 />
               ))
@@ -68,6 +69,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
                 currencies.map((currency) => (
                   <CurrencyOption
                     currencyCode={currency.iso_code}
+                    currencyName={currency.name}
                     defaultCode={defaultTarget}
                   />
                 ))
@@ -221,6 +223,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     align-items: center;
     display: flex;
     gap: var(--space-sm);
+
+    & > span:nth-child(1) {
+      width: 1px;
+    }
   }
 
   form {
