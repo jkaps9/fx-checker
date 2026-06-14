@@ -36,7 +36,13 @@ if (!images[imagePath])
 }
 <style lang="scss">
     option {
+        background: #2e2e2e;
         gap: 12px;
+        &::checkmark {
+          color: var(--color-body-text-light);
+          margin-left: auto;
+          order: 2;
+        }
     }
     .flag {
         block-size: 20px;
@@ -47,6 +53,7 @@ if (!images[imagePath])
     }
 
     .currency-code {
+        color: var(--color-body-text-light);
         font-size: 14px;
     }
 
