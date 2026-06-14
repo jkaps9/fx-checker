@@ -60,6 +60,9 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             name="target"
             id="target-currency"
           >
+            <button class="select-button">
+              <selectedcontent></selectedcontent>
+            </button>
             {
               currencies.map((currency) => (
                 <CurrencyOption
@@ -192,6 +195,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
       &::picker-icon {
         transform: rotate(180deg);
       }
+    }
+
+    & .list {
+      container-type: scroll-state;
     }
   }
 
