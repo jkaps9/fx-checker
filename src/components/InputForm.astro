@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import currencies from "@data/currencies.json";
-
+import CurrencyOption from "./CurrencyOption.astro";
 const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 ---
 
@@ -24,12 +24,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           >
             {
               currencies.map((currency) => (
-                <option
-                  value={currency.iso_code}
-                  selected={currency.iso_code === defaultBase}
-                >
-                  {currency.iso_code}
-                </option>
+                <CurrencyOption
+                  currencyCode={currency.iso_code}
+                  defaultCode={defaultBase}
+                />
               ))
             }
           </select>
@@ -60,12 +58,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           >
             {
               currencies.map((currency) => (
-                <option
-                  value={currency.iso_code}
-                  selected={currency.iso_code === defaultTarget}
-                >
-                  {currency.iso_code}
-                </option>
+                <CurrencyOption
+                  currencyCode={currency.iso_code}
+                  defaultCode={defaultTarget}
+                />
               ))
             }
           </select>

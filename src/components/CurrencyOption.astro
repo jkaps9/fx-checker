@@ -1,0 +1,46 @@
+---
+import type { ImageMetadata } from "astro";
+import Image from "astro/components/Image.astro";
+
+interface Props {
+  currencyCode: string;
+  defaultCode: string;
+}
+
+const { currencyCode, defaultCode } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/flags/*.webp",
+);
+
+const imagePath = `/src/assets/images/flags/${currencyCode.slice(0, 2).toLowerCase()}.webp`;
+if (!images[imagePath])
+  console.error(
+    `"${imagePath}" does not exist in glob: "/src/assets/images/flags/*.webp"`,
+  );
+---
+{images[imagePath] && 
+<option
+  value={currencyCode}
+  selected={currencyCode === defaultCode}
+>
+  <Image
+    src={images[imagePath]()}
+    alt=`${currencyCode}`
+    class="flag"
+  />
+  <span>{currencyCode}</span>
+</option>
+}
+<style lang="scss">
+    button {
+        padding-inline-start: 0;
+    }
+    .flag {
+        block-size: 20px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        inline-size: 20px;
+        object-fit: cover;
+    }
+</style>
