@@ -64,17 +64,15 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             <button class="select-button">
               <selectedcontent></selectedcontent>
             </button>
-            <div class="list">
-              {
-                currencies.map((currency) => (
-                  <CurrencyOption
-                    currencyCode={currency.iso_code}
-                    currencyName={currency.name}
-                    defaultCode={defaultTarget}
-                  />
-                ))
-              }
-            </div>
+            {
+              currencies.map((currency) => (
+                <CurrencyOption
+                  currencyCode={currency.iso_code}
+                  currencyName={currency.name}
+                  defaultCode={defaultTarget}
+                />
+              ))
+            }
           </select>
         </div>
       </form>
@@ -84,7 +82,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 </section>
 
 <script>
-  import { FrankfurterAPI } from "@lib/frankfurter_api";
+  /*import { FrankfurterAPI } from "@lib/frankfurter_api";
   import { convertAmount } from "@utils/fxMath";
 
   const frankfurterAPI = new FrankfurterAPI();
@@ -157,7 +155,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     }
   }
 
-  getHistoricalInformation();
+  getHistoricalInformation();*/
 </script>
 
 <style lang="scss">
@@ -201,15 +199,16 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
       }
     }
 
-    & .list {
-      background-color: #2e2e2e;
-      container-type: scroll-state;
-      color: var(--color-body-text-light);
-      max-block-size: calc(466px - var(--space-sm) * 2);
-      max-inline-size: max-content;
-      overflow: hidden auto;
-      scrollbar-color: var(--color-body-text-light) transparent;
-    }
+    // & .list {
+    //   background-color: #2e2e2e;
+    //   container-type: scroll-state;
+    //   color: var(--color-body-text-light);
+    //   max-block-size: calc(466px - var(--space-sm) * 2);
+    //   max-inline-size: max-content;
+    //   overflow: hidden auto;
+    //   scrollbar-color: var(--color-body-text-light) transparent;
+    //   scrollbar-width: thin;
+    // }
   }
 
   .select-button {
