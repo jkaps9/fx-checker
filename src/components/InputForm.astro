@@ -63,14 +63,16 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             <button class="select-button">
               <selectedcontent></selectedcontent>
             </button>
-            {
-              currencies.map((currency) => (
-                <CurrencyOption
-                  currencyCode={currency.iso_code}
-                  defaultCode={defaultTarget}
-                />
-              ))
-            }
+            <div class="list">
+              {
+                currencies.map((currency) => (
+                  <CurrencyOption
+                    currencyCode={currency.iso_code}
+                    defaultCode={defaultTarget}
+                  />
+                ))
+              }
+            </div>
           </select>
         </div>
       </form>
@@ -198,7 +200,13 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     }
 
     & .list {
+      background-color: #2e2e2e;
       container-type: scroll-state;
+      color: var(--color-body-text-light);
+      max-block-size: calc(466px - var(--space-sm) * 2);
+      max-inline-size: max-content;
+      overflow: hidden auto;
+      scrollbar-color: var(--color-body-text-light) transparent;
     }
   }
 
