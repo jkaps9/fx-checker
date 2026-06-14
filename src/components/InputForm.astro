@@ -173,6 +173,27 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     flex: 1;
   }
 
+  select {
+    background-color: #2e2e2e;
+    color: inherit;
+    cursor: pointer;
+
+    &,
+    &::picker(select) {
+      appearance: base-select;
+    }
+
+    &::picker-icon {
+      transition: transform 0.3s;
+    }
+
+    &:open {
+      &::picker-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
   form {
     display: flex;
     flex-direction: column;
