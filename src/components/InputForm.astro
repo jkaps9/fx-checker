@@ -223,10 +223,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     align-items: center;
     display: flex;
     gap: var(--space-sm);
+  }
 
-    & > span:nth-child(1) {
-      width: 1px;
-    }
+  :global(selectedcontent > span.currency-name) {
+    display: none;
   }
 
   form {
