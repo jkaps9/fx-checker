@@ -232,16 +232,25 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     display: flex;
     flex-direction: column;
     gap: clamp(var(--space-md), 0.8239rem + 0.7512vw, var(--space-lg));
+    padding-bottom: clamp(
+      var(--space-md),
+      0.912rem + 0.3756vw,
+      calc(var(--space-md) * 1.25)
+    );
+    @include bp(md) {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
     padding: clamp(
       var(--space-md),
       0.912rem + 0.3756vw,
       calc(var(--space-md) * 1.25)
     );
-
-    @include bp(md) {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-    }
   }
 
   .currency-swap {
