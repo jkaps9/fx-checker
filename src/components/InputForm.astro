@@ -25,15 +25,32 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             <button class="select-button">
               <selectedcontent></selectedcontent>
             </button>
-            {
-              currencies.map((currency) => (
-                <CurrencyOption
-                  currencyCode={currency.iso_code}
-                  currencyName={currency.name}
-                  defaultCode={defaultBase}
-                />
-              ))
-            }
+            <optgroup label="POPULAR">
+              {
+                currencies
+                  .filter((c) => c.popular)
+                  .map((currency) => (
+                    <CurrencyOption
+                      currencyCode={currency.iso_code}
+                      currencyName={currency.name}
+                      defaultCode={defaultBase}
+                    />
+                  ))
+              }
+            </optgroup>
+            <optgroup label="OTHER CURRENCIES">
+              {
+                currencies
+                  .filter((c) => !c.popular)
+                  .map((currency) => (
+                    <CurrencyOption
+                      currencyCode={currency.iso_code}
+                      currencyName={currency.name}
+                      defaultCode={defaultBase}
+                    />
+                  ))
+              }
+            </optgroup>
           </select>
         </div>
         <button
@@ -62,15 +79,32 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             <button class="select-button">
               <selectedcontent></selectedcontent>
             </button>
-            {
-              currencies.map((currency) => (
-                <CurrencyOption
-                  currencyCode={currency.iso_code}
-                  currencyName={currency.name}
-                  defaultCode={defaultTarget}
-                />
-              ))
-            }
+            <optgroup label="POPULAR">
+              {
+                currencies
+                  .filter((c) => c.popular)
+                  .map((currency) => (
+                    <CurrencyOption
+                      currencyCode={currency.iso_code}
+                      currencyName={currency.name}
+                      defaultCode={defaultBase}
+                    />
+                  ))
+              }
+            </optgroup>
+            <optgroup label="OTHER CURRENCIES">
+              {
+                currencies
+                  .filter((c) => !c.popular)
+                  .map((currency) => (
+                    <CurrencyOption
+                      currencyCode={currency.iso_code}
+                      currencyName={currency.name}
+                      defaultCode={defaultBase}
+                    />
+                  ))
+              }
+            </optgroup>
           </select>
         </div>
       </form>
