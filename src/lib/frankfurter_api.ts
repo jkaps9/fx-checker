@@ -5,6 +5,20 @@ export class FrankfurterAPI {
 
   constructor() {}
 
+  async fetchAllRates(base: string): Promise<FxRate[]> {
+    const url = `${FrankfurterAPI.baseURL}/rates?base=${base}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = (await response.json()) as FxRate[];
+    if (!result || result.length === 0)
+      throw new Error("No rate data returned.");
+    return result;
+  }
+
   async fetchFxRates(base: string, target: string): Promise<FxRate> {
     let url = `${FrankfurterAPI.baseURL}/rate/${base}/${target}`;
 

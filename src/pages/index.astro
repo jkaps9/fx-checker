@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import Ticker from "@components/Ticker.astro";
 import InputForm from "@components/InputForm.astro";
 import HistoricalRates from "@components/HistoricalRates.astro";
 ---
 
 <BaseLayout pageTitle="Home">
+  <Ticker />
   <InputForm />
   <HistoricalRates />
 </BaseLayout>

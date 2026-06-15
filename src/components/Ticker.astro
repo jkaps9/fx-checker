@@ -1,0 +1,52 @@
+---
+
+---
+
+<section class="ticker">
+  <div class="container">
+    <h2>Live Markets</h2>
+    <div class="ticker-list-container">
+      <ul class="ticker__list"></ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { FrankfurterAPI } from "@lib/frankfurter_api";
+  import currencies from "@data/currencies.json";
+
+  const popularCurrencies = currencies.filter((c) => c.popular);
+  const frankfurterAPI = new FrankfurterAPI();
+  const tickerList = document.querySelector(".ticker__list") as HTMLElement;
+  async function getRates(currency: string) {
+    if (!currency || currency === "" || currency.length !== 3) return;
+    try {
+      const data = await frankfurterAPI.fetchAllRates(currency);
+      const listItems = data.map((n) => {
+        const item = document.createElement("li");
+        const currencyPair = document.createElement("span");
+        currencyPair.className = "currency-pair";
+        currencyPair.textContent = `${n.base}/${n.quote}`;
+        const currencyRate = document.createElement("span");
+        currencyRate.className = "rate";
+        currencyRate.textContent = `${n.rate}`;
+        item.appendChild(currencyPair);
+        item.appendChild(currencyRate);
+        return item;
+      });
+
+      listItems.forEach((item) => tickerList.appendChild(item));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  popularCurrencies.forEach((currency) => getRates(currency.iso_code));
+</script>
+
+<style lang="scss">
+  :global(.ticker__list > li) {
+    display: flex;
+    gap: var(--space-xs);
+  }
+</style>
