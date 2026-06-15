@@ -36,18 +36,16 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             }
           </select>
         </div>
-        <div>
-          <button
-            class="currency-swap"
-            type="button"
-            aria-label="switch currencies"
-          >
-            <Icon
-              name="icon-exchange-vertical"
-              aria-hidden="true"
-            />
-          </button>
-        </div>
+        <button
+          class="currency-swap"
+          type="button"
+          aria-label="switch currencies"
+        >
+          <Icon
+            name="icon-exchange-vertical"
+            aria-hidden="true"
+          />
+        </button>
         <div class="form-group card--inner">
           <label for="output-amount">Receive</label>
           <output
