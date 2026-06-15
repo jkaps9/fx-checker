@@ -64,6 +64,8 @@ const flags = [
   "za",
 ];
 
+const popularCurrencies = ["USD", "EUR", "GBP"];
+
 async function fetchCurrencies() {
   const url = "https://api.frankfurter.dev/v2/currencies";
   try {
@@ -73,14 +75,17 @@ async function fetchCurrencies() {
     }
 
     const result = await response.json();
-    const resultsWithFlags = result.filter((r) =>
-      flags.includes(r.iso_code.slice(0, 2).toLowerCase()),
-    );
+    const updatedResults = result
+      .filter((r) => flags.includes(r.iso_code.slice(0, 2).toLowerCase()))
+      .map((item) => ({
+        ...item,
+        popular: popularCurrencies.includes(item.iso_code),
+      }));
     const directory = path.join(process.cwd(), "src", "data");
     //   create directory if it does not exist
     await fs.mkdir(directory, { recursive: true });
     const filePath = path.join(directory, "currencies.json");
-    await fs.writeFile(filePath, JSON.stringify(resultsWithFlags, null, 2));
+    await fs.writeFile(filePath, JSON.stringify(updatedResults, null, 2));
   } catch (error) {
     console.error(error.message);
     process.exit(1);
