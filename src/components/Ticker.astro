@@ -5,9 +5,7 @@
 <section class="ticker">
   <div class="container">
     <h2>Live Markets</h2>
-    <div class="ticker-list-container">
-      <ul class="ticker__list"></ul>
-    </div>
+    <ul class="ticker__list"></ul>
   </div>
 </section>
 
@@ -45,8 +43,18 @@
 </script>
 
 <style lang="scss">
+  .container {
+    align-items: center;
+    display: flex;
+  }
+
+  h2 {
+    text-wrap: nowrap;
+  }
+
   .ticker__list {
     display: flex;
+    overflow: hidden;
   }
 
   :global(.ticker__list > li) {
