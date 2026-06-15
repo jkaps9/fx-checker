@@ -16,11 +16,11 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
 const imagePath = `/src/assets/images/flags/${currencyCode.slice(0, 2).toLowerCase()}.webp`;
 if (!images[imagePath])
-  console.error(
+  throw new Error(
     `"${imagePath}" does not exist in glob: "/src/assets/images/flags/*.webp"`,
   );
 ---
-{images[imagePath] && 
+
 <option
   value={currencyCode}
   selected={currencyCode === defaultCode}
@@ -33,32 +33,32 @@ if (!images[imagePath])
   <span class="currency-code">{currencyCode}</span>
   <span class="currency-name">{currencyName}</span>
 </option>
-}
+
 <style lang="scss">
-    option {
-        background: #2e2e2e;
-        gap: 12px;
-        &::checkmark {
-          color: var(--color-body-text-light);
-          margin-left: auto;
-          order: 2;
-        }
+  option {
+    background: #2e2e2e;
+    gap: 12px;
+    &::checkmark {
+      color: var(--color-body-text-light);
+      margin-left: auto;
+      order: 2;
     }
-    .flag {
-        block-size: 20px;
-        border-radius: 50%;
-        flex-shrink: 0;
-        inline-size: 20px;
-        object-fit: cover;
-    }
+  }
+  .flag {
+    block-size: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    inline-size: 20px;
+    object-fit: cover;
+  }
 
-    .currency-code {
-        color: var(--color-body-text-light);
-        font-size: 14px;
-    }
+  .currency-code {
+    color: var(--color-body-text-light);
+    font-size: 14px;
+  }
 
-    .currency-name {
-        color: #9D9D9D;
-        font-size: 12px;
-    }
+  .currency-name {
+    color: #9d9d9d;
+    font-size: 12px;
+  }
 </style>
