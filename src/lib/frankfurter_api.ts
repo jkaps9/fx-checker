@@ -5,8 +5,10 @@ export class FrankfurterAPI {
 
   constructor() {}
 
-  async fetchAllRates(base: string): Promise<FxRate[]> {
-    const url = `${FrankfurterAPI.baseURL}/rates?base=${base}`;
+  async fetchAllRates(base: string, quotes: string[]): Promise<FxRate[]> {
+    const quoteStr = quotes.join(",");
+    const url = `${FrankfurterAPI.baseURL}/rates?base=${base}&quotes=${quoteStr}`;
+    console.log(url);
 
     const response = await fetch(url);
     if (!response.ok) {
