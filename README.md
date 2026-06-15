@@ -37,8 +37,8 @@ Your users should be able to:
 #### Currency picker
 
 - [ ] Search the full list of available currencies by code or name
-- [ ] See currencies grouped into "Popular" and "Other currencies", each row showing the flag, code, and name
-- [ ] See a check against the currency that's currently selected
+- [x] See currencies grouped into "Popular" and "Other currencies", each row showing the flag, code, and name
+- [x] See a check against the currency that's currently selected
 
 #### Live markets ticker
 
