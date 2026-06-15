@@ -27,10 +27,11 @@ Your users should be able to:
 
 #### Converter
 
-- [ ] Enter an amount to send and see it convert in real time as they type
-- [ ] Pick the "send" and "receive" currencies from a searchable currency picker
-- [ ] See the live exchange rate for the active pair (for example, `1 USD = 0.8530 EUR`)
-- [ ] Swap the send and receive currencies with the swap button
+- [x] Enter an amount to send and see it convert in real time as they type
+- [x] Pick the "send" and "receive" currencies
+  - [ ] from a searchable currency picker
+- [x] See the live exchange rate for the active pair (for example, `1 USD = 0.8530 EUR`)
+- [x] Swap the send and receive currencies with the swap button
 - [ ] Favorite the active pair, and log a conversion to their history
 
 #### Currency picker

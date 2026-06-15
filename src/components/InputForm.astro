@@ -84,6 +84,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 <script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
   import { convertAmount } from "@utils/fxMath";
+  import { base64 } from "astro:schema";
 
   const frankfurterAPI = new FrankfurterAPI();
   const form = document.getElementById("fx-input") as HTMLFormElement;
@@ -92,6 +93,9 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   const outputAmount = document.getElementById(
     "output-amount",
   ) as HTMLOutputElement;
+  const currencySwapBtn = document.querySelector(
+    ".currency-swap",
+  ) as HTMLButtonElement;
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -140,6 +144,24 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   ) {
     results.textContent = `1 ${baseCurrency} = ${rate.toFixed(4)} ${targetCurrency}`;
   }
+
+  function swapCurrencies() {
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString() as string;
+    const target = formData.get("target")?.toString() as string;
+    const selectBase = document.getElementById(
+      "base-currency",
+    ) as HTMLSelectElement;
+    const selectTarget = document.getElementById(
+      "target-currency",
+    ) as HTMLSelectElement;
+
+    selectBase.value = target;
+    selectTarget.value = base;
+    updateOutput();
+  }
+
+  currencySwapBtn?.addEventListener("click", swapCurrencies);
 </script>
 
 <style lang="scss">
