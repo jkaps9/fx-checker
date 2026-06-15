@@ -45,8 +45,20 @@
 </script>
 
 <style lang="scss">
-  :global(.ticker__list > li) {
+  .ticker__list {
     display: flex;
-    gap: var(--space-xs);
+  }
+
+  :global(.ticker__list > li) {
+    background: #202022;
+    border-right: 1px solid #2e2e2e;
+    display: flex;
+    font-size: 12px;
+    gap: calc(var(--space-sm) + 2px);
+    padding: calc(var(--space-sm) * 1.5);
+  }
+
+  :global(.ticker__list > li > span.currency-pair) {
+    color: #9d9d9d;
   }
 </style>
