@@ -87,7 +87,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
                     <CurrencyOption
                       currencyCode={currency.iso_code}
                       currencyName={currency.name}
-                      defaultCode={defaultBase}
+                      defaultCode={defaultTarget}
                     />
                   ))
               }
@@ -100,7 +100,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
                     <CurrencyOption
                       currencyCode={currency.iso_code}
                       currencyName={currency.name}
-                      defaultCode={defaultBase}
+                      defaultCode={defaultTarget}
                     />
                   ))
               }
