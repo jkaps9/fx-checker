@@ -226,6 +226,14 @@ section {
   border-radius: var(--radius-16);
 }
 
+.positive {
+  color: var(--color-green);
+}
+
+.negative {
+  color: var(--color-error);
+}
+
 /* Skip to main content link - accessible to keyboard users and screen readers */
 // https://www.a11y-collective.com/blog/skip-to-main-content/
 .skip {

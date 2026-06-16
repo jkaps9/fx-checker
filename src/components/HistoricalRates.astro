@@ -4,7 +4,39 @@
 
 <section class="historical">
   <div class="container">
-    <div id="output-container"></div>
+    <div id="output-container">
+      <div class="rate-display">
+        <div class="rate-cards">
+          <div class="card--inner">
+            <h2>Open</h2>
+            <p id="open-amount">0.0000</p>
+          </div>
+          <div class="card--inner">
+            <h2>Close</h2>
+            <p id="close-amount">0.0000</p>
+          </div>
+          <div class="card--inner">
+            <h2>Change</h2>
+            <p
+              class=""
+              id="change-amount"
+            >
+              0.0000
+            </p>
+          </div>
+          <div class="card--inner">
+            <h2>% Change</h2>
+            <p
+              class=""
+              id="change-percentage"
+            >
+              0.00%
+            </p>
+          </div>
+        </div>
+        <ul></ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -15,6 +47,18 @@
     "output-container",
   ) as HTMLElement;
   const form = document.getElementById("fx-input") as HTMLFormElement;
+  const openAmountPara = document.getElementById(
+    "open-amount",
+  ) as HTMLParagraphElement;
+  const closeAmountPara = document.getElementById(
+    "close-amount",
+  ) as HTMLParagraphElement;
+  const changeAmountPara = document.getElementById(
+    "change-amount",
+  ) as HTMLParagraphElement;
+  const changePercentagePara = document.getElementById(
+    "change-percentage",
+  ) as HTMLParagraphElement;
 
   form?.addEventListener("input", getHistoricalInformation);
 
@@ -41,27 +85,14 @@
       const close = data[data.length - 1].rate;
       const change = close - open;
       const changePercentage = (change / open) * 100;
+      openAmountPara.textContent = `${open.toFixed(4)}`;
+      closeAmountPara.textContent = `${close.toFixed(4)}`;
+      changeAmountPara.textContent = `${change.toFixed(4)}`;
+      changeAmountPara.className = `${change > 0 ? "positive" : "negative"}`;
+      changePercentagePara.textContent = `${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%`;
+      changePercentagePara.className = `${change > 0 ? "positive" : "negative"}`;
 
-      outputContainer.innerHTML = `<div class="rate-display">
-      <h2>Historical Rates</h2>
-      <div class="card">
-        <h3>Open</h3>
-        <p>${open.toFixed(4)}</p>
-      </div>
-      <div class="card">
-        <h3>Close</h3>
-        <p>${close.toFixed(4)}</p>
-      </div>
-      <div class="card">
-        <h3>Change</h3>
-        <p class=${change > 0 ? "positive" : "negative"}>${change > 0 ? "+" : ""}${change.toFixed(4)}</p>
-      </div>
-      <div class="card">
-        <h3>% Change</h3>
-        <p class=${change > 0 ? "positive" : "negative"}>${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%</p>
-      </div>
-      <ul>${listItems}</ul>
-    </div>`;
+      //   <ul>${listItems}</ul>
     } catch (error) {
       console.error(error);
     }
@@ -70,12 +101,9 @@
   getHistoricalInformation();
 </script>
 
-<style lang="scss" is:global>
-  .positive {
-    color: var(--color-green);
-  }
-
-  .negative {
-    color: var(--color-error);
+<style lang="scss">
+  .rate-cards {
+    display: flex;
+    gap: 1rem;
   }
 </style>
