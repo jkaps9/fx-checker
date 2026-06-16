@@ -11,7 +11,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     <div class="card">
       <form id="fx-input">
         <div class="form-group card--inner">
-          <label for="base-amount">Send</label>
+          <label for="base-amount"><h3>Send</h3></label>
           <div class="input-row">
             <input
               type="number"
@@ -66,7 +66,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           />
         </button>
         <div class="form-group card--inner">
-          <label for="output-amount">Receive</label>
+          <label for="output-amount"><h3>Receive</h3></label>
           <div class="input-row">
             <output
               id="output-amount"
