@@ -2,10 +2,11 @@ import type { FxRate, RateSummary } from "../types/fx";
 
 export function summarizeRates(rawRates: FxRate[]): RateSummary[] {
   const grouped = rawRates.reduce(
-    (acc, curr) => {
-      if (!acc[curr.quote]) acc[curr.quote] = [];
-      acc[curr.quote].push(curr);
-      return acc;
+    (accumulator, currentValue) => {
+      if (!accumulator[currentValue.quote])
+        accumulator[currentValue.quote] = [];
+      accumulator[currentValue.quote].push(currentValue);
+      return accumulator;
     },
     {} as Record<string, FxRate[]>,
   );
