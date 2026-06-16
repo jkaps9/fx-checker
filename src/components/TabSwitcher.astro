@@ -13,6 +13,18 @@
   </div>
 </section>
 
+<script>
+  import { updateElementClasses } from "@utils/generalUtils";
+
+  const tabButtons = document.querySelectorAll("button.tab");
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      updateElementClasses(tabButtons, btn, "active");
+    });
+  });
+</script>
+
 <style lang="scss">
   .container {
   }
