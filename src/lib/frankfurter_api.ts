@@ -8,7 +8,10 @@ export class FrankfurterAPI {
   async fetchAllRates(base: string, quotes: string[]): Promise<FxRate[]> {
     // TODO: add date range for 1 day (e.g. today and yesterday to get open and close)
     const quoteStr = quotes.join(",");
-    const url = `${FrankfurterAPI.baseURL}/rates?base=${base}&quotes=${quoteStr}`;
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const url = `${FrankfurterAPI.baseURL}/rates?base=${base}&quotes=${quoteStr}&from=${yesterday.toISOString().split("T")[0]}&to=${today.toISOString().split("T")[0]}`;
     console.log(url);
 
     const response = await fetch(url);
