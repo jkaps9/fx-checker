@@ -13,7 +13,22 @@ import currencies from "@data/currencies.json";
 </header>
 
 <style lang="scss">
+  header {
+    padding: clamp(1rem, 0.912rem + 0.3756vw, 1.25rem)
+      clamp(1rem, 0.8239rem + 0.7512vw, 1.5rem);
+  }
   .container {
     @include flex-between;
+  }
+
+  .header__content {
+    font-size: clamp(0.625rem, 0.3865rem + 1.0178vw, 0.875rem);
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+
+  [data-icon="logo"] {
+    height: clamp(1.25rem, 0.8922rem + 1.5267vw, 1.625rem);
+    width: auto;
   }
 </style>
