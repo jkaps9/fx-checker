@@ -46,10 +46,8 @@
   tabButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       updateElementClasses(tabButtons, btn, "active");
-      if (btn.getAttribute("data-tab")) {
-        currentSection = btn.getAttribute("data-tab") ?? "";
-        updateActiveSection;
-      }
+      currentSection = btn.getAttribute("data-tab") ?? "";
+      updateActiveSection();
     });
   });
 
@@ -59,6 +57,8 @@
       updateElementClasses(tabSections, activeElement, "active");
     }
   }
+
+  updateActiveSection();
 </script>
 
 <style lang="scss">
