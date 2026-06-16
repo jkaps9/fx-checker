@@ -11,7 +11,6 @@ export class FrankfurterAPI {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const url = `${FrankfurterAPI.baseURL}/rates?base=${base}&quotes=${quoteStr}&from=${yesterday.toISOString().split("T")[0]}&to=${today.toISOString().split("T")[0]}`;
-    console.log(url);
 
     const response = await fetch(url);
     if (!response.ok) {
