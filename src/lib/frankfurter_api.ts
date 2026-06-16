@@ -6,7 +6,6 @@ export class FrankfurterAPI {
   constructor() {}
 
   async fetchAllRates(base: string, quotes: string[]): Promise<FxRate[]> {
-    // TODO: add date range for 1 day (e.g. today and yesterday to get open and close)
     const quoteStr = quotes.join(",");
     const today = new Date();
     const yesterday = new Date();
