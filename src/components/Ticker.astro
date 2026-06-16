@@ -16,6 +16,7 @@
 
 <script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
+  import { summarizeRates } from "@utils/fxUtils";
   import currencies from "@data/currencies.json";
 
   const popularCurrencies = currencies.filter((c) => c.popular);
@@ -26,16 +27,35 @@
     if (!currency || currency === "" || currency.length !== 3) return;
     try {
       const data = await frankfurterAPI.fetchAllRates(currency, allCurrencies);
-      const listItems = data.map((n) => {
+
+      const dailySummaries = summarizeRates(data);
+
+      const listItems = dailySummaries.map((n) => {
         const item = document.createElement("li");
+
         const currencyPair = document.createElement("span");
         currencyPair.className = "currency-pair";
-        currencyPair.textContent = `${n.base}/${n.quote}`;
+        currencyPair.textContent = `${currency}/${n.quote}`;
+
         const currencyRate = document.createElement("span");
         currencyRate.className = "rate";
-        currencyRate.textContent = `${n.rate}`;
+        currencyRate.textContent = `${n.close}`;
+
+        const trend = document.createElement("span");
+        trend.className =
+          n.trend === "up" ? "positive" : n.trend === "down" ? "negative" : "";
+        trend.textContent =
+          n.trend === "up" ? "▲" : n.trend === "down" ? "▼" : "-";
+
+        const percentChange = document.createElement("span");
+        percentChange.className =
+          n.trend === "up" ? "positive" : n.trend === "down" ? "negative" : "";
+        percentChange.textContent = `${n.changePercent > 0 ? "+" : ""}${n.changePercent}%`;
+
         item.appendChild(currencyPair);
         item.appendChild(currencyRate);
+        item.appendChild(trend);
+        item.appendChild(percentChange);
         return item;
       });
 
