@@ -210,6 +210,15 @@ section {
     3.0714rem + -1.1905vw,
     calc(var(--space-xl) * 1.25)
   );
+
+  &#history,
+  &#compare,
+  &#favorites,
+  &#log {
+    &:not(.active) {
+      @include visually-hidden;
+    }
+  }
 }
 
 /*~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~>

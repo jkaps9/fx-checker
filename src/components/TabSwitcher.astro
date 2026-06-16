@@ -5,10 +5,30 @@
 <section class="tab-switcher">
   <div class="container">
     <div class="tab-list">
-      <button class="tab active">HISTORY</button>
-      <button class="tab">COMPARE</button>
-      <button class="tab">FAVORITES<span id="counter">0</span></button>
-      <button class="tab">LOG<span id="counter">0</span></button>
+      <button
+        class="tab active"
+        data-tab="history"
+      >
+        HISTORY
+      </button>
+      <button
+        class="tab"
+        data-tab="compare"
+      >
+        COMPARE
+      </button>
+      <button
+        class="tab"
+        data-tab="favorites"
+      >
+        FAVORITES<span id="counter">0</span>
+      </button>
+      <button
+        class="tab"
+        data-tab="log"
+      >
+        LOG<span id="counter">0</span>
+      </button>
     </div>
   </div>
 </section>
@@ -17,12 +37,28 @@
   import { updateElementClasses } from "@utils/generalUtils";
 
   const tabButtons = document.querySelectorAll("button.tab");
+  const tabSections = document.querySelectorAll(
+    "#history, #compare, #favorites, #log",
+  );
+
+  let currentSection = "history";
 
   tabButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       updateElementClasses(tabButtons, btn, "active");
+      if (btn.getAttribute("data-tab")) {
+        currentSection = btn.getAttribute("data-tab") ?? "";
+        updateActiveSection;
+      }
     });
   });
+
+  function updateActiveSection() {
+    const activeElement = document.getElementById(currentSection);
+    if (activeElement) {
+      updateElementClasses(tabSections, activeElement, "active");
+    }
+  }
 </script>
 
 <style lang="scss">
