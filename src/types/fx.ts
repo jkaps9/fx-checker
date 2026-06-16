@@ -6,10 +6,10 @@ export interface FxRate {
 }
 
 export interface RateSummary {
-  base: string;
   quote: string;
   open: number;
   close: number;
+  changeAmount: number;
   changePercent: number;
   trend: "up" | "down" | "flat";
 }
