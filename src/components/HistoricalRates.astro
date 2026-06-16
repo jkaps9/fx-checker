@@ -149,20 +149,28 @@
 
 <style lang="scss">
   .rate-cards {
-    display: flex;
+    display: grid;
     gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+
+    @include bp(md) {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   .row {
-    @include flex-between;
+    display: flex;
     flex-direction: column;
 
     @include bp(lg) {
+      align-items: center;
       flex-direction: row;
+      justify-content: space-between;
     }
   }
 
   .date-range-buttons {
+    align-self: flex-start;
     background-color: #171719;
     border-radius: var(--radius-8);
     display: flex;
@@ -181,6 +189,10 @@
       &:hover {
         background-color: #2e2e2e;
       }
+    }
+
+    @include bp(lg) {
+      align-self: unset;
     }
   }
 
