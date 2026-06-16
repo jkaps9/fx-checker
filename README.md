@@ -42,7 +42,7 @@ Your users should be able to:
 
 #### Live markets ticker
 
-- [ ] See a ticker of currency pairs, each with its current rate and 24-hour change (up or down)
+- [x] See a ticker of currency pairs, each with its current rate and 24-hour change (up or down)
 
 #### Rate history
 
