@@ -5,10 +5,43 @@
 <section class="tab-switcher">
   <div class="container">
     <div class="tab-list">
-      <p class="tab">HISTORY</p>
-      <p class="tab">COMPARE</p>
-      <p class="tab">FAVORITES<span id="counter">0</span></p>
-      <p class="tab">LOG<span id="counter">0</span></p>
+      <button class="tab active">HISTORY</button>
+      <button class="tab">COMPARE</button>
+      <button class="tab">FAVORITES<span id="counter">0</span></button>
+      <button class="tab">LOG<span id="counter">0</span></button>
     </div>
   </div>
 </section>
+
+<style lang="scss">
+  .container {
+  }
+  .tab-list {
+    border-bottom: 1px solid #202022;
+    @include bp(md) {
+      display: flex;
+      gap: var(--space-sm);
+    }
+  }
+
+  .tab {
+    display: flex;
+    gap: var(--space-sm);
+    min-height: 40px;
+
+    &.active {
+      border-bottom: 2px solid var(--color-primary);
+    }
+  }
+
+  #counter {
+    @include flex-center;
+    background-color: var(--color-primary-dark);
+    border-radius: var(--radius-full);
+    color: var(--color-primary);
+    font-size: 10px;
+    height: 1.25rem;
+    line-height: 1;
+    min-width: 1.25rem;
+  }
+</style>
