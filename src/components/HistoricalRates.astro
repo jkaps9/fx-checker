@@ -52,7 +52,7 @@
 
 <script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
-  import { map } from "astro:schema";
+  import { updateElementClasses } from "@utils/generalUtils";
   const frankfurterAPI = new FrankfurterAPI();
   const outputContainer = document.getElementById(
     "output-container",
@@ -89,7 +89,7 @@
   dateRangeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       if (btn.textContent !== dateRange) {
-        updateButtonClasses(btn as HTMLButtonElement);
+        updateElementClasses(dateRangeButtons, btn, "active");
         dateRange = btn.textContent;
         getHistoricalInformation();
       }
@@ -137,11 +137,6 @@
     } catch (error) {
       console.error(error);
     }
-  }
-
-  function updateButtonClasses(activeBtn: HTMLButtonElement) {
-    dateRangeButtons.forEach((btn) => btn.classList.remove("active"));
-    activeBtn.classList.add("active");
   }
 
   getHistoricalInformation();
