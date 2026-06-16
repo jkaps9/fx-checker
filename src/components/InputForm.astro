@@ -12,46 +12,48 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
       <form id="fx-input">
         <div class="form-group card--inner">
           <label for="base-amount">Send</label>
-          <input
-            type="number"
-            id="base-amount"
-            name="base-amount"
-            placeholder="0"
-          />
-          <select
-            name="base"
-            id="base-currency"
-          >
-            <button class="select-button">
-              <selectedcontent></selectedcontent>
-            </button>
-            <optgroup label="POPULAR">
-              {
-                currencies
-                  .filter((c) => c.popular)
-                  .map((currency) => (
-                    <CurrencyOption
-                      currencyCode={currency.iso_code}
-                      currencyName={currency.name}
-                      defaultCode={defaultBase}
-                    />
-                  ))
-              }
-            </optgroup>
-            <optgroup label="OTHER CURRENCIES">
-              {
-                currencies
-                  .filter((c) => !c.popular)
-                  .map((currency) => (
-                    <CurrencyOption
-                      currencyCode={currency.iso_code}
-                      currencyName={currency.name}
-                      defaultCode={defaultBase}
-                    />
-                  ))
-              }
-            </optgroup>
-          </select>
+          <div class="input-row">
+            <input
+              type="number"
+              id="base-amount"
+              name="base-amount"
+              placeholder="0"
+            />
+            <select
+              name="base"
+              id="base-currency"
+            >
+              <button class="select-button">
+                <selectedcontent></selectedcontent>
+              </button>
+              <optgroup label="POPULAR">
+                {
+                  currencies
+                    .filter((c) => c.popular)
+                    .map((currency) => (
+                      <CurrencyOption
+                        currencyCode={currency.iso_code}
+                        currencyName={currency.name}
+                        defaultCode={defaultBase}
+                      />
+                    ))
+                }
+              </optgroup>
+              <optgroup label="OTHER CURRENCIES">
+                {
+                  currencies
+                    .filter((c) => !c.popular)
+                    .map((currency) => (
+                      <CurrencyOption
+                        currencyCode={currency.iso_code}
+                        currencyName={currency.name}
+                        defaultCode={defaultBase}
+                      />
+                    ))
+                }
+              </optgroup>
+            </select>
+          </div>
         </div>
         <button
           class="currency-swap"
@@ -65,47 +67,49 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
         </button>
         <div class="form-group card--inner">
           <label for="output-amount">Receive</label>
-          <output
-            id="output-amount"
-            name="output-amount"
-            for="base-amount base-currency target-currency"
-          >
-            0
-          </output>
-          <select
-            name="target"
-            id="target-currency"
-          >
-            <button class="select-button">
-              <selectedcontent></selectedcontent>
-            </button>
-            <optgroup label="POPULAR">
-              {
-                currencies
-                  .filter((c) => c.popular)
-                  .map((currency) => (
-                    <CurrencyOption
-                      currencyCode={currency.iso_code}
-                      currencyName={currency.name}
-                      defaultCode={defaultTarget}
-                    />
-                  ))
-              }
-            </optgroup>
-            <optgroup label="OTHER CURRENCIES">
-              {
-                currencies
-                  .filter((c) => !c.popular)
-                  .map((currency) => (
-                    <CurrencyOption
-                      currencyCode={currency.iso_code}
-                      currencyName={currency.name}
-                      defaultCode={defaultTarget}
-                    />
-                  ))
-              }
-            </optgroup>
-          </select>
+          <div class="input-row">
+            <output
+              id="output-amount"
+              name="output-amount"
+              for="base-amount base-currency target-currency"
+            >
+              0
+            </output>
+            <select
+              name="target"
+              id="target-currency"
+            >
+              <button class="select-button">
+                <selectedcontent></selectedcontent>
+              </button>
+              <optgroup label="POPULAR">
+                {
+                  currencies
+                    .filter((c) => c.popular)
+                    .map((currency) => (
+                      <CurrencyOption
+                        currencyCode={currency.iso_code}
+                        currencyName={currency.name}
+                        defaultCode={defaultTarget}
+                      />
+                    ))
+                }
+              </optgroup>
+              <optgroup label="OTHER CURRENCIES">
+                {
+                  currencies
+                    .filter((c) => !c.popular)
+                    .map((currency) => (
+                      <CurrencyOption
+                        currencyCode={currency.iso_code}
+                        currencyName={currency.name}
+                        defaultCode={defaultTarget}
+                      />
+                    ))
+                }
+              </optgroup>
+            </select>
+          </div>
         </div>
       </form>
       <p id="output">1 USD = 0.8530 EUR</p>
@@ -203,7 +207,6 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 <style lang="scss">
   label {
     display: block;
-    flex-basis: 100%;
     margin-bottom: 1.25rem;
   }
 
@@ -213,11 +216,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     font-family: inherit;
     border: none;
     outline: none;
-  }
-
-  input,
-  output {
-    flex: 1;
+    width: 100%;
   }
 
   select {
@@ -260,8 +259,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   }
 
   form {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: clamp(var(--space-md), 0.8239rem + 0.7512vw, var(--space-lg));
     padding-bottom: clamp(
       var(--space-md),
@@ -275,8 +273,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   }
 
   .card {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     padding: clamp(
       var(--space-md),
       0.912rem + 0.3756vw,
@@ -305,8 +302,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   }
 
   .form-group {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     padding: clamp(
       var(--space-md),
       0.912rem + 0.3756vw,
@@ -326,5 +322,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     &:not(:last-of-type) {
       padding-block-end: var(--space-xs);
     }
+  }
+
+  .input-row {
+    @include flex-between;
+    flex: 1;
   }
 </style>
