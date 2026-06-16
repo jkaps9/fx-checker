@@ -234,6 +234,13 @@ section {
   color: var(--color-error);
 }
 
+.divider {
+  background-color: var(--color-header-text);
+  border-radius: var(--radius-full);
+  height: 6px;
+  width: 6px;
+}
+
 /* Skip to main content link - accessible to keyboard users and screen readers */
 // https://www.a11y-collective.com/blog/skip-to-main-content/
 .skip {

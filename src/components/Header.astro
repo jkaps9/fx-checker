@@ -1,0 +1,19 @@
+---
+import { Icon } from "astro-icon/components";
+import currencies from "@data/currencies.json";
+---
+
+<header>
+  <div class="container">
+    <Icon name="logo" />
+    <p class="header__content">
+      {currencies.length} CURRENCIES · EOD · ECB DATA
+    </p>
+  </div>
+</header>
+
+<style lang="scss">
+  .container {
+    @include flex-between;
+  }
+</style>
