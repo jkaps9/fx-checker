@@ -155,6 +155,11 @@
 
   .row {
     @include flex-between;
+    flex-direction: column;
+
+    @include bp(lg) {
+      flex-direction: row;
+    }
   }
 
   .date-range-buttons {
