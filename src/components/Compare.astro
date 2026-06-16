@@ -12,10 +12,75 @@
         <p>Multi-currency <span id="compare-amount">1,000 FROM USD</span></p>
         <p><span id="compare-pairs">8</span> PAIRS</p>
       </div>
+      <ul id="comparison-list"></ul>
     </div>
   </div>
 </section>
+<script>
+  import { FrankfurterAPI } from "@lib/frankfurter_api";
+  import type { RateSummary } from "@types/fx";
+  import { summarizeRates } from "@utils/fxUtils";
 
+  const frankfurterAPI = new FrankfurterAPI();
+  const form = document.getElementById("fx-input") as HTMLFormElement;
+  const comparisonList = document.getElementById(
+    "comparison-list",
+  ) as HTMLElement;
+
+  async function getComparisons() {
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString();
+    const quotes = ["GBP", "JPY", "CHF", "CAD", "AUD", "INR", "CNY", "BDT"];
+
+    if (!base) return;
+    try {
+      const data = await frankfurterAPI.fetchAllRates(base, quotes);
+      const dailySummaries = summarizeRates(data);
+      const listItems = dailySummaries.map((n) => {
+        return createListItem(n);
+      });
+      listItems.forEach((item) => comparisonList.appendChild(item));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function createListItem(rateSummary: RateSummary): HTMLElement {
+    const item = document.createElement("li");
+    const leftSide = document.createElement("div");
+    const flag = document.createElement("img");
+    flag.src = `./assets/images/flags/${rateSummary.quote.slice(0, 2).toLowerCase()}.webp`;
+    flag.alt = `${rateSummary.quote.slice(0, 2).toLowerCase()} flag`;
+    const currencyInfo = document.createElement("div");
+    const currency = document.createElement("p");
+    currency.textContent = rateSummary.quote;
+    const currencyName = document.createElement("p");
+
+    leftSide.appendChild(flag);
+    currencyInfo.appendChild(currency);
+    currencyInfo.appendChild(currencyName);
+    leftSide.appendChild(currencyInfo);
+
+    const rightSide = document.createElement("div");
+    const rateInfo = document.createElement("div");
+    const convertedAmount = document.createElement("p");
+    const rate = document.createElement("p");
+    rate.textContent = `@ ${rateSummary.close}`;
+    const favoriteButton = document.createElement("button");
+
+    rateInfo.appendChild(convertedAmount);
+    rateInfo.appendChild(rate);
+    rightSide.appendChild(rateInfo);
+    rightSide.appendChild(favoriteButton);
+
+    item.appendChild(leftSide);
+    item.appendChild(rightSide);
+
+    return item;
+  }
+
+  getComparisons();
+</script>
 <style lang="scss">
   .top-row {
     @include flex-between;
