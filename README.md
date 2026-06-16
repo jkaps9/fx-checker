@@ -145,11 +145,7 @@ I sometimes used Gemini to help debug issues with the code to pull API data and 
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+- Frontend Mentor - [@jkaps9](https://www.frontendmentor.io/profile/jkaps9)
 
 ## Acknowledgments
 

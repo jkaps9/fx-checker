@@ -30,7 +30,9 @@
     min-height: 40px;
 
     &.active {
-      border-bottom: 2px solid var(--color-primary);
+      @include bp(md) {
+        border-bottom: 2px solid var(--color-primary);
+      }
     }
   }
 
