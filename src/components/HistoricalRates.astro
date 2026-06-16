@@ -52,6 +52,7 @@
 
 <script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
+  import { map } from "astro:schema";
   const frankfurterAPI = new FrankfurterAPI();
   const outputContainer = document.getElementById(
     "output-container",
@@ -74,11 +75,22 @@
     ".date-range-buttons > button",
   );
 
+  let dateRange = "1M";
+  const dateOffsets = new Map();
+  dateOffsets.set("1D", 1);
+  dateOffsets.set("1W", 7);
+  dateOffsets.set("1M", 30);
+  dateOffsets.set("3m", 90);
+  dateOffsets.set("1Y", 365);
+  dateOffsets.set("5Y", 1825); // 365 * 5 = 1,825
+
   form?.addEventListener("input", getHistoricalInformation);
 
   dateRangeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       updateButtonClasses(btn as HTMLButtonElement);
+      dateRange = btn.textContent;
+      console.log(dateRange);
     });
   });
 
@@ -86,20 +98,24 @@
     const formData = new FormData(form);
     const base = formData.get("base")?.toString();
     const target = formData.get("target")?.toString();
+    const endDate = new Date();
+    const startDate = new Date();
+
+    startDate.setDate(startDate.getDate() - dateOffsets.get(dateRange));
+
     if (!base || !target) return;
     try {
       const data = await frankfurterAPI.fetchHistoricalRates(
         base,
         target,
-        "2026-04-14",
-        "2026-05-14",
+        startDate.toISOString().split("T")[0],
+        endDate.toISOString().split("T")[0],
       );
-      const listItems = data
-        .map(
-          (day) =>
-            `<li>${day.date}: 1 ${day.base} = <strong>${day.rate.toFixed(4)} ${day.quote}</strong></li>`,
-        )
-        .join("");
+      const listItems = data.map((day) => {
+        const item = document.createElement("li");
+        item.textContent = `${day.date}: 1 ${day.base} = ${day.rate.toFixed(4)} ${day.quote}`;
+        return item;
+      });
 
       const open = data[0].rate;
       const close = data[data.length - 1].rate;
@@ -112,7 +128,7 @@
       changePercentagePara.textContent = `${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%`;
       changePercentagePara.className = `${change > 0 ? "positive" : "negative"}`;
 
-      //   <ul>${listItems}</ul>
+      listItems.forEach((item) => rateList.appendChild(item));
     } catch (error) {
       console.error(error);
     }
