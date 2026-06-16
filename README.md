@@ -47,8 +47,8 @@ Your users should be able to:
 #### Rate history
 
 - [ ] View a line and area chart of the active pair's rate over time
-- [ ] Switch the chart range between 1D, 1W, 1M, 3M, 1Y, and 5Y
-- [ ] See the open, last, absolute change, and percentage change for the selected range
+- [x] Switch the chart range between 1D, 1W, 1M, 3M, 1Y, and 5Y
+- [x] See the open, last, absolute change, and percentage change for the selected range
 
 #### Compare
 
