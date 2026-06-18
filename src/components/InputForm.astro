@@ -118,6 +118,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           <button
             type="button"
             class="btn btn--primary"
+            id="favorite-button"
           >
             Favorite
           </button>
@@ -136,6 +137,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 <script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
   import { convertAmount } from "@utils/fxMath";
+  import storageManager from "@lib/storageManager";
 
   const frankfurterAPI = new FrankfurterAPI();
   const form = document.getElementById("fx-input") as HTMLFormElement;
@@ -147,6 +149,9 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   const currencySwapBtn = document.querySelector(
     ".currency-swap",
   ) as HTMLButtonElement;
+  const favoriteButton = document.getElementById(
+    "favorite-button",
+  ) as HTMLButtonElement;
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -154,6 +159,16 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   });
 
   form?.addEventListener("input", updateOutput);
+
+  favoriteButton?.addEventListener("click", () => {
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString();
+    const target = formData.get("target")?.toString();
+
+    if (base && target) storageManager.addFavorite(base, target);
+
+    console.log(storageManager.getFavorites());
+  });
 
   async function updateOutput() {
     const formData = new FormData(form);

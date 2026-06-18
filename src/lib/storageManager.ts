@@ -1,4 +1,4 @@
-const storageManager = function () {
+const storageManager = (function () {
   const favorites = new Set<string>();
 
   const isStorageAvailable = () => {
@@ -43,6 +43,8 @@ const storageManager = function () {
       };
     });
   };
-};
+
+  return { addFavorite, removeFavorite, getFavorites };
+})();
 
 export default storageManager;
