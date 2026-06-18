@@ -165,9 +165,17 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     const base = formData.get("base")?.toString();
     const target = formData.get("target")?.toString();
 
-    if (base && target) storageManager.addFavorite(base, target);
+    if (base && target) {
+      if (storageManager.hasFavorite(base, target)) {
+        favoriteButton.classList.remove("active");
+        storageManager.removeFavorite(base, target);
+      } else {
+        favoriteButton.classList.add("active");
+        storageManager.addFavorite(base, target);
+      }
+    }
 
-    console.log(storageManager.getFavorites());
+    console.log(storageManager.getFavorites().length);
   });
 
   async function updateOutput() {

@@ -34,6 +34,15 @@ const storageManager = (function () {
     }
   };
 
+  const hasFavorite = (base: string, target: string) => {
+    if (isStorageAvailable()) {
+      const item = `${base}/${target}`;
+      return favorites.has(item);
+    } else {
+      return false;
+    }
+  };
+
   const getFavorites = () => {
     const arr = [...favorites];
     return arr.map((value) => {
@@ -44,7 +53,7 @@ const storageManager = (function () {
     });
   };
 
-  return { addFavorite, removeFavorite, getFavorites };
+  return { addFavorite, removeFavorite, getFavorites, hasFavorite };
 })();
 
 export default storageManager;
