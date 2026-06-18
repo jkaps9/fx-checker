@@ -29,6 +29,9 @@ import FlagImage from "./FlagImage.astro";
     "comparison__list",
   ) as HTMLElement;
   const baseAmount = document.getElementById("base-amount") as HTMLInputElement;
+  const compareAmount = document.getElementById(
+    "compare-amount",
+  ) as HTMLElement;
 
   async function getComparisons() {
     const formData = new FormData(form);
@@ -100,6 +103,15 @@ import FlagImage from "./FlagImage.astro";
     const currency = currencies.find((c) => c.iso_code === currencyCode);
     return currency ? currency.name : "";
   }
+
+  const amount =
+    baseAmount.value === ""
+      ? "0"
+      : baseAmount.valueAsNumber.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+  compareAmount.textContent = `${amount} FROM USD`;
 
   getComparisons();
 </script>
