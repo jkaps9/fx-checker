@@ -18,7 +18,7 @@ import FlagImage from "./FlagImage.astro";
 </section>
 <script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
-  import type { RateSummary } from "@types/fx";
+  import type { RateSummary } from "../types/fx";
   import { summarizeRates } from "@utils/fxUtils";
 
   const frankfurterAPI = new FrankfurterAPI();
