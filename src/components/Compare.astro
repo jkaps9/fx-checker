@@ -12,7 +12,7 @@ import FlagImage from "./FlagImage.astro";
         <p>Multi-currency <span id="compare-amount">1,000 FROM USD</span></p>
         <p><span id="compare-pairs">8</span> PAIRS</p>
       </div>
-      <ul id="comparison-list"></ul>
+      <ul id="comparison__list"></ul>
     </div>
   </div>
 </section>
@@ -24,7 +24,7 @@ import FlagImage from "./FlagImage.astro";
   const frankfurterAPI = new FrankfurterAPI();
   const form = document.getElementById("fx-input") as HTMLFormElement;
   const comparisonList = document.getElementById(
-    "comparison-list",
+    "comparison__list",
   ) as HTMLElement;
 
   async function getComparisons() {
@@ -47,7 +47,9 @@ import FlagImage from "./FlagImage.astro";
 
   function createListItem(rateSummary: RateSummary): HTMLElement {
     const item = document.createElement("li");
+    item.classList.add("comparison__item");
     const leftSide = document.createElement("div");
+    leftSide.classList.add("left-side");
     const flag = document.createElement("img");
     flag.src = `/images/flags/${rateSummary.quote.slice(0, 2).toLowerCase()}.webp`;
     flag.alt = `${rateSummary.quote.slice(0, 2).toLowerCase()} flag`;
@@ -92,5 +94,15 @@ import FlagImage from "./FlagImage.astro";
   .flag {
     block-size: 1.5rem;
     inline-size: 1.5rem;
+  }
+
+  .comparison {
+    &__item {
+      @include flex-between;
+    }
+  }
+
+  .left-side {
+    display: flex;
   }
 </style>
