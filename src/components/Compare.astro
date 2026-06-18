@@ -9,7 +9,7 @@ import FlagImage from "./FlagImage.astro";
   <div class="container">
     <div class="card">
       <div class="top-row">
-        <p>Multi-currency <span id="compare-amount">1,000 FROM USD</span></p>
+        <p>Multi-currency <span id="compare-amount">0.00 FROM USD</span></p>
         <p><span id="compare-pairs">8</span> PAIRS</p>
       </div>
       <ul id="comparison__list"></ul>
@@ -45,6 +45,7 @@ import FlagImage from "./FlagImage.astro";
       const listItems = dailySummaries.map((n) => {
         return createListItem(n);
       });
+      comparisonList.replaceChildren();
       listItems.forEach((item) => comparisonList.appendChild(item));
     } catch (error) {
       console.error(error);
@@ -76,10 +77,8 @@ import FlagImage from "./FlagImage.astro";
     const rateInfo = document.createElement("div");
     const convertedAmount = document.createElement("p");
 
-    const result = convertAmount(
-      baseAmount.value === "" ? 0 : baseAmount.valueAsNumber,
-      rateSummary.close,
-    );
+    const baseAmt = baseAmount.value === "" ? 0 : baseAmount.valueAsNumber;
+    const result = convertAmount(baseAmt, rateSummary.close);
     convertedAmount.textContent = result.toLocaleString(undefined, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
@@ -104,14 +103,20 @@ import FlagImage from "./FlagImage.astro";
     return currency ? currency.name : "";
   }
 
-  const amount =
-    baseAmount.value === ""
-      ? "0"
-      : baseAmount.valueAsNumber.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
-  compareAmount.textContent = `${amount} FROM USD`;
+  form?.addEventListener("input", () => {
+    const amount =
+      baseAmount.value === ""
+        ? "0"
+        : baseAmount.valueAsNumber.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString();
+    compareAmount.textContent = `${amount} FROM ${base}`;
+    getComparisons();
+  });
 
   getComparisons();
 </script>
