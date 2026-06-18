@@ -112,7 +112,23 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           </div>
         </div>
       </form>
-      <p id="output">1 USD = 0.8530 EUR</p>
+      <div class="bottom-row">
+        <p id="output">1 USD = 0.8530 EUR</p>
+        <div class="buttons">
+          <button
+            type="button"
+            class="btn btn--primary"
+          >
+            Favorite
+          </button>
+          <button
+            type="button"
+            class="btn btn--primary"
+          >
+            Log Conversion
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -327,5 +343,9 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   .input-row {
     @include flex-between;
     flex: 1;
+  }
+
+  .bottom-row {
+    @include flex-between;
   }
 </style>
