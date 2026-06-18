@@ -20,12 +20,14 @@ import FlagImage from "./FlagImage.astro";
   import { FrankfurterAPI } from "@lib/frankfurter_api";
   import type { RateSummary } from "../types/fx";
   import { summarizeRates } from "@utils/fxUtils";
+  import { convertAmount } from "@utils/fxMath";
 
   const frankfurterAPI = new FrankfurterAPI();
   const form = document.getElementById("fx-input") as HTMLFormElement;
   const comparisonList = document.getElementById(
     "comparison__list",
   ) as HTMLElement;
+  const baseAmount = document.getElementById("base-amount") as HTMLInputElement;
 
   async function getComparisons() {
     const formData = new FormData(form);
@@ -48,6 +50,7 @@ import FlagImage from "./FlagImage.astro";
   function createListItem(rateSummary: RateSummary): HTMLElement {
     const item = document.createElement("li");
     item.classList.add("comparison__item");
+    item.classList.add("card--inner");
     const leftSide = document.createElement("div");
     leftSide.classList.add("left-side");
     const flag = document.createElement("img");
@@ -67,6 +70,15 @@ import FlagImage from "./FlagImage.astro";
     const rightSide = document.createElement("div");
     const rateInfo = document.createElement("div");
     const convertedAmount = document.createElement("p");
+
+    const result = convertAmount(
+      baseAmount.value === "" ? 0 : baseAmount.valueAsNumber,
+      rateSummary.close,
+    );
+    convertedAmount.textContent = result.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
     const rate = document.createElement("p");
     rate.textContent = `@ ${rateSummary.close}`;
     const favoriteButton = document.createElement("button");
