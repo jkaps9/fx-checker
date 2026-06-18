@@ -1,5 +1,5 @@
 ---
-
+import FlagImage from "./FlagImage.astro";
 ---
 
 <section
@@ -49,8 +49,9 @@
     const item = document.createElement("li");
     const leftSide = document.createElement("div");
     const flag = document.createElement("img");
-    flag.src = `./assets/images/flags/${rateSummary.quote.slice(0, 2).toLowerCase()}.webp`;
+    flag.src = `/images/flags/${rateSummary.quote.slice(0, 2).toLowerCase()}.webp`;
     flag.alt = `${rateSummary.quote.slice(0, 2).toLowerCase()} flag`;
+    flag.classList.add("flag");
     const currencyInfo = document.createElement("div");
     const currency = document.createElement("p");
     currency.textContent = rateSummary.quote;
@@ -84,5 +85,10 @@
 <style lang="scss">
   .top-row {
     @include flex-between;
+  }
+
+  :global(.flag) {
+    block-size: 1.5rem;
+    inline-size: 1.5rem;
   }
 </style>
