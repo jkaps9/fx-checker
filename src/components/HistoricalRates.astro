@@ -108,7 +108,7 @@
 
     startDate.setDate(startDate.getDate() - dateOffsets.get(dateRange));
 
-    if (!base || !target) return;
+    if (!base || !target || base === target) return;
     try {
       rateList.replaceChildren();
       rateList.innerHTML = `<li>Fetching data...</li>`;
