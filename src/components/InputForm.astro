@@ -155,10 +155,12 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    updateOutput;
+    updateAll();
   });
 
-  form?.addEventListener("input", updateOutput);
+  form?.addEventListener("input", () => {
+    updateAll();
+  });
 
   favoriteButton?.addEventListener("click", () => {
     const formData = new FormData(form);
@@ -177,6 +179,20 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
     console.log(storageManager.getFavorites().length);
   });
+
+  function updateFavoriteButtonState() {
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString();
+    const target = formData.get("target")?.toString();
+
+    if (base && target) {
+      if (storageManager.hasFavorite(base, target)) {
+        favoriteButton.classList.add("active");
+      } else {
+        favoriteButton.classList.remove("active");
+      }
+    }
+  }
 
   async function updateOutput() {
     const formData = new FormData(form);
@@ -237,10 +253,16 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
     baseAmount.valueAsNumber = targetVal;
 
+    updateAll();
+  }
+
+  function updateAll() {
     updateOutput();
+    updateFavoriteButtonState();
   }
 
   currencySwapBtn?.addEventListener("click", swapCurrencies);
+  updateFavoriteButtonState();
 </script>
 
 <style lang="scss">
