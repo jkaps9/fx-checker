@@ -44,12 +44,12 @@
     listItem.classList.add("card--inner");
     listItem.classList.add("favorites__item");
     const currencyPair = document.createElement("div");
-    currencyPair.classList.add("item__currency-pair");
+    currencyPair.classList.add("favorites-item__currency-pair");
     currencyPair.innerHTML = `<p>${favorite.base}</p><span>-></span><p>${favorite.target}</p>`;
     listItem.appendChild(currencyPair);
 
     const rightSide = document.createElement("div");
-    rightSide.classList.add("right-side");
+    rightSide.classList.add("favorites-item__right-side");
     const rightContent = document.createElement("div");
     rightContent.classList.add("right-side__content");
     rightSide.appendChild(rightContent);
@@ -64,12 +64,13 @@
               ? 3
               : 4;
       rightContent.innerHTML = `<p>${data.close.toFixed(decimals)}</p>
-      <p class="${data.changePercentage > 0 ? "positive" : data.changePercentage < 0 ? "negative" : ""}">
+      <p class="percent-change ${data.changePercentage > 0 ? "positive" : data.changePercentage < 0 ? "negative" : ""}">
         <span>${data.changePercentage > 0 ? "▲" : data.changePercentage < 0 ? "▼" : "-"}</span>
          ${data.changePercentage > 0 ? "+" : ""}${data.changePercentage.toFixed(2)}%</p>`;
     });
 
     const favButton = document.createElement("button");
+    // TODO: add start svg
     favButton.textContent = "s";
     favButton.classList.add("btn");
     favButton.addEventListener("click", () => {
@@ -120,15 +121,29 @@
   .top-row {
     @include flex-between;
   }
+  .favorites__list {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-start: 1.25rem;
+  }
 </style>
 <style lang="scss" is:global>
   .favorites__item {
     @include flex-between;
   }
-  .item {
+  .favorites-item {
     &__currency-pair {
       display: flex;
       gap: var(--space-sm);
+    }
+    &__right-side {
+      @include flex-center;
+      gap: calc(var(--space-md) * 1.25);
+      text-align: end;
+      .percent-change {
+        font-size: 10px;
+        margin-top: 6px;
+      }
     }
   }
 </style>
