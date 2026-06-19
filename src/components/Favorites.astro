@@ -15,8 +15,10 @@
 </section>
 
 <script>
+  import { FrankfurterAPI } from "@lib/frankfurter_api";
   import storageManager from "@lib/storageManager";
 
+  const frankfurterAPI = new FrankfurterAPI();
   const favoritesList = document.querySelector(
     ".favorites__list",
   ) as HTMLElement;
@@ -40,7 +42,59 @@
     currencyPair.classList.add("item__currency-pair");
     currencyPair.innerHTML = `<p>${favorite.base}</p><span>-></span><p>${favorite.target}</p>`;
     listItem.appendChild(currencyPair);
+
+    getRateInformation(favorite.base, favorite.target).then((data) => {
+      const rightSide = document.createElement("div");
+      rightSide.classList.add("right-side");
+      const rightContent = document.createElement("div");
+      const decimals =
+        data.close >= 1000
+          ? 1
+          : data.close >= 100
+            ? 2
+            : data.close >= 10
+              ? 3
+              : 4;
+      rightContent.classList.add("right-side__content");
+      rightContent.innerHTML = `<p>${data.close.toFixed(decimals)}</p>
+      <p class="${data.changePercentage > 0 ? "positive" : data.changePercentage < 0 ? "negative" : ""}">
+        <span>${data.changePercentage > 0 ? "▲" : data.changePercentage < 0 ? "▼" : "-"}</span>
+         ${data.changePercentage > 0 ? "+" : ""}${data.changePercentage.toFixed(2)}%</p>`;
+
+      rightSide.appendChild(rightContent);
+      listItem.appendChild(rightSide);
+    });
+
     return listItem;
+  }
+
+  async function getRateInformation(
+    base: string,
+    target: string,
+  ): Promise<any> {
+    const endDate = new Date();
+    const startDate = new Date();
+
+    startDate.setDate(startDate.getDate() - 1);
+    if (!base || !target || base === target) return;
+    try {
+      const data = await frankfurterAPI.fetchHistoricalRates(
+        base,
+        target,
+        startDate.toISOString().split("T")[0],
+        endDate.toISOString().split("T")[0],
+      );
+      const open = data[0].rate;
+      const close = data[data.length - 1].rate;
+      const change = close - open;
+      const changePercentage = (change / open) * 100;
+      return {
+        close: close,
+        changePercentage: changePercentage,
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   storageManager.addFavorite("USD", "EUR");
