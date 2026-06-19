@@ -59,7 +59,7 @@ Your users should be able to:
 
 - [x] See their pinned pairs, each with its live rate and 24-hour change
 - [ ] Load a pinned pair back into the converter by selecting its row
-- [ ] Unpin a pair they no longer want to track
+- [x] Unpin a pair they no longer want to track
 
 #### Conversion log
 
