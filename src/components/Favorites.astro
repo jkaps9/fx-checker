@@ -27,7 +27,10 @@
       favoritesList.replaceChildren();
       favoritesArr.map((favorite) => {
         const listItem = document.createElement("li");
+        listItem.classList.add("card--inner");
+        listItem.classList.add("favorites__item");
         const currencyPair = document.createElement("div");
+        currencyPair.classList.add("item__currency-pair");
         currencyPair.innerHTML = `<p>${favorite.base}</p><span>-></span><p>${favorite.target}</p>`;
         listItem.appendChild(currencyPair);
         favoritesList.appendChild(listItem);
@@ -39,3 +42,15 @@
   storageManager.addFavorite("USD", "JPY");
   updateFavorites();
 </script>
+
+<style lang="scss" is:global>
+  .favorites__item {
+    @include flex-between;
+  }
+  .item {
+    &__currency-pair {
+      display: flex;
+      gap: var(--space-sm);
+    }
+  }
+</style>
