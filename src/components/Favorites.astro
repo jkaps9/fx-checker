@@ -8,7 +8,10 @@
 >
   <div class="container">
     <div class="card">
-      <h2>Pinned Pairs</h2>
+      <div class="top-row">
+        <h2>Pinned Pairs</h2>
+        <p><span id="num-favorites">0</span> FAVORITES</p>
+      </div>
       <ul class="favorites__list"></ul>
     </div>
   </div>
@@ -22,10 +25,12 @@
   const favoritesList = document.querySelector(
     ".favorites__list",
   ) as HTMLElement;
+  const numFavorites = document.getElementById("num-favorites") as HTMLElement;
 
   function updateFavorites() {
     const favoritesArr = storageManager.getFavorites();
     if (favoritesArr && favoritesArr.length > 0) {
+      numFavorites.textContent = `${favoritesArr.length}`;
       favoritesList.replaceChildren();
       favoritesArr.map((favorite) => {
         const listItem = generateListItem(favorite);
@@ -111,6 +116,11 @@
   updateFavorites();
 </script>
 
+<style lang="scss">
+  .top-row {
+    @include flex-between;
+  }
+</style>
 <style lang="scss" is:global>
   .favorites__item {
     @include flex-between;
