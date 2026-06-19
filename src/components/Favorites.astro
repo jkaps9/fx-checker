@@ -43,10 +43,13 @@
     currencyPair.innerHTML = `<p>${favorite.base}</p><span>-></span><p>${favorite.target}</p>`;
     listItem.appendChild(currencyPair);
 
+    const rightSide = document.createElement("div");
+    rightSide.classList.add("right-side");
+    const rightContent = document.createElement("div");
+    rightContent.classList.add("right-side__content");
+    rightSide.appendChild(rightContent);
+
     getRateInformation(favorite.base, favorite.target).then((data) => {
-      const rightSide = document.createElement("div");
-      rightSide.classList.add("right-side");
-      const rightContent = document.createElement("div");
       const decimals =
         data.close >= 1000
           ? 1
@@ -55,15 +58,21 @@
             : data.close >= 10
               ? 3
               : 4;
-      rightContent.classList.add("right-side__content");
       rightContent.innerHTML = `<p>${data.close.toFixed(decimals)}</p>
       <p class="${data.changePercentage > 0 ? "positive" : data.changePercentage < 0 ? "negative" : ""}">
         <span>${data.changePercentage > 0 ? "▲" : data.changePercentage < 0 ? "▼" : "-"}</span>
          ${data.changePercentage > 0 ? "+" : ""}${data.changePercentage.toFixed(2)}%</p>`;
-
-      rightSide.appendChild(rightContent);
-      listItem.appendChild(rightSide);
     });
+
+    const favButton = document.createElement("button");
+    favButton.textContent = "s";
+    favButton.classList.add("btn");
+    favButton.addEventListener("click", () => {
+      storageManager.removeFavorite(favorite.base, favorite.target);
+      favoritesList.removeChild(listItem);
+    });
+    rightSide.appendChild(favButton);
+    listItem.appendChild(rightSide);
 
     return listItem;
   }

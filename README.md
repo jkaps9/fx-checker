@@ -57,7 +57,7 @@ Your users should be able to:
 
 #### Favorites
 
-- [ ] See their pinned pairs, each with its live rate and 24-hour change
+- [x] See their pinned pairs, each with its live rate and 24-hour change
 - [ ] Load a pinned pair back into the converter by selecting its row
 - [ ] Unpin a pair they no longer want to track
 
