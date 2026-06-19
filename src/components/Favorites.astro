@@ -26,16 +26,21 @@
     if (favoritesArr && favoritesArr.length > 0) {
       favoritesList.replaceChildren();
       favoritesArr.map((favorite) => {
-        const listItem = document.createElement("li");
-        listItem.classList.add("card--inner");
-        listItem.classList.add("favorites__item");
-        const currencyPair = document.createElement("div");
-        currencyPair.classList.add("item__currency-pair");
-        currencyPair.innerHTML = `<p>${favorite.base}</p><span>-></span><p>${favorite.target}</p>`;
-        listItem.appendChild(currencyPair);
+        const listItem = generateListItem(favorite);
         favoritesList.appendChild(listItem);
       });
     }
+  }
+
+  function generateListItem(favorite: any) {
+    const listItem = document.createElement("li");
+    listItem.classList.add("card--inner");
+    listItem.classList.add("favorites__item");
+    const currencyPair = document.createElement("div");
+    currencyPair.classList.add("item__currency-pair");
+    currencyPair.innerHTML = `<p>${favorite.base}</p><span>-></span><p>${favorite.target}</p>`;
+    listItem.appendChild(currencyPair);
+    return listItem;
   }
 
   storageManager.addFavorite("USD", "EUR");
