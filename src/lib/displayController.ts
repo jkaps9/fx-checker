@@ -1,5 +1,9 @@
+import { FrankfurterAPI } from "./frankfurter_api";
+
 const displayController = (function () {
   const form = document.getElementById("fx-input") as HTMLFormElement;
+  const frankfurterAPI = new FrankfurterAPI();
+  const results = document.getElementById("output") as HTMLParagraphElement;
 
   const initizalize = () => {
     form.addEventListener("submit", async (e) => {
@@ -12,8 +16,12 @@ const displayController = (function () {
       const target = formData.get("target")?.toString();
 
       if (!base || !target || base === target) return;
-      alert("hello");
+      updateBaseConversion("Fetching rates...");
     });
+  };
+
+  const updateBaseConversion = (str: string) => {
+    results.textContent = str;
   };
 
   return { initizalize };

@@ -206,7 +206,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
       return;
     }
 
-    results.textContent = `Fetching rates ...`;
+    // results.textContent = `Fetching rates ...`;
 
     try {
       const data = await frankfurterAPI.fetchFxRates(base, target);
