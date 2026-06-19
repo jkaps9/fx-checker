@@ -1,8 +1,8 @@
-import { FrankfurterAPI } from "./frankfurter_api";
+import { APIController } from "./apiController";
 
 const displayController = (function () {
   const form = document.getElementById("fx-input") as HTMLFormElement;
-  const frankfurterAPI = new FrankfurterAPI();
+  const apiController = new APIController();
   const results = document.getElementById("output") as HTMLParagraphElement;
 
   const initizalize = () => {
