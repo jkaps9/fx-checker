@@ -28,4 +28,24 @@ export class APIController {
       return;
     }
   }
+
+  async searchHistorical(
+    base: string,
+    target: string,
+    from: string,
+    to: string,
+  ): Promise<FxRate[] | undefined> {
+    try {
+      const data = await this.frankfurterAPI.fetchHistoricalRates(
+        base,
+        target,
+        from,
+        to,
+      );
+      return data;
+    } catch (error) {
+      console.error("Error fetching time series FX data:", error);
+      return;
+    }
+  }
 }
