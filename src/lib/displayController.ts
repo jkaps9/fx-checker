@@ -55,6 +55,12 @@ const displayController = (function () {
     "compare-amount",
   ) as HTMLElement;
 
+  // favorite elements
+  const favoritesList = document.querySelector(
+    ".favorites__list",
+  ) as HTMLElement;
+  const numFavorites = document.getElementById("num-favorites") as HTMLElement;
+
   let dateRange = "1M";
   const dateOffsets = new Map();
   dateOffsets.set("1D", 1);
@@ -74,6 +80,7 @@ const displayController = (function () {
     getApiData();
     getComparisons();
     updateFavoriteCount();
+    updateFavorites();
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -120,6 +127,7 @@ const displayController = (function () {
         }
 
         updateFavoriteCount();
+        updateFavorites();
       }
     });
 
@@ -236,7 +244,7 @@ const displayController = (function () {
       if (data) {
         const dailySummaries = summarizeRates(data);
         const listItems = dailySummaries.map((n) => {
-          return createListItem(n);
+          return createComparisonListItem(n);
         });
         comparisonList.replaceChildren();
         listItems.forEach((item) => comparisonList.appendChild(item));
@@ -244,7 +252,7 @@ const displayController = (function () {
     });
   };
 
-  const createListItem = (rateSummary: RateSummary): HTMLElement => {
+  const createComparisonListItem = (rateSummary: RateSummary): HTMLElement => {
     const item = document.createElement("li");
     item.classList.add("comparison__item");
     item.classList.add("card--inner");
@@ -319,6 +327,74 @@ const displayController = (function () {
       "favorite-counter",
     ) as HTMLElement;
     favoriteCounter.textContent = `${storageManager.getFavorites().length}`;
+  };
+
+  const updateFavorites = () => {
+    const favoritesArr = storageManager.getFavorites();
+    if (favoritesArr && favoritesArr.length > 0) {
+      numFavorites.textContent = `${favoritesArr.length}`;
+      favoritesList.replaceChildren();
+      favoritesArr.map((favorite) => {
+        const listItem = createFavoriteListItem(favorite);
+        favoritesList.appendChild(listItem);
+      });
+    }
+  };
+
+  const createFavoriteListItem = (favorite: any) => {
+    const listItem = document.createElement("li");
+    listItem.classList.add("card--inner");
+    listItem.classList.add("favorites__item");
+    const currencyPair = document.createElement("div");
+    currencyPair.classList.add("favorites-item__currency-pair");
+    currencyPair.innerHTML = `<p>${favorite.base}</p><span>-></span><p>${favorite.target}</p>`;
+    listItem.appendChild(currencyPair);
+
+    const rightSide = document.createElement("div");
+    rightSide.classList.add("favorites-item__right-side");
+    const rightContent = document.createElement("div");
+    rightContent.classList.add("right-side__content");
+    rightSide.appendChild(rightContent);
+
+    const endDate = new Date();
+    const startDate = new Date();
+
+    startDate.setDate(startDate.getDate() - dateOffsets.get(dateRange));
+
+    apiController
+      .searchHistorical(
+        favorite.base,
+        favorite.target,
+        startDate.toISOString().split("T")[0],
+        endDate.toISOString().split("T")[0],
+      )
+      .then((data) => {
+        if (data) {
+          const open = data[0].rate;
+          const close = data[data.length - 1].rate;
+          const change = close - open;
+          const changePercentage = (change / open) * 100;
+          const decimals =
+            close >= 1000 ? 1 : close >= 100 ? 2 : close >= 10 ? 3 : 4;
+          rightContent.innerHTML = `<p>${close.toFixed(decimals)}</p>
+      <p class="percent-change ${changePercentage > 0 ? "positive" : changePercentage < 0 ? "negative" : ""}">
+        <span>${changePercentage > 0 ? "▲" : changePercentage < 0 ? "▼" : "-"}</span>
+         ${changePercentage > 0 ? "+" : ""}${changePercentage.toFixed(2)}%</p>`;
+        }
+      });
+
+    const favButton = document.createElement("button");
+    // TODO: add star svg
+    favButton.textContent = "s";
+    favButton.classList.add("btn");
+    favButton.addEventListener("click", () => {
+      storageManager.removeFavorite(favorite.base, favorite.target);
+      favoritesList.removeChild(listItem);
+    });
+    rightSide.appendChild(favButton);
+    listItem.appendChild(rightSide);
+
+    return listItem;
   };
 
   return { initizalize };
