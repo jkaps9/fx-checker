@@ -1,6 +1,9 @@
 import { APIController } from "./apiController";
 import { convertAmount } from "@utils/fxMath";
 import { updateElementClasses } from "@utils/generalUtils";
+import type { RateSummary } from "../types/fx";
+import { summarizeRates } from "@utils/fxUtils";
+import currencies from "@data/currencies.json" with { type: "json" };
 import storageManager from "./storageManager";
 
 const displayController = (function () {
@@ -38,6 +41,14 @@ const displayController = (function () {
   );
   const rateList = document.getElementById("rate-list") as HTMLElement;
 
+  // compare elements
+  const comparisonList = document.getElementById(
+    "comparison__list",
+  ) as HTMLElement;
+  const compareAmount = document.getElementById(
+    "compare-amount",
+  ) as HTMLElement;
+
   let dateRange = "1M";
   const dateOffsets = new Map();
   dateOffsets.set("1D", 1);
@@ -53,6 +64,7 @@ const displayController = (function () {
     const target: string = formData.get("target")?.toString() ?? "";
     updateFavoriteButtonState(base, target);
     getApiData();
+    getComparisons();
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -64,6 +76,7 @@ const displayController = (function () {
       const target: string = formData.get("target")?.toString() ?? "";
       if (!base || !target || base === target) return;
       getApiData();
+      getComparisons();
     });
 
     currencySwapBtn.addEventListener("click", () => {
@@ -174,6 +187,76 @@ const displayController = (function () {
           updateBaseConversion("Error fetching rates. Please try again.");
         }
       });
+  };
+
+  const getComparisons = () => {
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString();
+    const quotes = ["GBP", "JPY", "CHF", "CAD", "AUD", "INR", "CNY", "BDT"];
+
+    if (!base) return;
+
+    apiController.searchAll(base, quotes).then((data) => {
+      if (data) {
+        const dailySummaries = summarizeRates(data);
+        const listItems = dailySummaries.map((n) => {
+          return createListItem(n);
+        });
+        comparisonList.replaceChildren();
+        listItems.forEach((item) => comparisonList.appendChild(item));
+      }
+    });
+  };
+
+  const createListItem = (rateSummary: RateSummary): HTMLElement => {
+    const item = document.createElement("li");
+    item.classList.add("comparison__item");
+    item.classList.add("card--inner");
+    const leftSide = document.createElement("div");
+    leftSide.classList.add("left-side");
+    const flag = document.createElement("img");
+    flag.src = `/images/flags/${rateSummary.quote.slice(0, 2).toLowerCase()}.webp`;
+    flag.alt = `${rateSummary.quote.slice(0, 2).toLowerCase()} flag`;
+    flag.classList.add("flag");
+    const currencyInfo = document.createElement("div");
+    const currency = document.createElement("p");
+    currency.textContent = rateSummary.quote;
+    const currencyName = document.createElement("p");
+    currencyName.textContent = getCurrencyName(rateSummary.quote);
+
+    leftSide.appendChild(flag);
+    currencyInfo.appendChild(currency);
+    currencyInfo.appendChild(currencyName);
+    leftSide.appendChild(currencyInfo);
+
+    const rightSide = document.createElement("div");
+    const rateInfo = document.createElement("div");
+    const convertedAmount = document.createElement("p");
+
+    const baseAmt = baseAmount.value === "" ? 0 : baseAmount.valueAsNumber;
+    const result = convertAmount(baseAmt, rateSummary.close);
+    convertedAmount.textContent = result.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    const rate = document.createElement("p");
+    rate.textContent = `@ ${rateSummary.close}`;
+    const favoriteButton = document.createElement("button");
+
+    rateInfo.appendChild(convertedAmount);
+    rateInfo.appendChild(rate);
+    rightSide.appendChild(rateInfo);
+    rightSide.appendChild(favoriteButton);
+
+    item.appendChild(leftSide);
+    item.appendChild(rightSide);
+
+    return item;
+  };
+
+  const getCurrencyName = (currencyCode: string) => {
+    const currency = currencies.find((c) => c.iso_code === currencyCode);
+    return currency ? currency.name : "";
   };
 
   return { initizalize };

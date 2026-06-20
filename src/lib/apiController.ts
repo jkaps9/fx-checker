@@ -48,4 +48,17 @@ export class APIController {
       return;
     }
   }
+
+  async searchAll(
+    base: string,
+    quotes: string[],
+  ): Promise<FxRate[] | undefined> {
+    try {
+      const data = await this.frankfurterAPI.fetchAllRates(base, quotes);
+      return data;
+    } catch (error) {
+      console.error("Error fetching all rates:", error);
+      return;
+    }
+  }
 }
