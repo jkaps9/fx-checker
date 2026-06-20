@@ -57,6 +57,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
         </div>
         <button
           class="currency-swap"
+          id="currency-swap"
           type="button"
           aria-label="switch currencies"
         >
@@ -134,7 +135,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   </div>
 </section>
 
-<script>
+<!--<script>
   import { FrankfurterAPI } from "@lib/frankfurter_api";
   import { convertAmount } from "@utils/fxMath";
   import storageManager from "@lib/storageManager";
@@ -258,12 +259,13 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
   function updateAll() {
     // updateOutput();
-    updateFavoriteButtonState();
+    // updateFavoriteButtonState();
   }
 
   currencySwapBtn?.addEventListener("click", swapCurrencies);
-  updateFavoriteButtonState();
+  // updateFavoriteButtonState();
 </script>
+ -->
 
 <style lang="scss">
   label {
