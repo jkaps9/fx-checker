@@ -77,6 +77,7 @@ const displayController = (function () {
       if (!base || !target || base === target) return;
       getApiData();
       getComparisons();
+      updateCompareAmountText();
     });
 
     currencySwapBtn.addEventListener("click", () => {
@@ -257,6 +258,20 @@ const displayController = (function () {
   const getCurrencyName = (currencyCode: string) => {
     const currency = currencies.find((c) => c.iso_code === currencyCode);
     return currency ? currency.name : "";
+  };
+
+  const updateCompareAmountText = () => {
+    const amount =
+      baseAmount.value === ""
+        ? "0"
+        : baseAmount.valueAsNumber.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString();
+    compareAmount.textContent = `${amount} FROM ${base}`;
   };
 
   return { initizalize };
