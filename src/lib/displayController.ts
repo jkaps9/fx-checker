@@ -79,7 +79,7 @@ const displayController = (function () {
     updateFavoriteButtonState(base, target);
     getApiData();
     getComparisons();
-    updateFavoriteCount();
+
     updateFavorites();
 
     form.addEventListener("submit", async (e) => {
@@ -126,7 +126,6 @@ const displayController = (function () {
           storageManager.addFavorite(base, target);
         }
 
-        updateFavoriteCount();
         updateFavorites();
       }
     });
@@ -322,11 +321,11 @@ const displayController = (function () {
     }
   };
 
-  const updateFavoriteCount = () => {
+  const updateFavoriteCount = (amount: number) => {
     const favoriteCounter = document.getElementById(
       "favorite-counter",
     ) as HTMLElement;
-    favoriteCounter.textContent = `${storageManager.getFavorites().length}`;
+    favoriteCounter.textContent = `${amount}`;
   };
 
   const updateFavorites = () => {
@@ -338,6 +337,7 @@ const displayController = (function () {
         const listItem = createFavoriteListItem(favorite);
         favoritesList.appendChild(listItem);
       });
+      updateFavoriteCount(favoritesArr.length);
     }
   };
 
