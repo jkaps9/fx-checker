@@ -61,6 +61,7 @@ const displayController = (function () {
   ) as HTMLElement;
   const numFavorites = document.getElementById("num-favorites") as HTMLElement;
 
+  // TODO: include ticker list script here
   let dateRange = "1M";
   const dateOffsets = new Map();
   dateOffsets.set("1D", 1);
