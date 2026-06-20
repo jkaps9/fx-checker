@@ -21,13 +21,13 @@
         class="tab"
         data-tab="favorites"
       >
-        FAVORITES<span id="counter">0</span>
+        FAVORITES<span id="favorite-counter">0</span>
       </button>
       <button
         class="tab"
         data-tab="log"
       >
-        LOG<span id="counter">0</span>
+        LOG<span id="log-counter">0</span>
       </button>
     </div>
   </div>
@@ -57,7 +57,8 @@
     }
   }
 
-  #counter {
+  #favorite-counter,
+  #log-counter {
     @include flex-center;
     background-color: var(--color-primary-dark);
     border-radius: var(--radius-full);

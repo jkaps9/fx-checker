@@ -73,6 +73,7 @@ const displayController = (function () {
     updateFavoriteButtonState(base, target);
     getApiData();
     getComparisons();
+    updateFavoriteCount();
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -95,6 +96,7 @@ const displayController = (function () {
         updateActiveSection();
       });
     });
+
     currencySwapBtn.addEventListener("click", () => {
       const formData = new FormData(form);
       const base: string = formData.get("base")?.toString() ?? "";
@@ -102,6 +104,23 @@ const displayController = (function () {
       swapCurrencies(base, target);
       getApiData();
       updateCompareAmountText(target);
+    });
+
+    favoriteButton.addEventListener("click", () => {
+      const formData = new FormData(form);
+      const base: string = formData.get("base")?.toString() ?? "";
+      const target: string = formData.get("target")?.toString() ?? "";
+      if (base && target) {
+        if (storageManager.hasFavorite(base, target)) {
+          favoriteButton.classList.remove("active");
+          storageManager.removeFavorite(base, target);
+        } else {
+          favoriteButton.classList.add("active");
+          storageManager.addFavorite(base, target);
+        }
+
+        updateFavoriteCount();
+      }
     });
 
     dateRangeButtons.forEach((btn) => {
@@ -293,6 +312,13 @@ const displayController = (function () {
     if (activeElement) {
       updateElementClasses(tabSections, activeElement, "active");
     }
+  };
+
+  const updateFavoriteCount = () => {
+    const favoriteCounter = document.getElementById(
+      "favorite-counter",
+    ) as HTMLElement;
+    favoriteCounter.textContent = `${storageManager.getFavorites().length}`;
   };
 
   return { initizalize };
