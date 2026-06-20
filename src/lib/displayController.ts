@@ -331,16 +331,16 @@ const displayController = (function () {
   const updateFavorites = () => {
     const favoritesArr = storageManager.getFavorites();
     if (favoritesArr) {
-      if (favoritesArr.length === 0) {
-        favoritesList.replaceChildren();
-      } else {
-        numFavorites.textContent = `${favoritesArr.length}`;
+      numFavorites.textContent = `${favoritesArr.length}`;
+      favoritesList.replaceChildren();
+      updateFavoriteCount(favoritesArr.length);
+
+      if (favoritesArr.length > 0) {
         favoritesList.replaceChildren();
         favoritesArr.map((favorite) => {
           const listItem = createFavoriteListItem(favorite);
           favoritesList.appendChild(listItem);
         });
-        updateFavoriteCount(favoritesArr.length);
       }
     }
   };
