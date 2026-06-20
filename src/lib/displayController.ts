@@ -23,6 +23,12 @@ const displayController = (function () {
     "currency-swap",
   ) as HTMLButtonElement;
 
+  // tab buttons
+  const tabButtons = document.querySelectorAll("button.tab");
+  const tabSections = document.querySelectorAll(
+    "#history, #compare, #favorites, #log",
+  );
+
   // historical elements
   const openAmountPara = document.getElementById(
     "open-amount",
@@ -58,6 +64,8 @@ const displayController = (function () {
   dateOffsets.set("1Y", 365);
   dateOffsets.set("5Y", 1825); // 365 * 5 = 1,825
 
+  let currentSection = "compare";
+
   const initizalize = () => {
     const formData = new FormData(form);
     const base: string = formData.get("base")?.toString() ?? "";
@@ -80,6 +88,13 @@ const displayController = (function () {
       updateCompareAmountText(base);
     });
 
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        updateElementClasses(tabButtons, btn, "active");
+        currentSection = btn.getAttribute("data-tab") ?? "";
+        updateActiveSection();
+      });
+    });
     currencySwapBtn.addEventListener("click", () => {
       const formData = new FormData(form);
       const base: string = formData.get("base")?.toString() ?? "";
@@ -271,6 +286,13 @@ const displayController = (function () {
           });
 
     compareAmount.textContent = `${amount} FROM ${base}`;
+  };
+
+  const updateActiveSection = () => {
+    const activeElement = document.getElementById(currentSection);
+    if (activeElement) {
+      updateElementClasses(tabSections, activeElement, "active");
+    }
   };
 
   return { initizalize };

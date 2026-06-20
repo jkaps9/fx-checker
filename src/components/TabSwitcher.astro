@@ -34,31 +34,31 @@
 </section>
 
 <script>
-  import { updateElementClasses } from "@utils/generalUtils";
+  // import { updateElementClasses } from "@utils/generalUtils";
 
-  const tabButtons = document.querySelectorAll("button.tab");
-  const tabSections = document.querySelectorAll(
-    "#history, #compare, #favorites, #log",
-  );
+  // const tabButtons = document.querySelectorAll("button.tab");
+  // const tabSections = document.querySelectorAll(
+  //   "#history, #compare, #favorites, #log",
+  // );
 
-  let currentSection = "compare";
+  // let currentSection = "compare";
 
-  tabButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      updateElementClasses(tabButtons, btn, "active");
-      currentSection = btn.getAttribute("data-tab") ?? "";
-      updateActiveSection();
-    });
-  });
+  // tabButtons.forEach((btn) => {
+  //   btn.addEventListener("click", () => {
+  //     updateElementClasses(tabButtons, btn, "active");
+  //     currentSection = btn.getAttribute("data-tab") ?? "";
+  //     updateActiveSection();
+  //   });
+  // });
 
-  function updateActiveSection() {
-    const activeElement = document.getElementById(currentSection);
-    if (activeElement) {
-      updateElementClasses(tabSections, activeElement, "active");
-    }
-  }
+  // function updateActiveSection() {
+  //   const activeElement = document.getElementById(currentSection);
+  //   if (activeElement) {
+  //     updateElementClasses(tabSections, activeElement, "active");
+  //   }
+  // }
 
-  updateActiveSection();
+  // updateActiveSection();
 </script>
 
 <style lang="scss">
