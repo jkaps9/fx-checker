@@ -77,7 +77,7 @@ const displayController = (function () {
       if (!base || !target || base === target) return;
       getApiData();
       getComparisons();
-      updateCompareAmountText();
+      updateCompareAmountText(base);
     });
 
     currencySwapBtn.addEventListener("click", () => {
@@ -86,6 +86,7 @@ const displayController = (function () {
       const target: string = formData.get("target")?.toString() ?? "";
       swapCurrencies(base, target);
       getApiData();
+      updateCompareAmountText(target);
     });
 
     dateRangeButtons.forEach((btn) => {
@@ -260,7 +261,7 @@ const displayController = (function () {
     return currency ? currency.name : "";
   };
 
-  const updateCompareAmountText = () => {
+  const updateCompareAmountText = (base: string) => {
     const amount =
       baseAmount.value === ""
         ? "0"
@@ -269,8 +270,6 @@ const displayController = (function () {
             maximumFractionDigits: 2,
           });
 
-    const formData = new FormData(form);
-    const base = formData.get("base")?.toString();
     compareAmount.textContent = `${amount} FROM ${base}`;
   };
 
