@@ -330,14 +330,18 @@ const displayController = (function () {
 
   const updateFavorites = () => {
     const favoritesArr = storageManager.getFavorites();
-    if (favoritesArr && favoritesArr.length > 0) {
-      numFavorites.textContent = `${favoritesArr.length}`;
-      favoritesList.replaceChildren();
-      favoritesArr.map((favorite) => {
-        const listItem = createFavoriteListItem(favorite);
-        favoritesList.appendChild(listItem);
-      });
-      updateFavoriteCount(favoritesArr.length);
+    if (favoritesArr) {
+      if (favoritesArr.length === 0) {
+        favoritesList.replaceChildren();
+      } else {
+        numFavorites.textContent = `${favoritesArr.length}`;
+        favoritesList.replaceChildren();
+        favoritesArr.map((favorite) => {
+          const listItem = createFavoriteListItem(favorite);
+          favoritesList.appendChild(listItem);
+        });
+        updateFavoriteCount(favoritesArr.length);
+      }
     }
   };
 
