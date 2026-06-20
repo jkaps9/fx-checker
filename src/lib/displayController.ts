@@ -63,20 +63,7 @@ const displayController = (function () {
       const base: string = formData.get("base")?.toString() ?? "";
       const target: string = formData.get("target")?.toString() ?? "";
       if (!base || !target || base === target) return;
-      updateBaseConversion("Fetching rates...");
-      updateFavoriteButtonState(base, target);
       getApiData();
-      apiController.search(base, target).then((data) => {
-        if (data) {
-          updateBaseConversion(
-            `1 ${data.base} = ${data.rate.toFixed(4)} ${data.quote}`,
-          );
-          const baseAmt = baseAmount.valueAsNumber;
-          if (baseAmt) updateTargetAmount(baseAmt, data.rate);
-        } else {
-          updateBaseConversion("Error fetching rates. Please try again.");
-        }
-      });
     });
 
     currencySwapBtn.addEventListener("click", () => {
@@ -84,6 +71,7 @@ const displayController = (function () {
       const base: string = formData.get("base")?.toString() ?? "";
       const target: string = formData.get("target")?.toString() ?? "";
       swapCurrencies(base, target);
+      getApiData();
     });
 
     dateRangeButtons.forEach((btn) => {
@@ -145,7 +133,8 @@ const displayController = (function () {
 
     startDate.setDate(startDate.getDate() - dateOffsets.get(dateRange));
 
-    console.log("fetching...");
+    updateBaseConversion("Fetching rates...");
+    updateFavoriteButtonState(base, target);
     apiController
       .searchHistorical(
         base,
@@ -155,6 +144,13 @@ const displayController = (function () {
       )
       .then((data) => {
         if (data) {
+          const lastIndex = data.length - 1;
+          updateBaseConversion(
+            `1 ${data[lastIndex].base} = ${data[lastIndex].rate.toFixed(4)} ${data[lastIndex].quote}`,
+          );
+          const baseAmt = baseAmount.valueAsNumber;
+          if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
+
           const listItems = data.map((day) => {
             const item = document.createElement("li");
             item.textContent = `${day.date}: 1 ${day.base} = ${day.rate.toFixed(4)} ${day.quote}`;
@@ -174,6 +170,8 @@ const displayController = (function () {
 
           rateList.replaceChildren();
           listItems.forEach((item) => rateList.appendChild(item));
+        } else {
+          updateBaseConversion("Error fetching rates. Please try again.");
         }
       });
   };
