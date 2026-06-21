@@ -22,6 +22,9 @@ const displayController = (function () {
   const currencySwapBtn = document.getElementById(
     "currency-swap",
   ) as HTMLButtonElement;
+  const logConversionButton = document.getElementById(
+    "log-conversion",
+  ) as HTMLButtonElement;
 
   // tab buttons
   const tabButtons = document.querySelectorAll("button.tab");
@@ -129,6 +132,14 @@ const displayController = (function () {
 
         updateFavorites();
       }
+    });
+
+    logConversionButton.addEventListener("click", () => {
+      const formData = new FormData(form);
+      const base: string = formData.get("base")?.toString() ?? "";
+      const target: string = formData.get("target")?.toString() ?? "";
+      const sendAmount = baseAmount.valueAsNumber;
+      const receiveAmount = Number(outputAmount.value);
     });
 
     dateRangeButtons.forEach((btn) => {
