@@ -1,5 +1,5 @@
 const storageManager = (function () {
-  const favorites = new Set<string>();
+  const favorites: string[] = [];
   const conversionLog: {
     dateTimeLogged: string;
     base: string;
@@ -30,8 +30,8 @@ const storageManager = (function () {
   const addFavorite = (base: string, target: string) => {
     if (isStorageAvailable()) {
       const item = `${base}/${target}`;
-      if (!favorites.has(item)) {
-        favorites.add(item);
+      if (favorites.indexOf(item) === -1) {
+        favorites.push(item);
         localStorage.setItem("favorites", JSON.stringify([...favorites]));
       }
     }
@@ -40,9 +40,10 @@ const storageManager = (function () {
   const removeFavorite = (base: string, target: string) => {
     if (isStorageAvailable()) {
       const item = `${base}/${target}`;
-      if (favorites.has(item)) {
-        favorites.delete(item);
-        localStorage.setItem("favorites", JSON.stringify([...favorites]));
+      const index = favorites.indexOf(item);
+      if (index !== -1) {
+        favorites.slice(index, 1);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
       }
     }
   };
@@ -50,7 +51,7 @@ const storageManager = (function () {
   const hasFavorite = (base: string, target: string) => {
     if (isStorageAvailable()) {
       const item = `${base}/${target}`;
-      return favorites.has(item);
+      return favorites.indexOf(item) !== -1;
     } else {
       return false;
     }
