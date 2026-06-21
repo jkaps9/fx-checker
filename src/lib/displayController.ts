@@ -136,10 +136,22 @@ const displayController = (function () {
 
     logConversionButton.addEventListener("click", () => {
       const formData = new FormData(form);
+      const now = new Date().toISOString();
       const base: string = formData.get("base")?.toString() ?? "";
       const target: string = formData.get("target")?.toString() ?? "";
       const sendAmount = baseAmount.valueAsNumber;
       const receiveAmount = Number(outputAmount.value);
+      if (base && target && sendAmount && receiveAmount) {
+        if (
+          !storageManager.hasLog(now, base, target, sendAmount, receiveAmount)
+        ) {
+          logConversionButton.classList.add("active");
+          storageManager.addLog(now, base, target, sendAmount, receiveAmount);
+        } else {
+          logConversionButton.classList.remove("active");
+          storageManager.addLog(now, base, target, sendAmount, receiveAmount);
+        }
+      }
     });
 
     dateRangeButtons.forEach((btn) => {

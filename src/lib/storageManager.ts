@@ -131,7 +131,16 @@ const storageManager = (function () {
     };
     return conversionLog.indexOf(item) !== -1;
   };
-  return { addFavorite, removeFavorite, getFavorites, hasFavorite };
+  return {
+    addFavorite,
+    removeFavorite,
+    getFavorites,
+    hasFavorite,
+    addLog,
+    removeLog,
+    clearLog,
+    hasLog,
+  };
 })();
 
 export default storageManager;
