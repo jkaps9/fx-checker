@@ -478,8 +478,22 @@ const displayController = (function () {
     rightSide.classList.add("log-item__right-side");
     const rightContent = document.createElement("div");
     rightContent.classList.add("right-side__content");
-    rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p class="accent-text">${conversion.receiveAmount}</p><button class="btn">D</button>`;
+    rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p class="accent-text">${conversion.receiveAmount}</p>`;
+    const deleteLogButton = document.createElement("button");
+    deleteLogButton.classList.add("btn");
+    deleteLogButton.textContent = "D";
+    deleteLogButton.addEventListener("click", () => {
+      storageManager.removeLog(
+        conversion.dateTimeLogged,
+        conversion.base,
+        conversion.target,
+        conversion.sendAmount,
+        conversion.receiveAmount,
+      );
+      logList.removeChild(listItem);
+    });
     rightSide.appendChild(rightContent);
+    rightSide.appendChild(deleteLogButton);
     listItem.appendChild(rightSide);
 
     return listItem;
