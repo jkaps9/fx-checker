@@ -449,8 +449,12 @@ const displayController = (function () {
     favButton.textContent = "s";
     favButton.classList.add("btn");
     favButton.addEventListener("click", () => {
-      storageManager.removeFavorite(favorite.base, favorite.target);
       favoritesList.removeChild(listItem);
+      storageManager.removeFavorite(favorite.base, favorite.target);
+      if (storageManager.getFavorites.length === 0) {
+        numFavorites.textContent = `0`;
+        updateFavoriteCount(0);
+      }
     });
     rightSide.appendChild(favButton);
     listItem.appendChild(rightSide);
