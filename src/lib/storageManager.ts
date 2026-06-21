@@ -42,7 +42,7 @@ const storageManager = (function () {
       const item = `${base}/${target}`;
       const index = favorites.indexOf(item);
       if (index !== -1) {
-        favorites.slice(index, 1);
+        favorites.splice(index, 1);
         localStorage.setItem("favorites", JSON.stringify(favorites));
       }
     }

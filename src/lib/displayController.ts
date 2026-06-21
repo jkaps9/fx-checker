@@ -451,10 +451,9 @@ const displayController = (function () {
     favButton.addEventListener("click", () => {
       favoritesList.removeChild(listItem);
       storageManager.removeFavorite(favorite.base, favorite.target);
-      if (storageManager.getFavorites.length === 0) {
-        numFavorites.textContent = `0`;
-        updateFavoriteCount(0);
-      }
+      const arr = storageManager.getFavorites();
+      numFavorites.textContent = `${arr.length}`;
+      updateFavoriteCount(arr.length);
     });
     rightSide.appendChild(favButton);
     listItem.appendChild(rightSide);
