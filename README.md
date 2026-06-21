@@ -63,7 +63,8 @@ Your users should be able to:
 
 #### Conversion log
 
-- [ ] See a log of conversions they've made, each showing the relative time, the pair, and the send and receive amounts
+- [x] See a log of conversions they've made,each showing the relative time, the pair, and the send and receive amounts
+- [ ] need to fix relative time, currently just showing the logged date and time
 - [ ] Clear the whole log
 - [ ] Delete an individual entry
 
