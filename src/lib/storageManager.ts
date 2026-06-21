@@ -104,7 +104,7 @@ const storageManager = (function () {
       };
       const index = conversionLog.indexOf(item);
       if (index !== -1) {
-        conversionLog.slice(index, 1);
+        conversionLog.splice(index, 1);
         localStorage.setItem("conversionLog", JSON.stringify(conversionLog));
       }
     }
