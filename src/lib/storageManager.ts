@@ -32,7 +32,7 @@ const storageManager = (function () {
       const item = `${base}/${target}`;
       if (!favorites.has(item)) {
         favorites.add(item);
-        localStorage.setItem("favorites", JSON.stringify(favorites));
+        localStorage.setItem("favorites", JSON.stringify([...favorites]));
       }
     }
   };
@@ -42,7 +42,7 @@ const storageManager = (function () {
       const item = `${base}/${target}`;
       if (favorites.has(item)) {
         favorites.delete(item);
-        localStorage.setItem("favorites", JSON.stringify(favorites));
+        localStorage.setItem("favorites", JSON.stringify([...favorites]));
       }
     }
   };
