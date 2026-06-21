@@ -87,6 +87,29 @@ const storageManager = (function () {
     }
   };
 
+  const removeLog = (
+    dateTimeLogged: string,
+    base: string,
+    target: string,
+    sendAmount: number,
+    receiveAmount: number,
+  ) => {
+    if (isStorageAvailable()) {
+      const item = {
+        dateTimeLogged: dateTimeLogged,
+        base: base,
+        target: target,
+        sendAmount: sendAmount,
+        receiveAmount: receiveAmount,
+      };
+      const index = conversionLog.indexOf(item);
+      if (index !== -1) {
+        conversionLog.slice(index, 1);
+        localStorage.setItem("conversionLog", JSON.stringify(conversionLog));
+      }
+    }
+  };
+
   return { addFavorite, removeFavorite, getFavorites, hasFavorite };
 })();
 
