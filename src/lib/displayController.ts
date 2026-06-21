@@ -144,7 +144,7 @@ const displayController = (function () {
       const base: string = formData.get("base")?.toString() ?? "";
       const target: string = formData.get("target")?.toString() ?? "";
       const sendAmount = baseAmount.valueAsNumber;
-      const receiveAmount = Number(outputAmount.value);
+      const receiveAmount = Number(outputAmount.value.replaceAll(",", ""));
       if (base && target && sendAmount && receiveAmount) {
         if (
           !storageManager.hasLog(now, base, target, sendAmount, receiveAmount)
@@ -160,6 +160,9 @@ const displayController = (function () {
       } else {
         // TODO: update the UX here
         alert("invalid log value");
+        console.log(
+          `base: ${base}; target: ${target}; sendAmount: ${sendAmount}; receiveAmount: ${receiveAmount}`,
+        );
       }
     });
 
