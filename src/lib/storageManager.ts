@@ -131,6 +131,12 @@ const storageManager = (function () {
     };
     return conversionLog.indexOf(item) !== -1;
   };
+
+  const getLog = () => {
+    const arr = [...conversionLog];
+    return arr;
+  };
+
   return {
     addFavorite,
     removeFavorite,
@@ -140,6 +146,7 @@ const storageManager = (function () {
     removeLog,
     clearLog,
     hasLog,
+    getLog,
   };
 })();
 

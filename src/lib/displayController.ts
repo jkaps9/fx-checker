@@ -64,6 +64,10 @@ const displayController = (function () {
   ) as HTMLElement;
   const numFavorites = document.getElementById("num-favorites") as HTMLElement;
 
+  // log elements
+  const logList = document.querySelector(".log__list") as HTMLElement;
+  const numLogged = document.getElementById("num-logged") as HTMLElement;
+
   // TODO: include ticker list script here
   let dateRange = "1M";
   const dateOffsets = new Map();
@@ -151,6 +155,8 @@ const displayController = (function () {
           logConversionButton.classList.remove("active");
           storageManager.addLog(now, base, target, sendAmount, receiveAmount);
         }
+
+        updateConversionLog();
       } else {
         // TODO: update the UX here
         alert("invalid log value");
@@ -355,6 +361,11 @@ const displayController = (function () {
     favoriteCounter.textContent = `${amount}`;
   };
 
+  const updateLogCount = (amount: number) => {
+    const logCounter = document.getElementById("log-counter") as HTMLElement;
+    logCounter.textContent = `${amount}`;
+  };
+
   const updateFavorites = () => {
     const favoritesArr = storageManager.getFavorites();
     if (favoritesArr) {
@@ -367,6 +378,22 @@ const displayController = (function () {
         favoritesArr.map((favorite) => {
           const listItem = createFavoriteListItem(favorite);
           favoritesList.appendChild(listItem);
+        });
+      }
+    }
+  };
+
+  const updateConversionLog = () => {
+    const conversionArr = storageManager.getLog();
+    if (conversionArr) {
+      numLogged.textContent = `${conversionArr.length}`;
+      logList.replaceChildren();
+      updateLogCount(conversionArr.length);
+
+      if (conversionArr.length > 0) {
+        conversionArr.map((conversion) => {
+          const listItem = createLogListItem(conversion);
+          logList.appendChild(listItem);
         });
       }
     }
@@ -423,6 +450,35 @@ const displayController = (function () {
       favoritesList.removeChild(listItem);
     });
     rightSide.appendChild(favButton);
+    listItem.appendChild(rightSide);
+
+    return listItem;
+  };
+
+  const createLogListItem = (conversion: any) => {
+    const listItem = document.createElement("li");
+    listItem.classList.add("card--inner");
+    listItem.classList.add("log__item");
+    const leftSide = document.createElement("div");
+    leftSide.classList.add("log-item__left-side");
+    const timeDiff = document.createElement("p");
+    const currentTime = new Date();
+    const logDate = new Date(conversion.dateTimeLogged);
+    const diffInMs = currentTime.getTime() - logDate.getTime();
+    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+    timeDiff.textContent = `${diffInDays}`;
+    leftSide.appendChild(timeDiff);
+    const currencyPair = document.createElement("div");
+    currencyPair.classList.add("log-item__currency-pair");
+    currencyPair.innerHTML = `<p>${conversion.base}</p><span>-></span><p>${conversion.target}</p>`;
+    leftSide.appendChild(currencyPair);
+    listItem.appendChild(leftSide);
+
+    const rightSide = document.createElement("div");
+    rightSide.classList.add("favorites-item__right-side");
+    const rightContent = document.createElement("div");
+    rightContent.classList.add("right-side__content");
+    rightSide.appendChild(rightContent);
     listItem.appendChild(rightSide);
 
     return listItem;
