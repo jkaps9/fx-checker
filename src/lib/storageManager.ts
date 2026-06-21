@@ -40,7 +40,10 @@ const storageManager = (function () {
   const removeFavorite = (base: string, target: string) => {
     if (isStorageAvailable()) {
       const item = `${base}/${target}`;
-      if (favorites.has(item)) favorites.delete(item);
+      if (favorites.has(item)) {
+        favorites.delete(item);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+      }
     }
   };
 
