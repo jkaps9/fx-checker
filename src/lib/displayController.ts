@@ -151,6 +151,9 @@ const displayController = (function () {
           logConversionButton.classList.remove("active");
           storageManager.addLog(now, base, target, sendAmount, receiveAmount);
         }
+      } else {
+        // TODO: update the UX here
+        alert("invalid log value");
       }
     });
 
