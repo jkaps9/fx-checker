@@ -46,11 +46,22 @@
       display: flex;
       gap: var(--space-sm);
     }
+
+    &__left-side {
+      @include flex-center;
+      gap: var(--space-md);
+
+      & > p {
+        width: 3rem;
+      }
+    }
+
     &__right-side {
+      @include flex-center;
+      gap: calc(var(--space-md) * 1.25);
       .right-side__content {
         @include flex-center;
         gap: calc(var(--space-md) * 1.25);
-        text-align: end;
       }
     }
   }
