@@ -478,7 +478,7 @@ const displayController = (function () {
     rightSide.classList.add("log-item__right-side");
     const rightContent = document.createElement("div");
     rightContent.classList.add("right-side__content");
-    rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p>${conversion.receiveAmount}</p><button class="btn">D</button>`;
+    rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p class="accent-text">${conversion.receiveAmount}</p><button class="btn">D</button>`;
     rightSide.appendChild(rightContent);
     listItem.appendChild(rightSide);
 

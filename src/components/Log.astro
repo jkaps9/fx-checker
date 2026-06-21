@@ -36,3 +36,22 @@
     margin-block-start: 1.25rem;
   }
 </style>
+<style lang="scss" is:global>
+  .log__item {
+    @include flex-between;
+  }
+
+  .log-item {
+    &__currency-pair {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    &__right-side {
+      .right-side__content {
+        @include flex-center;
+        gap: calc(var(--space-md) * 1.25);
+        text-align: end;
+      }
+    }
+  }
+</style>
