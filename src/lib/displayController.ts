@@ -466,7 +466,7 @@ const displayController = (function () {
     const logDate = new Date(conversion.dateTimeLogged);
     const diffInMs = currentTime.getTime() - logDate.getTime();
     const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-    timeDiff.textContent = `${diffInDays}`;
+    timeDiff.textContent = `${logDate.toISOString().split("T")[0]}`;
     leftSide.appendChild(timeDiff);
     const currencyPair = document.createElement("div");
     currencyPair.classList.add("log-item__currency-pair");
@@ -478,6 +478,7 @@ const displayController = (function () {
     rightSide.classList.add("favorites-item__right-side");
     const rightContent = document.createElement("div");
     rightContent.classList.add("right-side__content");
+    rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p>${conversion.receiveAmount}</p><button class="btn">D</button>`;
     rightSide.appendChild(rightContent);
     listItem.appendChild(rightSide);
 
