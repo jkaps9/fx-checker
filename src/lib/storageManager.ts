@@ -30,7 +30,10 @@ const storageManager = (function () {
   const addFavorite = (base: string, target: string) => {
     if (isStorageAvailable()) {
       const item = `${base}/${target}`;
-      if (!favorites.has(item)) favorites.add(item);
+      if (!favorites.has(item)) {
+        favorites.add(item);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+      }
     }
   };
 
