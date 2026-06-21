@@ -475,7 +475,7 @@ const displayController = (function () {
     listItem.appendChild(leftSide);
 
     const rightSide = document.createElement("div");
-    rightSide.classList.add("favorites-item__right-side");
+    rightSide.classList.add("log-item__right-side");
     const rightContent = document.createElement("div");
     rightContent.classList.add("right-side__content");
     rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p>${conversion.receiveAmount}</p><button class="btn">D</button>`;
