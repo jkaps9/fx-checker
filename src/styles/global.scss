@@ -232,6 +232,10 @@ section {
   padding-inline: var(--container-padding);
 }
 
+.accent-text {
+  color: var(--color-primary);
+}
+
 .card {
   background-color: var(--color-background-card);
 }
