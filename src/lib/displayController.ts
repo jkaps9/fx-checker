@@ -187,7 +187,8 @@ const displayController = (function () {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-    outputAmount.classList.add("accent-text");
+    if (amount !== 0) outputAmount.classList.add("accent-text");
+    else outputAmount.classList.remove("accent-text");
   };
 
   const updateFavoriteButtonState = (base: string, target: string) => {
@@ -243,6 +244,7 @@ const displayController = (function () {
           );
           const baseAmt = baseAmount.valueAsNumber;
           if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
+          if (!baseAmt) updateTargetAmount(0, 1);
 
           const listItems = data.map((day) => {
             const item = document.createElement("li");
