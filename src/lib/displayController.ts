@@ -5,6 +5,7 @@ import type { RateSummary } from "../types/fx";
 import { summarizeRates } from "@utils/fxUtils";
 import currencies from "@data/currencies.json" with { type: "json" };
 import storageManager from "./storageManager";
+import { ChartController } from "./chartController";
 
 const displayController = (function () {
   const apiController = new APIController();
@@ -49,6 +50,11 @@ const displayController = (function () {
     ".date-range-buttons > button",
   );
   const rateList = document.getElementById("rate-list") as HTMLElement;
+  const historicalChart = document.getElementById(
+    "historyChart",
+  ) as HTMLCanvasElement;
+
+  const chartController = new ChartController(historicalChart);
 
   // compare elements
   const comparisonList = document.getElementById(
@@ -267,8 +273,11 @@ const displayController = (function () {
           changePercentagePara.textContent = `${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%`;
           changePercentagePara.className = `${change > 0 ? "positive" : "negative"}`;
 
-          rateList.replaceChildren();
-          listItems.forEach((item) => rateList.appendChild(item));
+          // rateList.replaceChildren();
+          chartController;
+          listItems.forEach((item) => {
+            // rateList.appendChild(item);
+          });
         } else {
           updateBaseConversion("Error fetching rates. Please try again.");
         }

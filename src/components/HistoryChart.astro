@@ -5,29 +5,3 @@
 <div>
   <canvas id="historyChart"></canvas>
 </div>
-
-<script>
-  import Chart from "chart.js/auto";
-
-  const ctx = document.getElementById("historyChart") as HTMLCanvasElement;
-
-  new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: ["Apr 14", "Apr 21", "Apr 28", "May 06", "May 14"],
-      datasets: [
-        {
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-    },
-  });
-</script>
