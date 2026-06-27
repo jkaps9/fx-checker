@@ -221,6 +221,16 @@ section {
   }
 }
 
+input,
+output {
+  color: #9d9d9d;
+  font-size: 40px;
+
+  &::placeholder {
+    color: #9d9d9d;
+  }
+}
+
 /*~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~>
 <~~         Utilities          ~~>
 <~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~*/

@@ -187,6 +187,7 @@ const displayController = (function () {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+    outputAmount.classList.add("accent-text");
   };
 
   const updateFavoriteButtonState = (base: string, target: string) => {
