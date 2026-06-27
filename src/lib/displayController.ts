@@ -256,12 +256,6 @@ const displayController = (function () {
           if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
           if (!baseAmt) updateTargetAmount(0, 1);
 
-          const listItems = data.map((day) => {
-            const item = document.createElement("li");
-            item.textContent = `${day.date}: 1 ${day.base} = ${day.rate.toFixed(4)} ${day.quote}`;
-            return item;
-          });
-
           const open = data[0].rate;
           const close = data[data.length - 1].rate;
           const change = close - open;
@@ -272,11 +266,9 @@ const displayController = (function () {
           changeAmountPara.className = `${change > 0 ? "positive" : "negative"}`;
           changePercentagePara.textContent = `${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%`;
           changePercentagePara.className = `${change > 0 ? "positive" : "negative"}`;
-
-          // rateList.replaceChildren();
-          chartController;
-          listItems.forEach((item) => {
-            // rateList.appendChild(item);
+          chartController.removeData();
+          data.forEach((day) => {
+            chartController.addData(`${day.date}`, day.rate);
           });
         } else {
           updateBaseConversion("Error fetching rates. Please try again.");

@@ -25,19 +25,19 @@ export class ChartController {
     });
   }
 
-  //   const addData = (chart: Chart, label: string, newData: number) => {
-  //     chart.data.labels?.push(label);
-  //     chart.data.datasets.forEach((dataset) => {
-  //       dataset.data.push(newData);
-  //     });
-  //     chart.update();
-  //   };
+  addData(label: string, newData: number): void {
+    this.chart.data.labels?.push(label);
+    this.chart.data.datasets.forEach((dataset) => {
+      dataset.data.push(newData);
+    });
+    this.chart.update();
+  }
 
-  //   const removeData = (chart: Chart) => {
-  //     chart.data.labels?.pop();
-  //     chart.data.datasets.forEach((dataset) => {
-  //       dataset.data.pop();
-  //     });
-  //     chart.update("none");
-  //   };
+  removeData(): void {
+    this.chart.data.labels = [];
+    this.chart.data.datasets.forEach((dataset) => {
+      dataset.data = [];
+    });
+    this.chart.update();
+  }
 }
