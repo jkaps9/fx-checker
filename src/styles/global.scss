@@ -298,6 +298,10 @@ output {
     color: var(--color-body-text);
   }
 }
+
+.visually-hidden {
+  @include visually-hidden;
+}
 /* Skip to main content link - accessible to keyboard users and screen readers */
 // https://www.a11y-collective.com/blog/skip-to-main-content/
 .skip {

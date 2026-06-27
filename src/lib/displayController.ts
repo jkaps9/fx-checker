@@ -278,8 +278,19 @@ const displayController = (function () {
     const formData = new FormData(form);
     const base = formData.get("base")?.toString();
     const quotes = ["GBP", "JPY", "CHF", "CAD", "AUD", "INR", "CNY", "BDT"];
+    const compareCard = document.getElementById("compare-card") as HTMLElement;
+    const comparePairAmount = document.getElementById(
+      "compare-pairs",
+    ) as HTMLElement;
 
     if (!base) return;
+
+    const baseAmt = baseAmount.value === "" ? 0 : baseAmount.valueAsNumber;
+
+    if (baseAmt === 0) {
+      compareCard.classList.add("visually-hidden");
+      return;
+    }
 
     apiController.searchAll(base, quotes).then((data) => {
       if (data) {
@@ -287,7 +298,9 @@ const displayController = (function () {
         const listItems = dailySummaries.map((n) => {
           return createComparisonListItem(n);
         });
+        compareCard.classList.remove("visually-hidden");
         comparisonList.replaceChildren();
+        comparePairAmount.textContent = `${dailySummaries.length}`;
         listItems.forEach((item) => comparisonList.appendChild(item));
       }
     });
