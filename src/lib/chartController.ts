@@ -1,17 +1,28 @@
-import { Chart } from "chart.js/auto";
+import { Chart, Filler } from "chart.js/auto";
+Chart.register(Filler);
 
 export class ChartController {
   chart: Chart;
 
   constructor(ctx: HTMLCanvasElement) {
-    this.chart = new Chart(ctx, {
+    let cty = ctx.getContext("2d")!;
+    let gradient = cty.createLinearGradient(0, 0, 0, 400);
+
+    gradient?.addColorStop(0, "rgba(206,247,57,100)");
+    gradient?.addColorStop(1, "rgba(23, 23, 25, 0.00)");
+
+    this.chart = new Chart(cty, {
       type: "line",
       data: {
         labels: [],
         datasets: [
           {
             data: [],
-            borderWidth: 1,
+            backgroundColor: gradient,
+            borderWidth: 2,
+            borderColor: "rgb(206,247,57)",
+            fill: "start",
+            pointRadius: 0,
           },
         ],
       },
@@ -38,6 +49,6 @@ export class ChartController {
     this.chart.data.datasets.forEach((dataset) => {
       dataset.data = [];
     });
-    this.chart.update();
+    this.chart.update("none");
   }
 }
