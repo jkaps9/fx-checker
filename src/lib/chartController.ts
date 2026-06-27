@@ -49,9 +49,11 @@ export class ChartController {
                 const indices = [];
                 let current = totalItems - 1;
 
+                // TODO: change steps based on data length
+                const step = totalItems < 28 ? 1 : 8;
                 while (current >= 0) {
                   indices.push(current);
-                  current -= 8;
+                  current -= step;
                 }
 
                 if (indices[indices.length - 1] !== 0) {
