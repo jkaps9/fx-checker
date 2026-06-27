@@ -89,6 +89,7 @@ const displayController = (function () {
     getComparisons();
 
     updateFavorites();
+    updateConversionLog();
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -394,13 +395,18 @@ const displayController = (function () {
       numFavorites.textContent = `${favoritesArr.length}`;
       favoritesList.replaceChildren();
       updateFavoriteCount(favoritesArr.length);
-
+      const favoritesCard = document.getElementById(
+        "favorites-card",
+      ) as HTMLElement;
       if (favoritesArr.length > 0) {
+        favoritesCard.classList.remove("visually-hidden");
         favoritesList.replaceChildren();
         favoritesArr.map((favorite) => {
           const listItem = createFavoriteListItem(favorite);
           favoritesList.appendChild(listItem);
         });
+      } else {
+        favoritesCard.classList.add("visually-hidden");
       }
     }
   };
@@ -411,12 +417,17 @@ const displayController = (function () {
       numLogged.textContent = `${conversionArr.length}`;
       logList.replaceChildren();
       updateLogCount(conversionArr.length);
-
+      const conversionsCard = document.getElementById(
+        "log-card",
+      ) as HTMLElement;
       if (conversionArr.length > 0) {
+        conversionsCard.classList.remove("visually-hidden");
         conversionArr.map((conversion) => {
           const listItem = createLogListItem(conversion);
           logList.appendChild(listItem);
         });
+      } else {
+        conversionsCard.classList.add("visually-hidden");
       }
     }
   };
