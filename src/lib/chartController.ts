@@ -32,6 +32,37 @@ export class ChartController {
             display: false,
           },
         },
+        scales: {
+          x: {
+            ticks: {
+              autoSkip: false,
+              callback: function (val, index) {
+                const label = this.getLabelForValue(Number(val));
+                const dateObj = new Date(label);
+                const formattedDate = dateObj.toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                });
+
+                const totalItems = this.getLabels().length;
+
+                const indices = [];
+                let current = totalItems - 1;
+
+                while (current >= 0) {
+                  indices.push(current);
+                  current -= 8;
+                }
+
+                if (indices[indices.length - 1] !== 0) {
+                  indices.push(0);
+                }
+
+                return indices.includes(index) ? formattedDate : "";
+              },
+            },
+          },
+        },
       },
     });
   }
