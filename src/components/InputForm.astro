@@ -14,8 +14,9 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           <label for="base-amount"><h3>Send</h3></label>
           <div class="input-row">
             <input
-              type="number"
+              type="text"
               id="base-amount"
+              inputmode="numeric"
               name="base-amount"
               placeholder="0"
             />

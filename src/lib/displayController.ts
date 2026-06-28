@@ -97,6 +97,12 @@ const displayController = (function () {
     updateFavorites();
     updateConversionLog();
 
+    baseAmount.addEventListener("input", (e) => {
+      const target = e.target as HTMLInputElement;
+      let val = target.value.replace(/\D/g, "");
+      target.value = Number(val).toLocaleString("en-US");
+    });
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
     });
@@ -150,7 +156,7 @@ const displayController = (function () {
       const now = new Date().toISOString();
       const base: string = formData.get("base")?.toString() ?? "";
       const target: string = formData.get("target")?.toString() ?? "";
-      const sendAmount = baseAmount.valueAsNumber;
+      const sendAmount = Number(baseAmount.value);
       const receiveAmount = Number(outputAmount.value.replaceAll(",", ""));
       if (base && target && sendAmount && receiveAmount) {
         if (
@@ -224,7 +230,7 @@ const displayController = (function () {
 
     const targetVal = Number(outputAmount.value.replace(",", ""));
 
-    baseAmount.valueAsNumber = targetVal;
+    baseAmount.value = targetVal.toString();
   };
 
   const getApiData = () => {
@@ -252,7 +258,7 @@ const displayController = (function () {
           updateBaseConversion(
             `1 ${data[lastIndex].base} = ${data[lastIndex].rate.toFixed(4)} ${data[lastIndex].quote}`,
           );
-          const baseAmt = baseAmount.valueAsNumber;
+          const baseAmt = Number(baseAmount.value);
           if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
           if (!baseAmt) updateTargetAmount(0, 1);
 
@@ -287,7 +293,7 @@ const displayController = (function () {
 
     if (!base) return;
 
-    const baseAmt = baseAmount.value === "" ? 0 : baseAmount.valueAsNumber;
+    const baseAmt = baseAmount.value === "" ? 0 : Number(baseAmount.value);
 
     if (baseAmt === 0) {
       compareCard.classList.add("visually-hidden");
@@ -333,7 +339,7 @@ const displayController = (function () {
     const rateInfo = document.createElement("div");
     const convertedAmount = document.createElement("p");
 
-    const baseAmt = baseAmount.value === "" ? 0 : baseAmount.valueAsNumber;
+    const baseAmt = baseAmount.value === "" ? 0 : Number(baseAmount.value);
     const result = convertAmount(baseAmt, rateSummary.close);
     convertedAmount.textContent = result.toLocaleString(undefined, {
       minimumFractionDigits: 2,
@@ -360,13 +366,7 @@ const displayController = (function () {
   };
 
   const updateCompareAmountText = (base: string) => {
-    const amount =
-      baseAmount.value === ""
-        ? "0"
-        : baseAmount.valueAsNumber.toLocaleString(undefined, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          });
+    const amount = baseAmount.value === "" ? "0" : baseAmount.value;
 
     compareAmount.textContent = `${amount} FROM ${base}`;
   };
