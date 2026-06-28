@@ -485,7 +485,10 @@ const displayController = (function () {
       const arr = storageManager.getFavorites();
       numFavorites.textContent = `${arr.length}`;
       updateFavoriteCount(arr.length);
-      // TODO: figure out how to change class on input forms favorite button if the active pair is removed from favorites list
+      const formData = new FormData(form);
+      const base: string = formData.get("base")?.toString() ?? "";
+      const target: string = formData.get("target")?.toString() ?? "";
+      updateFavoriteButtonState(base, target);
     });
     rightSide.appendChild(favButton);
     listItem.appendChild(rightSide);
