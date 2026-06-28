@@ -99,8 +99,17 @@ const displayController = (function () {
 
     baseAmount.addEventListener("input", (e) => {
       const target = e.target as HTMLInputElement;
-      let val = target.value.replace(/\D/g, "");
-      target.value = Number(val).toLocaleString("en-US");
+      let val = target.value.replace(/[^0-9.]/g, "");
+      const parts = val.split(".");
+      if (parts.length > 2) {
+        val = parts[0] + "." + parts.slice(1).join("");
+      }
+
+      if (parts[0]) {
+        parts[0] = Number(parts[0]).toLocaleString("en-US");
+      }
+
+      target.value = parts.join(".");
     });
 
     form.addEventListener("submit", async (e) => {
@@ -257,7 +266,8 @@ const displayController = (function () {
           updateBaseConversion(
             `1 ${data[lastIndex].base} = ${data[lastIndex].rate.toFixed(4)} ${data[lastIndex].quote}`,
           );
-          const baseAmt = Number(baseAmount.value.replace(/\D/g, ""));
+          const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+          console.log(baseAmt);
           if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
           if (!baseAmt) updateTargetAmount(0, 1);
 
