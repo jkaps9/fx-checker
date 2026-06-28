@@ -228,9 +228,8 @@ const displayController = (function () {
     selectBase.value = target;
     selectTarget.value = base;
 
-    const targetVal = Number(outputAmount.value.replace(",", ""));
-
-    baseAmount.value = targetVal.toString();
+    const targetVal = outputAmount.value;
+    baseAmount.value = targetVal;
   };
 
   const getApiData = () => {
