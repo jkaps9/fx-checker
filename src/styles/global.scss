@@ -237,7 +237,7 @@ output {
 
 .container {
   width: 100%;
-  margin-inline: auto; /* TODO: revisit if i like this*/
+  margin-inline: auto;
   max-width: var(--container-max);
   padding-inline: var(--container-padding);
 }
