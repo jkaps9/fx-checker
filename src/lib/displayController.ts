@@ -258,7 +258,7 @@ const displayController = (function () {
           updateBaseConversion(
             `1 ${data[lastIndex].base} = ${data[lastIndex].rate.toFixed(4)} ${data[lastIndex].quote}`,
           );
-          const baseAmt = Number(baseAmount.value);
+          const baseAmt = Number(baseAmount.value.replace(/\D/g, ""));
           if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
           if (!baseAmt) updateTargetAmount(0, 1);
 
