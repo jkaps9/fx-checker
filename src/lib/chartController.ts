@@ -49,7 +49,6 @@ export class ChartController {
                 const indices = [];
                 let current = totalItems - 1;
 
-                // TODO: change steps based on data length
                 const step =
                   totalItems < 29
                     ? 1
