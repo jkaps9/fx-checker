@@ -149,13 +149,12 @@ const displayController = (function () {
       const target: string = formData.get("target")?.toString() ?? "";
       if (base && target) {
         if (storageManager.hasFavorite(base, target)) {
-          favoriteButton.classList.remove("active");
           storageManager.removeFavorite(base, target);
         } else {
-          favoriteButton.classList.add("active");
           storageManager.addFavorite(base, target);
         }
 
+        updateFavoriteButtonState(base, target);
         updateFavorites();
       }
     });
@@ -220,8 +219,10 @@ const displayController = (function () {
     if (base && target && base !== "" && target !== "") {
       if (storageManager.hasFavorite(base, target)) {
         favoriteButton.classList.add("active");
+        favoriteButton.textContent = "favorited";
       } else {
         favoriteButton.classList.remove("active");
+        favoriteButton.textContent = "favorite";
       }
     }
   };
