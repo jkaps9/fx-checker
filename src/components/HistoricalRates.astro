@@ -57,6 +57,10 @@ import HistoryChart from "./HistoryChart.astro";
 </section>
 
 <style lang="scss">
+  .rate-display {
+    display: grid;
+    gap: 1.25rem;
+  }
   .rate-cards {
     display: grid;
     gap: 1rem;
@@ -107,5 +111,15 @@ import HistoryChart from "./HistoryChart.astro";
 
   :global(#rate-list > li) {
     font-size: 12px;
+  }
+
+  .card {
+    padding-block: clamp(
+      var(--space-md),
+      0.912rem + 0.3756vw,
+      calc(var(--space-md) * 1.25)
+    );
+
+    padding-inline: clamp(0.75rem, 0.5739rem + 0.7512vw, 1.25rem);
   }
 </style>
