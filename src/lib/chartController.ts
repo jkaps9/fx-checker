@@ -43,7 +43,6 @@ export class ChartController {
               callback: function (value: string | number) {
                 return Number(value).toFixed(4);
               },
-              maxTicksLimit: 3,
               padding: 16,
             },
           },
