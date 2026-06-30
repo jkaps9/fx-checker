@@ -339,6 +339,7 @@ const displayController = (function () {
     const currency = document.createElement("p");
     currency.textContent = rateSummary.quote;
     const currencyName = document.createElement("p");
+    currencyName.classList.add("muted-text");
     currencyName.textContent = getCurrencyName(rateSummary.quote);
 
     leftSide.appendChild(flag);
@@ -347,6 +348,7 @@ const displayController = (function () {
     leftSide.appendChild(currencyInfo);
 
     const rightSide = document.createElement("div");
+    rightSide.classList.add("right-side");
     const rateInfo = document.createElement("div");
     const convertedAmount = document.createElement("p");
 
@@ -357,6 +359,7 @@ const displayController = (function () {
       maximumFractionDigits: 2,
     });
     const rate = document.createElement("p");
+    rate.classList.add("muted-text");
     rate.textContent = `@ ${rateSummary.close}`;
     const favoriteButton = document.createElement("button");
 

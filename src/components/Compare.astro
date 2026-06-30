@@ -12,8 +12,11 @@ import FlagImage from "./FlagImage.astro";
       id="compare-card"
     >
       <div class="top-row">
-        <p>Multi-currency <span id="compare-amount">0.00 FROM USD</span></p>
-        <p><span id="compare-pairs">8</span> PAIRS</p>
+        <p>
+          <span class="muted-text">MULTI-CURRENCY</span>
+          <span id="compare-amount">0.00 FROM USD</span>
+        </p>
+        <p class="muted-text"><span id="compare-pairs">8</span> PAIRS</p>
       </div>
       <ul id="comparison__list"></ul>
     </div>
@@ -28,8 +31,24 @@ import FlagImage from "./FlagImage.astro";
 </section>
 
 <style lang="scss">
+  .card {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
   .top-row {
     @include flex-between;
+    span.muted-text {
+      font-size: 14px;
+    }
+    p.muted-text {
+      font-size: 12px;
+    }
+  }
+
+  #comparison__list {
+    display: grid;
+    gap: 0.75rem;
   }
 </style>
 
@@ -47,5 +66,18 @@ import FlagImage from "./FlagImage.astro";
 
   .left-side {
     display: flex;
+    gap: 1.25rem;
+    .muted-text {
+      font-size: 12px;
+    }
+  }
+
+  .right-side {
+    display: flex;
+    gap: 1.25rem;
+    text-align: end;
+    .muted-text {
+      font-size: 10px;
+    }
   }
 </style>
