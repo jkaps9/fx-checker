@@ -248,6 +248,7 @@ output {
 
 .card {
   background-color: var(--color-background-card);
+  border-radius: var(--radius-20);
 }
 
 .card--inner {

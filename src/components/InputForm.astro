@@ -194,24 +194,21 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   form {
     display: grid;
     gap: clamp(var(--space-md), 0.8239rem + 0.7512vw, var(--space-lg));
-    padding-bottom: clamp(
+    padding-block: clamp(
       var(--space-md),
       0.912rem + 0.3756vw,
       calc(var(--space-md) * 1.25)
     );
+    padding-inline: clamp(
+      var(--space-md),
+      0.912rem + 0.3756vw,
+      calc(var(--space-md) * 1.25)
+    );
+
     @include bp(md) {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
     }
-  }
-
-  .card {
-    display: grid;
-    padding: clamp(
-      var(--space-md),
-      0.912rem + 0.3756vw,
-      calc(var(--space-md) * 1.25)
-    );
   }
 
   .currency-swap {
@@ -264,5 +261,12 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
   .bottom-row {
     @include flex-between;
+    border-top: 1px dashed #2e2e2e;
+    padding-block: 1rem;
+    padding-inline: clamp(
+      var(--space-md),
+      0.912rem + 0.3756vw,
+      calc(var(--space-md) * 1.25)
+    );
   }
 </style>
