@@ -217,12 +217,13 @@ const displayController = (function () {
 
   const updateFavoriteButtonState = (base: string, target: string) => {
     if (base && target && base !== "" && target !== "") {
+      const buttonText = favoriteButton.querySelector(".text") as HTMLElement;
       if (storageManager.hasFavorite(base, target)) {
         favoriteButton.classList.add("active");
-        favoriteButton.textContent = "favorited";
+        buttonText.textContent = "favorited";
       } else {
         favoriteButton.classList.remove("active");
-        favoriteButton.textContent = "favorite";
+        buttonText.textContent = "favorite";
       }
     }
   };

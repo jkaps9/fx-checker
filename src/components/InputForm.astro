@@ -122,7 +122,19 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             class="btn"
             id="favorite-button"
           >
-            Favorite
+            <Icon
+              name="icon-star"
+              aria-hidden="true"
+              height={16}
+              width={16}
+            />
+            <Icon
+              name="icon-star-filled"
+              aria-hidden="true"
+              height={16}
+              width={16}
+            />
+            <span class="text">Favorite</span>
           </button>
           <button
             type="button"
@@ -280,5 +292,33 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
   #log-conversion {
     border: 1px solid var(--color-primary);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  [data-icon="icon-star-filled"] {
+    color: var(--color-background-dark);
+    display: none;
+  }
+
+  [data-icon="icon-star"] {
+    display: block;
+  }
+
+  .active {
+    [data-icon="icon-star"] {
+      display: none;
+    }
+    [data-icon="icon-star-filled"] {
+      display: block;
+    }
   }
 </style>
