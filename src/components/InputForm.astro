@@ -176,6 +176,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
         transform: rotate(180deg);
       }
     }
+
+    &:hover {
+      background-color: #3d3d3d;
+    }
   }
 
   .select-button {
@@ -272,5 +276,9 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
       0.912rem + 0.3756vw,
       calc(var(--space-md) * 1.25)
     );
+  }
+
+  #log-conversion {
+    border: 1px solid var(--color-primary);
   }
 </style>
