@@ -221,11 +221,17 @@ section {
   }
 }
 
+input {
+  color: var(--color-body-text-light);
+}
+
+output {
+  color: #9d9d9d;
+}
+
 input,
 output {
-  color: var(--color-body-text-light);
   font-size: 40px;
-
   &::placeholder {
     color: #9d9d9d;
   }
