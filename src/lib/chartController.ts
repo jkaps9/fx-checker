@@ -22,7 +22,9 @@ export class ChartController {
             borderWidth: 2,
             borderColor: "rgb(206,247,57)",
             fill: "start",
-            pointRadius: 0,
+            pointRadius: 12,
+            pointBackgroundColor: "rgba(0, 0, 0, 0)",
+            pointBorderColor: "rgba(0, 0, 0, 0)",
           },
         ],
       },
@@ -33,7 +35,22 @@ export class ChartController {
           },
         },
         scales: {
+          y: {
+            grid: {
+              color: "#2e2e2e",
+            },
+            ticks: {
+              callback: function (value: string | number) {
+                return Number(value).toFixed(4);
+              },
+              maxTicksLimit: 3,
+              padding: 16,
+            },
+          },
           x: {
+            grid: {
+              display: false,
+            },
             ticks: {
               autoSkip: false,
               callback: function (val, index) {
@@ -70,6 +87,9 @@ export class ChartController {
 
                 return indices.includes(index) ? formattedDate : "";
               },
+              minRotation: 0,
+              maxRotation: 0,
+              padding: 16,
             },
           },
         },
