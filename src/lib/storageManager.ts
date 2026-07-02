@@ -87,25 +87,16 @@ const storageManager = (function () {
     }
   };
 
-  const removeLog = (
-    dateTimeLogged: string,
-    base: string,
-    target: string,
-    sendAmount: number,
-    receiveAmount: number,
-  ) => {
+  const removeLog = (dateTimeLogged: string) => {
     if (isStorageAvailable()) {
-      const item = {
-        dateTimeLogged: dateTimeLogged,
-        base: base,
-        target: target,
-        sendAmount: sendAmount,
-        receiveAmount: receiveAmount,
-      };
-      const index = conversionLog.indexOf(item);
+      const index = conversionLog.findIndex(
+        (logItem) => logItem.dateTimeLogged === dateTimeLogged,
+      );
       if (index !== -1) {
         conversionLog.splice(index, 1);
         localStorage.setItem("conversionLog", JSON.stringify(conversionLog));
+      } else {
+        console.error("log item not found");
       }
     }
   };

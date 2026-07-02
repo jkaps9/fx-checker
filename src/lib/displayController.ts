@@ -77,6 +77,7 @@ const displayController = (function () {
   // log elements
   const logList = document.querySelector(".log__list") as HTMLElement;
   const numLogged = document.getElementById("num-logged") as HTMLElement;
+  const logCounter = document.getElementById("log-counter") as HTMLElement;
 
   // TODO: include ticker list script here
   let dateRange = "1M";
@@ -415,8 +416,8 @@ const displayController = (function () {
     favoriteCounter.textContent = `${amount}`;
   };
 
-  const updateLogCount = (amount: number) => {
-    const logCounter = document.getElementById("log-counter") as HTMLElement;
+  const updateLogCount = () => {
+    const amount = storageManager.getLog().length;
     logCounter.textContent = `${amount}`;
   };
 
@@ -447,7 +448,7 @@ const displayController = (function () {
     if (conversionArr) {
       numLogged.textContent = `${conversionArr.length}`;
       logList.replaceChildren();
-      updateLogCount(conversionArr.length);
+      updateLogCount();
       const conversionsCard = document.getElementById(
         "log-card",
       ) as HTMLElement;
@@ -531,7 +532,7 @@ const displayController = (function () {
     listItem.classList.add("card--inner");
     listItem.classList.add("log__item");
     const leftSide = document.createElement("div");
-    leftSide.classList.add("log-item__left-side");
+    leftSide.classList.add("logupdateLogCount-item__left-side");
     const timeDiff = document.createElement("p");
     const currentTime = new Date();
     const logDate = new Date(conversion.dateTimeLogged);
@@ -554,14 +555,9 @@ const displayController = (function () {
     deleteLogButton.classList.add("btn", "btn--delete");
     deleteLogButton.innerHTML = `<div class="icon">${deleteSVG}</div><div class="icon-filled">${filledDeleteSVG}</div>`;
     deleteLogButton.addEventListener("click", () => {
-      storageManager.removeLog(
-        conversion.dateTimeLogged,
-        conversion.base,
-        conversion.target,
-        conversion.sendAmount,
-        conversion.receiveAmount,
-      );
+      storageManager.removeLog(conversion.dateTimeLogged);
       logList.removeChild(listItem);
+      updateLogCount();
     });
     rightSide.appendChild(rightContent);
     rightSide.appendChild(deleteLogButton);
