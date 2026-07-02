@@ -4,24 +4,26 @@
 
 :root {
   // Colors
-  --color-primary: #{$color-primary};
-  --color-primary-dark: #{$color-primary-dark};
-  --color-background: #{$color-background};
-  --color-background-dark: #{$color-background-dark};
-  --color-background-card: #{$color-background-card};
-  --color-background-light: #{$color-background-light};
-  --color-background-hover: #{$color-background-hover};
-  --color-border: #{$color-border};
-  --color-button-border: #{$color-button-border};
-  --color-header-text: #{$color-header-text};
-  --color-header-text-muted: #{$color-header-text-muted};
-  --color-body-text: #{$color-body-text};
-  --color-body-text-muted: #{$color-body-text-muted};
-  --color-header-text-light: #{$color-header-text-light};
-  --color-body-text-light: #{$color-body-text-light};
-  --color-error: #{$color-error};
-  --color-green: #{$color-green};
-  --color-white: #{$color-white};
+  --color-primary: #{$lime-500};
+  --color-primary-dark: #{$lime-800};
+  --color-text-on-primary: #{$neutral-900};
+
+  --color-background: #{$neutral-900};
+  --color-background-card: #{$neutral-700};
+  --color-background-surface: #{$neutral-600};
+  --color-background-hover: #{$neutral-400};
+
+  --color-border: #{$neutral-500};
+  --color-button-border: #{$neutral-300};
+
+  --color-header-text: #{$neutral-50};
+  --color-header-text-muted: #{$neutral-100};
+
+  --color-body-text: #{$neutral-50};
+  --color-body-text-muted: #{$neutral-200};
+
+  --color-negative: #{$red-500};
+  --color-positive: #{$green-500};
 
   // Typography
   --font-heading: #{$font-heading};
@@ -81,8 +83,8 @@
 
 body {
   //   @include type-body;
-  color: var(--color-body-text-light);
-  background-color: var(--color-background-dark);
+  color: var(--color-body-text);
+  background-color: var(--color-background);
   font-family: var(--font-body);
   // overflow-x: hidden;
   /* 5. Improve text rendering */
@@ -126,7 +128,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--color-header-text-light);
+  color: var(--color-header-text);
   text-wrap: balance;
 }
 
@@ -228,7 +230,7 @@ section {
 }
 
 input {
-  color: var(--color-body-text-light);
+  color: var(--color-body-text);
 }
 
 output {
@@ -274,29 +276,29 @@ output {
 }
 
 .card--inner {
-  background-color: var(--color-background-light);
+  background-color: var(--color-background-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-16);
   padding: calc(var(--space-md) * 0.75) calc(var(--space-md) * 1.25);
 }
 
 .positive {
-  color: var(--color-green);
+  color: var(--color-positive);
 }
 
 .negative {
-  color: var(--color-error);
+  color: var(--color-negative);
 }
 
 .divider {
-  background-color: var(--color-header-text);
+  background-color: var(--color-text-on-primary);
   border-radius: var(--radius-full);
   height: 6px;
   width: 6px;
 }
 
 .btn {
-  background: var(--color-background-light);
+  background: var(--color-background-surface);
   border: 1px solid var(--color-button-border);
   border-radius: var(--radius-8);
   color: var(--color-body-text-muted);
@@ -314,7 +316,7 @@ output {
 
   &:hover {
     background: var(--color-border);
-    color: var(--color-body-text-light);
+    color: var(--color-body-text);
   }
   &:focus {
     border-color: var(--color-border);
@@ -324,13 +326,13 @@ output {
   }
   &.active {
     background: var(--color-primary);
-    color: var(--color-body-text);
+    color: var(--color-text-on-primary);
   }
 
   &--favorite {
     padding: 0.5rem;
     &.active {
-      background: var(--color-background-light);
+      background: var(--color-background-surface);
       border-color: var(--color-primary);
 
       &:hover {

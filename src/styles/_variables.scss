@@ -1,22 +1,19 @@
 // Colors
-$color-primary: #cef739;
-$color-primary-dark: #283300;
-$color-background: #fafafa;
-$color-background-dark: #0a0a0a;
-$color-background-card: #171719;
-$color-background-light: #202022;
-$color-background-hover: #3d3d3d;
-$color-border: #2e2e2e;
-$color-button-border: #454547;
-$color-header-text: #0a0a0a;
-$color-header-text-muted: #c6c6c6;
-$color-body-text: #0a0a0a;
-$color-body-text-muted: #9d9d9d;
-$color-header-text-light: #ffffff;
-$color-body-text-light: #ffffff;
-$color-error: #ff4141;
-$color-green: #42eb05;
-$color-white: #ffffff;
+$lime-500: #cef739;
+$lime-800: #283300;
+
+$green-500: #42eb05;
+$red-500: #ff4141;
+
+$neutral-50: #ffffff;
+$neutral-100: #c6c6c6;
+$neutral-200: #9d9d9d;
+$neutral-300: #454547;
+$neutral-400: #3d3d3d;
+$neutral-500: #2e2e2e;
+$neutral-600: #202022;
+$neutral-700: #171719;
+$neutral-900: #0a0a0a;
 
 // Typography
 $font-heading: var(--font-jetbrains-mono);
