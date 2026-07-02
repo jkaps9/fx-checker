@@ -18,7 +18,7 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
 >
   <FlagImage countryCode={countryCode} />
   <span class="currency-code">{currencyCode}</span>
-  <span class="currency-name">{currencyName}</span>
+  <span class="currency-name muted-text">{currencyName}</span>
 </option>
 
 <style lang="scss">
@@ -39,7 +39,6 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
   }
 
   .currency-name {
-    color: #9d9d9d;
     font-size: 12px;
   }
 </style>

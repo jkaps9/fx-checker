@@ -32,7 +32,7 @@
         const item = document.createElement("li");
 
         const currencyPair = document.createElement("span");
-        currencyPair.className = "currency-pair";
+        currencyPair.className = "currency-pair muted-text";
         currencyPair.textContent = `${currency}/${n.quote}`;
 
         const currencyRate = document.createElement("span");
@@ -110,10 +110,6 @@
     font-size: 12px;
     gap: calc(var(--space-sm) + 2px);
     padding: calc(var(--space-sm) * 1.5);
-  }
-
-  :global(.ticker__list > li > span.currency-pair) {
-    color: #9d9d9d;
   }
 
   @keyframes scroll-left {
