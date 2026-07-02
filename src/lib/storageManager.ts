@@ -126,9 +126,9 @@ const storageManager = (function () {
         favorites = JSON.parse(storedFavorites);
       }
 
-      const storedLog = localStorage.getItem("convesrionLog");
+      const storedLog = localStorage.getItem("conversionLog");
       if (storedLog) {
-        favorites = JSON.parse(storedLog);
+        conversionLog = JSON.parse(storedLog);
       }
     }
   };
