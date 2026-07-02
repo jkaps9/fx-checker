@@ -371,6 +371,8 @@ const displayController = (function () {
     rate.textContent = `@ ${rateSummary.close}`;
     const favoriteButton = document.createElement("button");
     favoriteButton.classList.add("btn", "btn--favorite");
+    if (storageManager.hasFavorite(base, rateSummary.quote))
+      favoriteButton.classList.add("active");
     favoriteButton.innerHTML = `<div class="star">${starSVG}</div><div class="star-filled">${filledStarSVG}</div>`;
     favoriteButton.addEventListener("click", () => {
       favoriteButton.classList.toggle("active");
