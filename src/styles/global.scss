@@ -81,14 +81,19 @@
 #moon {
   display: none;
 }
+
 #sun {
-  display: block;
+  @include flex-center;
+  gap: 0.25rem;
 }
 
 :root[data-theme="light"] {
   #moon {
-    display: block;
+    @include flex-center;
+    flex-direction: row-reverse;
+    gap: 0.25rem;
   }
+
   #sun {
     display: none;
   }

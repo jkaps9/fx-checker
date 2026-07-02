@@ -2,7 +2,6 @@
 import Font from "astro/components/Font.astro";
 import "@styles/global.scss";
 import Header from "@components/Header.astro";
-import { Icon } from "astro-icon/components";
 
 const { pageTitle } = Astro.props;
 ---
@@ -49,48 +48,9 @@ const { pageTitle } = Astro.props;
       Click To Skip To Main Content
     </a>
     <Header />
-    <button
-      id="theme-toggle"
-      aria-label="Toggle theme"
-    >
-      <div id="moon">
-        <Icon
-          name="icon-moon"
-          height={28}
-          width={28}
-        />
-      </div>
-      <div id="sun">
-        <Icon
-          name="icon-sun"
-          height={28}
-          width={28}
-        />
-      </div>
-    </button>
     <main id="main">
       <slot />
     </main>
     <!-- <Footer /> -->
-    <script>
-      const toggleBtn = document.getElementById(
-        "theme-toggle",
-      ) as HTMLButtonElement;
-
-      toggleBtn.addEventListener("click", () => {
-        const root = document.documentElement;
-        const isLight = root.getAttribute("data-theme") === "light";
-
-        if (isLight) {
-          // Switch to Dark (Default)
-          root.removeAttribute("data-theme");
-          localStorage.setItem("theme", "dark");
-        } else {
-          // Switch to Light
-          root.setAttribute("data-theme", "light");
-          localStorage.setItem("theme", "light");
-        }
-      });
-    </script>
   </body>
 </html>

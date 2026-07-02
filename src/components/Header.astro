@@ -1,14 +1,19 @@
 ---
 import { Icon } from "astro-icon/components";
 import currencies from "@data/currencies.json";
+
+import ThemeSwitcher from "./ThemeSwitcher.astro";
 ---
 
 <header>
   <div class="container">
     <Icon name="logo" />
-    <p class="header__content">
-      {currencies.length} CURRENCIES · EOD · ECB DATA
-    </p>
+    <div class="header__right">
+      <p class="header__content">
+        {currencies.length} CURRENCIES · EOD · ECB DATA
+      </p>
+      <ThemeSwitcher />
+    </div>
   </div>
 </header>
 
@@ -29,5 +34,10 @@ import currencies from "@data/currencies.json";
   [data-icon="logo"] {
     height: clamp(1.25rem, 0.8922rem + 1.5267vw, 1.625rem);
     width: auto;
+  }
+
+  .header__right {
+    @include flex-center;
+    gap: 1.25rem;
   }
 </style>
