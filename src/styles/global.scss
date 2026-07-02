@@ -305,6 +305,7 @@ output {
     color: var(--color-body-text-light);
   }
   &:focus {
+    border-color: #2e2e2e;
     box-shadow:
       0 0 0 3px #171719,
       0 0 0 4px var(--color-primary);
@@ -324,6 +325,9 @@ output {
         background: #2e2e2e;
       }
 
+      &:focus {
+        border-color: #2e2e2e;
+      }
       .star {
         display: none;
       }
