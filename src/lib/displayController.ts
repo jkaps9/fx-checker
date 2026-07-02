@@ -269,7 +269,6 @@ const displayController = (function () {
             `1 ${data[lastIndex].base} = ${data[lastIndex].rate.toFixed(4)} ${data[lastIndex].quote}`,
           );
           const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
-          console.log(baseAmt);
           if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
           if (!baseAmt) updateTargetAmount(0, 1);
 
@@ -304,7 +303,7 @@ const displayController = (function () {
 
     if (!base) return;
 
-    const baseAmt = baseAmount.value === "" ? 0 : Number(baseAmount.value);
+    const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
 
     if (baseAmt === 0) {
       compareCard.classList.add("visually-hidden");
@@ -352,7 +351,7 @@ const displayController = (function () {
     const rateInfo = document.createElement("div");
     const convertedAmount = document.createElement("p");
 
-    const baseAmt = baseAmount.value === "" ? 0 : Number(baseAmount.value);
+    const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
     const result = convertAmount(baseAmt, rateSummary.close);
     convertedAmount.textContent = result.toLocaleString(undefined, {
       minimumFractionDigits: 2,
