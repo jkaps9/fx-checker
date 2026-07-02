@@ -166,7 +166,7 @@ const displayController = (function () {
       const now = new Date().toISOString();
       const base: string = formData.get("base")?.toString() ?? "";
       const target: string = formData.get("target")?.toString() ?? "";
-      const sendAmount = Number(baseAmount.value);
+      const sendAmount = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
       const receiveAmount = Number(outputAmount.value.replaceAll(",", ""));
       if (base && target && sendAmount && receiveAmount) {
         if (
@@ -550,6 +550,7 @@ const displayController = (function () {
     rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p class="accent-text">${conversion.receiveAmount}</p>`;
     const deleteLogButton = document.createElement("button");
     deleteLogButton.classList.add("btn");
+    // TODO: replace with SVG
     deleteLogButton.textContent = "D";
     deleteLogButton.addEventListener("click", () => {
       storageManager.removeLog(
