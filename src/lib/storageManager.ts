@@ -1,5 +1,5 @@
 const storageManager = (function () {
-  const favorites: string[] = [];
+  let favorites: string[] = [];
   let conversionLog: {
     dateTimeLogged: string;
     base: string;
@@ -118,6 +118,22 @@ const storageManager = (function () {
     const arr = [...conversionLog];
     return arr;
   };
+
+  const initialize = () => {
+    if (isStorageAvailable()) {
+      const storedFavorites = localStorage.getItem("favorites");
+      if (storedFavorites) {
+        favorites = JSON.parse(storedFavorites);
+      }
+
+      const storedLog = localStorage.getItem("convesrionLog");
+      if (storedLog) {
+        favorites = JSON.parse(storedLog);
+      }
+    }
+  };
+
+  initialize();
 
   return {
     addFavorite,
