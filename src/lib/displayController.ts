@@ -316,7 +316,7 @@ const displayController = (function () {
       if (data) {
         const dailySummaries = summarizeRates(data);
         const listItems = dailySummaries.map((n) => {
-          return createComparisonListItem(n);
+          return createComparisonListItem(n, base);
         });
         compareCard.classList.remove("visually-hidden");
         comparisonList.replaceChildren();
@@ -326,7 +326,10 @@ const displayController = (function () {
     });
   };
 
-  const createComparisonListItem = (rateSummary: RateSummary): HTMLElement => {
+  const createComparisonListItem = (
+    rateSummary: RateSummary,
+    base: string,
+  ): HTMLElement => {
     const item = document.createElement("li");
     item.classList.add("comparison__item");
     item.classList.add("card--inner");
@@ -367,6 +370,11 @@ const displayController = (function () {
     favoriteButton.innerHTML = `<div class="star">${starSVG}</div><div class="star-filled">${filledStarSVG}</div>`;
     favoriteButton.addEventListener("click", () => {
       favoriteButton.classList.toggle("active");
+      if (storageManager.hasFavorite(base, rateSummary.quote)) {
+        storageManager.removeFavorite(base, rateSummary.quote);
+      } else {
+        storageManager.addFavorite(base, rateSummary.quote);
+      }
     });
     rateInfo.appendChild(convertedAmount);
     rateInfo.appendChild(rate);
