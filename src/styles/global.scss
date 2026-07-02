@@ -317,10 +317,15 @@ output {
 
 .visually-hidden {
   @include visually-hidden;
+
+  & + .empty-section {
+    display: flex;
+  }
 }
 
 .empty-section {
   @include flex-center;
+  display: none;
   flex-direction: column;
   gap: 1rem;
   padding-block: 40px;
