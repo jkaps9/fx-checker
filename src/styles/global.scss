@@ -10,8 +10,11 @@
   --color-background-dark: #{$color-background-dark};
   --color-background-card: #{$color-background-card};
   --color-background-light: #{$color-background-light};
+  --color-background-hover: #{$color-background-hover};
   --color-border: #{$color-border};
+  --color-button-border: #{$color-button-border};
   --color-header-text: #{$color-header-text};
+  --color-header-text-muted: #{$color-header-text-muted};
   --color-body-text: #{$color-body-text};
   --color-body-text-muted: #{$color-body-text-muted};
   --color-header-text-light: #{$color-header-text-light};
@@ -202,7 +205,7 @@ h2 {
 }
 
 h3 {
-  color: #c6c6c6;
+  color: var(--color-header-text-muted);
   font-weight: 400;
   letter-spacing: 1px;
 }
@@ -294,7 +297,7 @@ output {
 
 .btn {
   background: var(--color-background-light);
-  border: 1px solid #454547;
+  border: 1px solid var(--color-button-border);
   border-radius: var(--radius-8);
   color: var(--color-body-text-muted);
   display: inline-flex;
@@ -316,7 +319,7 @@ output {
   &:focus {
     border-color: var(--color-border);
     box-shadow:
-      0 0 0 3px #171719,
+      0 0 0 3px var(--color-background-card),
       0 0 0 4px var(--color-primary);
   }
   &.active {
@@ -386,7 +389,7 @@ output {
   padding-block: 40px;
   text-align: center;
   h2 {
-    color: #c6c6c6;
+    color: var(--color-header-text-muted);
     text-transform: none;
   }
   p {
