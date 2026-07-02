@@ -73,6 +73,9 @@ const displayController = (function () {
     ".favorites__list",
   ) as HTMLElement;
   const numFavorites = document.getElementById("num-favorites") as HTMLElement;
+  const favoriteCounter = document.getElementById(
+    "favorite-counter",
+  ) as HTMLElement;
 
   // log elements
   const logList = document.querySelector(".log__list") as HTMLElement;
@@ -408,15 +411,13 @@ const displayController = (function () {
   };
 
   const updateFavoriteCount = (amount: number) => {
-    const favoriteCounter = document.getElementById(
-      "favorite-counter",
-    ) as HTMLElement;
-    favoriteCounter.textContent = `${amount}`;
+    if (favoriteCounter) favoriteCounter.textContent = `${amount}`;
   };
 
   const updateLogCount = () => {
     const amount = storageManager.getLog().length;
-    logCounter.textContent = `${amount}`;
+    if (logCounter) logCounter.textContent = `${amount}`;
+    if (numLogged) numLogged.textContent = `${amount}`;
   };
 
   const updateFavorites = () => {
@@ -444,7 +445,6 @@ const displayController = (function () {
   const updateConversionLog = () => {
     const conversionArr = storageManager.getLog();
     if (conversionArr) {
-      numLogged.textContent = `${conversionArr.length}`;
       logList.replaceChildren();
       updateLogCount();
       const conversionsCard = document.getElementById(
