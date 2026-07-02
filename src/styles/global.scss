@@ -60,12 +60,12 @@
 }
 
 [data-theme="light"] {
-  --color-background: #{$neutral-50};
-  --color-background-card: #{$neutral-100};
-  --color-background-surface: #{$neutral-200};
-  --color-background-hover: #{$neutral-300};
+  --color-background: #{$lime-50};
+  --color-background-card: #{$neutral-50};
+  --color-background-surface: #{$lime-50};
+  --color-background-hover: #{$neutral-200};
 
-  --color-border: #{$neutral-300};
+  --color-border: #{$neutral-100};
   --color-button-border: #{$neutral-500};
 
   --color-header-text: #{$neutral-900};
