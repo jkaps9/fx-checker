@@ -4,11 +4,7 @@ import type { FxRate } from "../types/fx";
 export class APIController {
   private frankfurterAPI = new FrankfurterAPI();
 
-  constructor() {
-    this.init();
-  }
-
-  init() {}
+  constructor() {}
 
   async search(
     base: string,
