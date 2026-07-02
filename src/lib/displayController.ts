@@ -8,6 +8,8 @@ import storageManager from "./storageManager";
 import { ChartController } from "./chartController";
 import starSVG from "../icons/icon-star.svg?raw";
 import filledStarSVG from "../icons/icon-star-filled.svg?raw";
+import deleteSVG from "../icons/icon-delete.svg?raw";
+import filledDeleteSVG from "../icons/icon-delete-filled.svg?raw";
 
 const displayController = (function () {
   const apiController = new APIController();
@@ -549,9 +551,8 @@ const displayController = (function () {
     rightContent.classList.add("right-side__content");
     rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p class="accent-text">${conversion.receiveAmount}</p>`;
     const deleteLogButton = document.createElement("button");
-    deleteLogButton.classList.add("btn");
-    // TODO: replace with SVG
-    deleteLogButton.textContent = "D";
+    deleteLogButton.classList.add("btn", "btn--delete");
+    deleteLogButton.innerHTML = `<div class="icon">${deleteSVG}</div><div class="icon-filled">${filledDeleteSVG}</div>`;
     deleteLogButton.addEventListener("click", () => {
       storageManager.removeLog(
         conversion.dateTimeLogged,

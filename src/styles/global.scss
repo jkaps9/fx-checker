@@ -317,8 +317,13 @@ output {
   &--favorite {
     padding: 0.5rem;
     &.active {
-      background-color: #202022;
+      background: #202022;
       border-color: var(--color-primary);
+
+      &:hover {
+        background: #2e2e2e;
+      }
+
       .star {
         display: none;
       }
@@ -332,6 +337,22 @@ output {
       svg path {
         fill: var(--color-primary);
       }
+    }
+  }
+
+  &--delete {
+    padding: 0.5rem;
+    &:hover {
+      .icon {
+        display: none;
+      }
+      .icon-filled {
+        display: block;
+      }
+    }
+
+    .icon-filled {
+      display: none;
     }
   }
 }
