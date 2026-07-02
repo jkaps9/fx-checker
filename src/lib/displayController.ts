@@ -375,6 +375,7 @@ const displayController = (function () {
       } else {
         storageManager.addFavorite(base, rateSummary.quote);
       }
+      updateFavoriteButtonState(base, rateSummary.quote);
     });
     rateInfo.appendChild(convertedAmount);
     rateInfo.appendChild(rate);
@@ -503,8 +504,8 @@ const displayController = (function () {
       });
 
     const favButton = document.createElement("button");
-    // TODO: add star svg
-    favButton.textContent = "s";
+    favButton.classList.add("btn", "btn--favorite", "active");
+    favButton.innerHTML = `<div class="star">${starSVG}</div><div class="star-filled">${filledStarSVG}</div>`;
     favButton.classList.add("btn");
     favButton.addEventListener("click", () => {
       favoritesList.removeChild(listItem);
