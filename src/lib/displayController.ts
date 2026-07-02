@@ -6,6 +6,8 @@ import { summarizeRates } from "@utils/fxUtils";
 import currencies from "@data/currencies.json" with { type: "json" };
 import storageManager from "./storageManager";
 import { ChartController } from "./chartController";
+import starSVG from "../icons/icon-star.svg?raw";
+import filledStarSVG from "../icons/icon-star-filled.svg?raw";
 
 const displayController = (function () {
   const apiController = new APIController();
@@ -361,7 +363,11 @@ const displayController = (function () {
     rate.classList.add("muted-text");
     rate.textContent = `@ ${rateSummary.close}`;
     const favoriteButton = document.createElement("button");
-
+    favoriteButton.classList.add("btn", "btn--favorite");
+    favoriteButton.innerHTML = `<div class="star">${starSVG}</div><div class="star-filled">${filledStarSVG}</div>`;
+    favoriteButton.addEventListener("click", () => {
+      favoriteButton.classList.toggle("active");
+    });
     rateInfo.appendChild(convertedAmount);
     rateInfo.appendChild(rate);
     rightSide.appendChild(rateInfo);
