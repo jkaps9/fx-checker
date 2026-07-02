@@ -518,6 +518,7 @@ const displayController = (function () {
       const base: string = formData.get("base")?.toString() ?? "";
       const target: string = formData.get("target")?.toString() ?? "";
       updateFavoriteButtonState(base, target);
+      if (arr.length === 0) updateFavorites();
     });
     rightSide.appendChild(favButton);
     listItem.appendChild(rightSide);
@@ -556,6 +557,7 @@ const displayController = (function () {
       storageManager.removeLog(conversion.dateTimeLogged);
       logList.removeChild(listItem);
       updateLogCount();
+      if (storageManager.getLog().length === 0) updateConversionLog();
     });
     rightSide.appendChild(rightContent);
     rightSide.appendChild(deleteLogButton);
