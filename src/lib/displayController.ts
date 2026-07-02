@@ -94,7 +94,7 @@ const displayController = (function () {
 
   let currentSection = "compare";
 
-  const initizalize = () => {
+  const initialize = () => {
     const formData = new FormData(form);
     const base: string = formData.get("base")?.toString() ?? "";
     const target: string = formData.get("target")?.toString() ?? "";
@@ -567,6 +567,6 @@ const displayController = (function () {
     return listItem;
   };
 
-  return { initizalize };
+  return { initialize };
 })();
 export default displayController;
