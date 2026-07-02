@@ -8,6 +8,24 @@ const { pageTitle } = Astro.props;
 
 <html lang="en">
   <head>
+    <script>
+      const getThemePreference = () => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        return window.matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark";
+      };
+
+      const isLight = getThemePreference() === "light";
+      if (isLight) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    </script>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -30,9 +48,35 @@ const { pageTitle } = Astro.props;
       Click To Skip To Main Content
     </a>
     <Header />
+    <button
+      id="theme-toggle"
+      aria-label="Toggle theme"
+    >
+      Swap Theme
+    </button>
     <main id="main">
       <slot />
     </main>
     <!-- <Footer /> -->
+    <script>
+      const toggleBtn = document.getElementById(
+        "theme-toggle",
+      ) as HTMLButtonElement;
+
+      toggleBtn.addEventListener("click", () => {
+        const root = document.documentElement;
+        const isLight = root.getAttribute("data-theme") === "light";
+
+        if (isLight) {
+          // Switch to Dark (Default)
+          root.removeAttribute("data-theme");
+          localStorage.setItem("theme", "dark");
+        } else {
+          // Switch to Light
+          root.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
+        }
+      });
+    </script>
   </body>
 </html>
