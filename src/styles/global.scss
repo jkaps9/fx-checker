@@ -9,6 +9,8 @@
   --color-background: #{$color-background};
   --color-background-dark: #{$color-background-dark};
   --color-background-card: #{$color-background-card};
+  --color-background-light: #{$color-background-light};
+  --color-border: #{$color-border};
   --color-header-text: #{$color-header-text};
   --color-body-text: #{$color-body-text};
   --color-header-text-light: #{$color-header-text-light};
@@ -268,8 +270,8 @@ output {
 }
 
 .card--inner {
-  background-color: #202022;
-  border: 1px solid #2e2e2e;
+  background-color: var(--color-background-light);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-16);
   padding: calc(var(--space-md) * 0.75) calc(var(--space-md) * 1.25);
 }
@@ -290,7 +292,7 @@ output {
 }
 
 .btn {
-  background: #202022;
+  background: var(--color-background-light);
   border: 1px solid #454547;
   border-radius: var(--radius-8);
   color: #9d9d9d;
@@ -307,11 +309,11 @@ output {
     width 0.3s;
 
   &:hover {
-    background: #2e2e2e;
+    background: var(--color-border);
     color: var(--color-body-text-light);
   }
   &:focus {
-    border-color: #2e2e2e;
+    border-color: var(--color-border);
     box-shadow:
       0 0 0 3px #171719,
       0 0 0 4px var(--color-primary);
@@ -324,15 +326,15 @@ output {
   &--favorite {
     padding: 0.5rem;
     &.active {
-      background: #202022;
+      background: var(--color-background-light);
       border-color: var(--color-primary);
 
       &:hover {
-        background: #2e2e2e;
+        background: var(--color-border);
       }
 
       &:focus {
-        border-color: #2e2e2e;
+        border-color: var(--color-border);
       }
       .star {
         display: none;
