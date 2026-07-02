@@ -172,9 +172,7 @@ const displayController = (function () {
       const sendAmount = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
       const receiveAmount = Number(outputAmount.value.replaceAll(",", ""));
       if (base && target && sendAmount && receiveAmount) {
-        if (
-          !storageManager.hasLog(now, base, target, sendAmount, receiveAmount)
-        ) {
+        if (!storageManager.hasLog(now)) {
           logConversionButton.classList.add("active");
           storageManager.addLog(now, base, target, sendAmount, receiveAmount);
         } else {
