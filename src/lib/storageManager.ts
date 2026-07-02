@@ -106,21 +106,12 @@ const storageManager = (function () {
     localStorage.setItem("conversionLog", JSON.stringify(conversionLog));
   };
 
-  const hasLog = (
-    dateTimeLogged: string,
-    base: string,
-    target: string,
-    sendAmount: number,
-    receiveAmount: number,
-  ) => {
-    const item = {
-      dateTimeLogged: dateTimeLogged,
-      base: base,
-      target: target,
-      sendAmount: sendAmount,
-      receiveAmount: receiveAmount,
-    };
-    return conversionLog.indexOf(item) !== -1;
+  const hasLog = (dateTimeLogged: string) => {
+    const index = conversionLog.findIndex(
+      (logItem) => logItem.dateTimeLogged === dateTimeLogged,
+    );
+
+    return index !== -1;
   };
 
   const getLog = () => {
