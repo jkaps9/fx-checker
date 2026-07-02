@@ -49,6 +49,15 @@ import HistoryChart from "./HistoryChart.astro";
         </div>
         <ul id="rate-list"></ul>
         <div class="card">
+          <div class="top-row">
+            <h3 id="currency-pair">USD/EUR</h3>
+            <p>
+              <span id="conversion-rate">0.8530</span>
+              <span class="divider"></span><span id="date-time">
+                MAY 14 16:00 CET
+              </span>
+            </p>
+          </div>
           <HistoryChart />
         </div>
       </div>
@@ -114,7 +123,6 @@ import HistoryChart from "./HistoryChart.astro";
   }
 
   .card {
-    min-height: 350px;
     padding-block: clamp(
       var(--space-md),
       0.912rem + 0.3756vw,
@@ -122,5 +130,22 @@ import HistoryChart from "./HistoryChart.astro";
     );
 
     padding-inline: clamp(0.75rem, 0.5739rem + 0.7512vw, 1.25rem);
+  }
+
+  .top-row {
+    @include flex-between;
+    margin-bottom: 1.25rem;
+    h3 {
+      font-size: 1rem;
+    }
+    p {
+      @include flex-center;
+      gap: 1em;
+      opacity: 0.7;
+    }
+  }
+
+  .divider {
+    background-color: var(--color-header-text-light);
   }
 </style>
