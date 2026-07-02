@@ -78,6 +78,22 @@
   --color-positive: #{$green-800};
 }
 
+#moon {
+  display: none;
+}
+#sun {
+  display: block;
+}
+
+:root[data-theme="light"] {
+  #moon {
+    display: block;
+  }
+  #sun {
+    display: none;
+  }
+}
+
 /*~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~>
 <~~           Reset            ~~>
 <~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~*/

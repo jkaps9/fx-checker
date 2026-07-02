@@ -2,6 +2,7 @@
 import Font from "astro/components/Font.astro";
 import "@styles/global.scss";
 import Header from "@components/Header.astro";
+import { Icon } from "astro-icon/components";
 
 const { pageTitle } = Astro.props;
 ---
@@ -52,7 +53,20 @@ const { pageTitle } = Astro.props;
       id="theme-toggle"
       aria-label="Toggle theme"
     >
-      Swap Theme
+      <div id="moon">
+        <Icon
+          name="icon-moon"
+          height={28}
+          width={28}
+        />
+      </div>
+      <div id="sun">
+        <Icon
+          name="icon-sun"
+          height={28}
+          width={28}
+        />
+      </div>
     </button>
     <main id="main">
       <slot />
