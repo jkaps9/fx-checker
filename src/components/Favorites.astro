@@ -11,7 +11,7 @@
       class="card"
       id="favorites-card"
     >
-      <div class="top-row">
+      <div class="card__top-row">
         <h2>Pinned Pairs</h2>
         <p><span id="num-favorites">0</span> FAVORITES</p>
       </div>
@@ -28,13 +28,7 @@
 </section>
 
 <style lang="scss">
-  .card {
-    display: grid;
-    gap: 1.25rem;
-    padding: 1.25rem;
-  }
   .top-row {
-    @include flex-between;
     p {
       opacity: 0.7;
     }

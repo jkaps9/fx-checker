@@ -11,7 +11,7 @@ import FlagImage from "./FlagImage.astro";
       class="card"
       id="compare-card"
     >
-      <div class="top-row">
+      <div class="top-row card__top-row">
         <p>
           <span class="muted-text">MULTI-CURRENCY</span>
           <span id="compare-amount">0.00 FROM USD</span>
@@ -31,13 +31,7 @@ import FlagImage from "./FlagImage.astro";
 </section>
 
 <style lang="scss">
-  .card {
-    display: grid;
-    gap: 1.25rem;
-    padding: 1.25rem;
-  }
   .top-row {
-    @include flex-between;
     span.muted-text {
       font-size: 14px;
     }

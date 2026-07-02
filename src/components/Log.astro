@@ -11,7 +11,7 @@
       class="card"
       id="log-card"
     >
-      <div class="top-row">
+      <div class="top-row card__top-row">
         <h2>Conversion Log</h2>
         <div class="top-row__right-side">
           <p><span id="num-logged">0</span> Logged</p>
@@ -37,13 +37,7 @@
 </section>
 
 <style lang="scss">
-  .card {
-    display: grid;
-    gap: 1.25rem;
-    padding: 1.25rem;
-  }
   .top-row {
-    @include flex-between;
     &__right-side {
       @include flex-center;
       gap: 1rem;

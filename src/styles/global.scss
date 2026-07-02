@@ -259,6 +259,12 @@ output {
 .card {
   background-color: var(--color-background-card);
   border-radius: var(--radius-20);
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  &__top-row {
+    @include flex-between;
+  }
 }
 
 .card--inner {
