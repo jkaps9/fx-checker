@@ -380,6 +380,7 @@ const displayController = (function () {
         storageManager.addFavorite(base, rateSummary.quote);
       }
       updateFavoriteButtonState(base, rateSummary.quote);
+      updateFavorites();
     });
     rateInfo.appendChild(convertedAmount);
     rateInfo.appendChild(rate);
