@@ -91,9 +91,23 @@
     }
   }
 
+  .tab-select {
+    width: stretch;
+  }
+
   select {
     background-color: var(--color-background-card);
     color: var(--color-body-text);
-    width: 100%;
+    width: stretch;
+  }
+
+  option {
+    background: var(--color-background-card);
+    color: var(--color-body-text);
+    gap: 12px;
+    padding-block: var(--space-sm);
+    &::checkmark {
+      display: none;
+    }
   }
 </style>

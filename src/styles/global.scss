@@ -293,7 +293,7 @@ select {
 
   &,
   &::picker(select) {
-    appearance: menulist-button;
+    appearance: base-select;
   }
 
   &::picker-icon {
