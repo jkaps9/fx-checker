@@ -176,13 +176,12 @@ const displayController = (function () {
       const receiveAmount = Number(outputAmount.value.replaceAll(",", ""));
       if (base && target && sendAmount && receiveAmount) {
         if (!storageManager.hasLog(now)) {
+          storageManager.addLog(now, base, target, sendAmount, receiveAmount);
           logConversionButton.classList.add("active");
-          storageManager.addLog(now, base, target, sendAmount, receiveAmount);
-        } else {
-          logConversionButton.classList.remove("active");
-          storageManager.addLog(now, base, target, sendAmount, receiveAmount);
+          setTimeout(() => {
+            logConversionButton.classList.remove("active");
+          }, 4000);
         }
-
         updateConversionLog();
       } else {
         // TODO: update the UX here
