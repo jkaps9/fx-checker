@@ -404,7 +404,21 @@ const displayController = (function () {
     item.appendChild(leftSide);
     item.appendChild(rightSide);
 
+    item.addEventListener("click", (e) => {
+      if (e.target === item) {
+        updateCurrencies(base, rateSummary.quote);
+      }
+    });
+
     return item;
+  };
+
+  const updateCurrencies = (base: string, target: string) => {
+    if (baseSelect.value !== base || targetSelect.value !== target) {
+      baseSelect.value = base;
+      targetSelect.value = target;
+      updateFavoriteButtonState(base, target);
+    }
   };
 
   const getCurrencyName = (currencyCode: string) => {
@@ -540,8 +554,7 @@ const displayController = (function () {
 
     listItem.addEventListener("click", (e) => {
       if (e.target === listItem) {
-        baseSelect.value = favorite.base;
-        targetSelect.value = favorite.target;
+        updateCurrencies(favorite.base, favorite.target);
       }
     });
     return listItem;

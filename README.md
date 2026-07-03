@@ -54,11 +54,12 @@ Your users should be able to:
 
 - [x] See their send amount converted into a range of other currencies at once, each with its reference rate
 - [x] Pin or unpin any comparison row to their favorites
+- [x] Load a pair into the converter by selecting its row
 
 #### Favorites
 
 - [x] See their pinned pairs, each with its live rate and 24-hour change
-- [ ] Load a pinned pair back into the converter by selecting its row
+- [x] Load a pinned pair back into the converter by selecting its row
 - [x] Unpin a pair they no longer want to track
 
 #### Conversion log
