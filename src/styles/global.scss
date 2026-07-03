@@ -418,8 +418,8 @@ output {
     &.active {
       transform-origin: left;
       transition:
-        background-color 2s ease,
-        color 2s ease;
+        background-color 1s ease,
+        color 1s ease;
     }
   }
 }

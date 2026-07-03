@@ -180,7 +180,7 @@ const displayController = (function () {
           logConversionButton.classList.add("active");
           setTimeout(() => {
             logConversionButton.classList.remove("active");
-          }, 4000);
+          }, 2000);
         }
         updateConversionLog();
       } else {
