@@ -81,6 +81,7 @@ const displayController = (function () {
   const logList = document.querySelector(".log__list") as HTMLElement;
   const numLogged = document.getElementById("num-logged") as HTMLElement;
   const logCounter = document.getElementById("log-counter") as HTMLElement;
+  const clearLogBtn = document.getElementById("clear-log") as HTMLButtonElement;
 
   // TODO: include ticker list script here
   let dateRange = "1M";
@@ -200,6 +201,11 @@ const displayController = (function () {
           getApiData();
         }
       });
+    });
+
+    clearLogBtn.addEventListener("click", () => {
+      storageManager.clearLog();
+      updateConversionLog();
     });
   };
 
