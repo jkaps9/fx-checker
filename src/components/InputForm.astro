@@ -183,7 +183,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   select {
     background-color: var(--color-border);
     border: 1px solid var(--color-background-hover);
-    color: var(--color-body-text-light);
+    color: var(--color-body-text);
     cursor: pointer;
     place-items: center;
 
@@ -295,17 +295,24 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   .bottom-row {
     @include flex-between;
     border-top: 1px dashed var(--color-border);
+    flex-direction: column;
+    gap: 1rem;
     padding-block: 1rem;
     padding-inline: clamp(
       var(--space-md),
       0.912rem + 0.3756vw,
       calc(var(--space-md) * 1.25)
     );
+
+    @include bp(md) {
+      flex-direction: row;
+    }
   }
 
   #log-conversion {
     align-items: center;
     border: 1px solid var(--color-primary);
+    color: var(--color-body-text);
     justify-content: center;
     min-width: 135px;
     text-align: center;
@@ -352,5 +359,9 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     [data-icon="icon-star-filled"] {
       display: block;
     }
+  }
+
+  #output {
+    font-size: clamp(0.625rem, 0.581rem + 0.1878vw, 0.75rem);
   }
 </style>
