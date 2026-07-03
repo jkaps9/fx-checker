@@ -47,7 +47,6 @@ import HistoryChart from "./HistoryChart.astro";
             <button>5Y</button>
           </div>
         </div>
-        <ul id="rate-list"></ul>
         <div class="card">
           <div class="top-row card__top-row">
             <h3 id="currency-pair">USD/EUR</h3>
@@ -66,6 +65,9 @@ import HistoryChart from "./HistoryChart.astro";
 </section>
 
 <style lang="scss">
+  section {
+    padding-top: clamp(1rem, 0.912rem + 0.3756vw, 1.25rem);
+  }
   .rate-display {
     display: grid;
     gap: 1.25rem;
@@ -83,7 +85,7 @@ import HistoryChart from "./HistoryChart.astro";
   .row {
     display: flex;
     flex-direction: column;
-
+    gap: 1.25rem;
     @include bp(lg) {
       align-items: center;
       flex-direction: row;
@@ -129,6 +131,16 @@ import HistoryChart from "./HistoryChart.astro";
     );
 
     padding-inline: clamp(0.75rem, 0.5739rem + 0.7512vw, 1.25rem);
+  }
+
+  .card--inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    p {
+      font-size: 1.25rem;
+      letter-spacing: -0.5px;
+    }
   }
 
   .top-row {
