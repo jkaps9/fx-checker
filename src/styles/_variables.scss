@@ -39,8 +39,8 @@ $spaces: (
 );
 
 // Layout
-$container-max: 85rem;
-$container-padding: 5vw;
+$container-max: 68.75rem;
+$container-padding: clamp(1rem, 0.6479rem + 1.5023vw, 2rem);
 
 // --- Border radius
 $radius-4: 4px;
