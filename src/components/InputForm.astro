@@ -141,6 +141,12 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             class="btn"
             id="log-conversion"
           >
+            <Icon
+              name="icon-check"
+              aria-hidden="true"
+              height={16}
+              width={16}
+            />
             Log Conversion
           </button>
         </div>
@@ -316,10 +322,15 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     display: block;
   }
 
+  [data-icon="icon-check"] {
+    display: none;
+  }
+
   .active {
     [data-icon="icon-star"] {
       display: none;
     }
+    [data-icon="icon-check"],
     [data-icon="icon-star-filled"] {
       display: block;
     }

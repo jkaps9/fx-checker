@@ -413,6 +413,15 @@ output {
       display: none;
     }
   }
+
+  &#log-conversion {
+    &.active {
+      transform-origin: left;
+      transition:
+        background-color 2s ease,
+        color 2s ease;
+    }
+  }
 }
 
 .visually-hidden {
