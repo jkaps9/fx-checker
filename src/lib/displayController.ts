@@ -16,6 +16,13 @@ const displayController = (function () {
 
   // form elements
   const form = document.getElementById("fx-input") as HTMLFormElement;
+  const baseSelect = document.getElementById(
+    "base-currency",
+  ) as HTMLSelectElement;
+  const targetSelect = document.getElementById(
+    "target-currency",
+  ) as HTMLSelectElement;
+
   const baseAmount = document.getElementById("base-amount") as HTMLInputElement;
   const outputAmount = document.getElementById(
     "output-amount",
@@ -531,6 +538,12 @@ const displayController = (function () {
     rightSide.appendChild(favButton);
     listItem.appendChild(rightSide);
 
+    listItem.addEventListener("click", (e) => {
+      if (e.target === listItem) {
+        baseSelect.value = favorite.base;
+        targetSelect.value = favorite.target;
+      }
+    });
     return listItem;
   };
 
