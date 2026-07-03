@@ -39,14 +39,13 @@
   }
   .tab-list {
     border-bottom: 1px solid var(--color-border);
-    @include bp(md) {
-      display: flex;
-      gap: var(--space-sm);
-    }
+    display: flex;
+    gap: var(--space-sm);
   }
 
   .tab {
     display: flex;
+    font-size: clamp(0.875rem, 0.831rem + 0.1878vw, 1rem);
     gap: var(--space-sm);
     min-height: 40px;
 
