@@ -285,6 +285,45 @@ output {
   }
 }
 
+select {
+  border: 1px solid var(--color-background-hover);
+  color: var(--color-body-text);
+  cursor: pointer;
+  place-items: center;
+
+  &,
+  &::picker(select) {
+    appearance: menulist-button;
+  }
+
+  &::picker-icon {
+    transition: transform 0.3s;
+  }
+
+  &:open {
+    &::picker-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &:hover {
+    background-color: var(--color-background-hover);
+  }
+}
+
+.select-button {
+  align-items: center;
+  block-size: 2.5rem;
+  display: flex;
+  inline-size: 100%;
+}
+
+selectedcontent {
+  align-items: center;
+  display: flex;
+  gap: var(--space-sm);
+}
+
 /*~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~>
 <~~         Utilities          ~~>
 <~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~*/

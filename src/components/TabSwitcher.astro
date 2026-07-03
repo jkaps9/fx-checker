@@ -4,6 +4,20 @@
 
 <section class="tab-switcher">
   <div class="container">
+    <div class="tab-select">
+      <select
+        name="tab-select"
+        id="tab-select"
+      >
+        <button class="select-button">
+          <selectedcontent></selectedcontent>
+        </button>
+        <option value="history">HISTORY</option>
+        <option value="compare">COMPARE</option>
+        <option value="favorites">FAVORITES</option>
+        <option value="log">LOG</option>
+      </select>
+    </div>
     <div class="tab-list">
       <button
         class="tab active"
@@ -75,5 +89,11 @@
       background-color: var(--color-primary);
       color: var(--color-text-on-primary);
     }
+  }
+
+  select {
+    background-color: var(--color-background-card);
+    color: var(--color-body-text);
+    width: 100%;
   }
 </style>
