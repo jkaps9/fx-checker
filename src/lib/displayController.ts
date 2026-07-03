@@ -414,6 +414,7 @@ const displayController = (function () {
   };
 
   const updateCurrencies = (base: string, target: string) => {
+    // TODO: take in rate and update compared amount and 1 base = XX target text
     if (baseSelect.value !== base || targetSelect.value !== target) {
       baseSelect.value = base;
       targetSelect.value = target;
