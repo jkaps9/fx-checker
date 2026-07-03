@@ -13,7 +13,7 @@ import { Icon } from "astro-icon/components";
       height={20}
       width={20}
     />
-    Dark
+    <span>Dark</span>
   </div>
   <div id="sun">
     <Icon
@@ -21,7 +21,7 @@ import { Icon } from "astro-icon/components";
       height={20}
       width={20}
     />
-    Light
+    <span>Light</span>
   </div>
 </button>
 
@@ -49,5 +49,13 @@ import { Icon } from "astro-icon/components";
 <style lang="scss">
   [data-icon="icon-sun"] {
     color: var(--color-primary);
+  }
+  span {
+    display: none;
+  }
+  @include bp(md) {
+    span {
+      display: block;
+    }
   }
 </style>
