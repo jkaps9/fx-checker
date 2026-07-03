@@ -32,7 +32,7 @@ Your users should be able to:
   - [ ] from a searchable currency picker
 - [x] See the live exchange rate for the active pair (for example, `1 USD = 0.8530 EUR`)
 - [x] Swap the send and receive currencies with the swap button
-- [ ] Favorite the active pair, and log a conversion to their history
+- [x] Favorite the active pair, and log a conversion to their history
 
 #### Currency picker
 
@@ -46,14 +46,14 @@ Your users should be able to:
 
 #### Rate history
 
-- [ ] View a line and area chart of the active pair's rate over time
+- [x] View a line and area chart of the active pair's rate over time
 - [x] Switch the chart range between 1D, 1W, 1M, 3M, 1Y, and 5Y
 - [x] See the open, last, absolute change, and percentage change for the selected range
 
 #### Compare
 
 - [x] See their send amount converted into a range of other currencies at once, each with its reference rate
-- [ ] Pin or unpin any comparison row to their favorites
+- [x] Pin or unpin any comparison row to their favorites
 
 #### Favorites
 
@@ -65,8 +65,8 @@ Your users should be able to:
 
 - [x] See a log of conversions they've made,each showing the relative time, the pair, and the send and receive amounts
 - [ ] need to fix relative time, currently just showing the logged date and time
-- [ ] Clear the whole log
-- [ ] Delete an individual entry
+- [x] Clear the whole log
+- [x] Delete an individual entry
 
 #### UI & accessibility
 
