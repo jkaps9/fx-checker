@@ -33,7 +33,11 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             placeholder="Search currencies..."
           />
           <ul class="currencies-list">
-            <li class="currencies-list__label">POPULAR</li>
+            <li class="currencies-list__label">
+              <span>POPULAR</span><span>
+                {currencies.filter((c) => c.popular).length}
+              </span>
+            </li>
             {
               currencies
                 .filter((c) => c.popular)
@@ -45,7 +49,11 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
                   />
                 ))
             }
-            <li class="currencies-list__label">OTHER CURRENCIES</li>
+            <li class="currencies-list__label">
+              <span>OTHER CURRENCIES</span><span>
+                {currencies.filter((c) => !c.popular).length}
+              </span>
+            </li>
             {
               currencies
                 .filter((c) => !c.popular)
@@ -93,7 +101,14 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     padding: var(--space-sm);
     position: absolute;
     top: 100%;
-    width: fit-content;
     z-index: 900;
+  }
+
+  .currencies-list__label {
+    @include flex-between;
+    border-bottom: 1px solid var(--color-border);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    padding-block: var(--space-sm);
   }
 </style>
