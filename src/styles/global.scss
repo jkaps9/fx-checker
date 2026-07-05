@@ -300,7 +300,10 @@ select,
 
   .picker-icon {
     transition: transform 0.3s;
-    &.open {
+  }
+
+  &.open {
+    .picker-icon {
       transform: rotate(180deg);
     }
   }

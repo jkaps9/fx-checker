@@ -26,7 +26,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           </div>
         </button>
 
-        <div class="dropdown-menu">
+        <div class="dropdown-menu visually-hidden">
           <input
             type="text"
             class="input-search"
@@ -63,11 +63,32 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     </div>
   </section>
 </BaseLayout>
-
+<script>
+  const selectButton = document.querySelector(
+    ".select-button",
+  ) as HTMLButtonElement;
+  const dropDownMenu = document.querySelector(".dropdown-menu") as HTMLElement;
+  selectButton.addEventListener("click", () => {
+    dropDownMenu.classList.toggle("visually-hidden");
+    selectButton.classList.toggle("open");
+  });
+</script>
 <style lang="scss">
+  .custom-select {
+    position: relative;
+    width: fit-content;
+  }
   .selected-content {
     align-items: center;
     display: flex;
     gap: var(--space-sm);
+  }
+
+  .dropdown-menu {
+    left: 0;
+    position: absolute;
+    top: 100%;
+    width: fit-content;
+    z-index: 900;
   }
 </style>
