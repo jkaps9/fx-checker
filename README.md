@@ -94,6 +94,8 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ## My process
 
+- Initially I built this with the API code in the various Astro components. However, I noticed that I was reusing a lot of code and could probably use the same API call to fill in various parts of the UI. So I built out individual functions by referring back to an old Odin project for structure. This helped reduce the codebase quite a bit and reduce API calls. Further optimization is required, but this works well for now.
+
 ### Built with
 
 - Semantic HTML5 markup
@@ -145,7 +147,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ### AI Collaboration
 
-I sometimes used Gemini to help debug issues with the code to pull API data and use it in the content when I hit a snag.
+I occasionally used Gemini to help debug issues with the code to pull API data and use it in the content when I hit a snag.
 
 ## Author
 
