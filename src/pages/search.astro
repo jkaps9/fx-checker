@@ -120,9 +120,10 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
   .currencies-list__label {
     @include flex-between;
-    border-bottom: 1px solid var(--color-boarder);
+    border-bottom: 1px solid var(--color-border);
     letter-spacing: 0.5px;
     line-height: 1.2;
+    margin-block: var(--space-xs);
     padding-block: var(--space-sm);
   }
 </style>

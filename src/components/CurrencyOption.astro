@@ -1,6 +1,6 @@
 ---
 import FlagImage from "./FlagImage.astro";
-
+import { Icon } from "astro-icon/components";
 interface Props {
   currencyCode: string;
   currencyName: string;
@@ -20,19 +20,33 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
   <FlagImage countryCode={countryCode} />
   <span class="currency-code">{currencyCode}</span>
   <span class="currency-name muted-text">{currencyName}</span>
+  <Icon name="icon-check" />
 </li>
 
 <style lang="scss">
   .currency-option {
     align-items: center;
     background: var(--color-background-surface);
+    border: 1px solid transparent;
+    border-radius: var(--radius-4);
     display: flex;
     gap: var(--space-sm);
-    padding-block: var(--space-sm);
-    &::checkmark {
-      color: var(--color-body-text);
-      margin-left: auto;
-      order: 2;
+    padding-block: calc(var(--space-sm) * 1.25);
+
+    &:hover {
+      border-color: var(--color-body-text-muted);
+      cursor: pointer;
+    }
+
+    [data-icon="icon-check"] {
+      display: none;
+      margin-inline-start: auto;
+    }
+
+    &[data-selected="true"] {
+      [data-icon="icon-check"] {
+        display: block;
+      }
     }
   }
 
