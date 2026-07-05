@@ -138,10 +138,10 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 - [MDN Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
 - This helped me understand the fetch API for pulling the FX data
-- [Nice Select](https://nerdy.dev/nice-select)
-- This resource helped me with designing the select element for the currency selectors
 - [MDN Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)
 - This helped me understand how to store favorited currencies and pairs in local storage
+- [Nice Select](https://nerdy.dev/nice-select)
+- This resource helped me with designing the select element for the currency selectors
 
 ### AI Collaboration
 
