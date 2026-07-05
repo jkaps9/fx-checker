@@ -26,7 +26,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
           </div>
         </button>
 
-        <div class="dropdown">
+        <div class="dropdown-menu">
           <input
             type="text"
             class="input-search"
@@ -37,6 +37,18 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             {
               currencies
                 .filter((c) => c.popular)
+                .map((currency) => (
+                  <CurrencyOption
+                    currencyCode={currency.iso_code}
+                    currencyName={currency.name}
+                    defaultCode={defaultBase}
+                  />
+                ))
+            }
+            <li class="currencies-list__label">OTHER CURRENCIES</li>
+            {
+              currencies
+                .filter((c) => !c.popular)
                 .map((currency) => (
                   <CurrencyOption
                     currencyCode={currency.iso_code}
