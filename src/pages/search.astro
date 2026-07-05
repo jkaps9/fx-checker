@@ -86,6 +86,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     position: relative;
     width: fit-content;
   }
+
   .selected-content {
     align-items: center;
     display: flex;
@@ -98,15 +99,28 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     color: var(--color-body-text-muted);
     font-size: 12px;
     left: 0;
+    max-height: 400px;
+    overflow-y: auto;
     padding: var(--space-sm);
     position: absolute;
     top: 100%;
+    width: fit-content;
     z-index: 900;
+  }
+
+  .input-search {
+    background: none;
+    border: 1px solid var(--color-body-text-muted);
+    border-radius: var(--radius-6);
+    outline: none;
+    padding: calc(var(--space-sm) * 1.25);
+    font-size: 12px;
+    width: stretch;
   }
 
   .currencies-list__label {
     @include flex-between;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-boarder);
     letter-spacing: 0.5px;
     line-height: 1.2;
     padding-block: var(--space-sm);
