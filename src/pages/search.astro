@@ -1,0 +1,35 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import currencies from "@data/currencies.json";
+import CurrencyOption from "@components/CurrencyOption.astro";
+import FlagImage from "@components/FlagImage.astro";
+---
+
+<BaseLayout pageTitle="Search">
+  <section>
+    <div class="container">
+      <button
+        class="select-button"
+        type="button"
+      >
+        <div class="selected-content">
+          <FlagImage countryCode="us" />
+          <span class="currency-code">USD</span>
+          <Icon
+            name="icon-chevron-down"
+            class="picker-icon"
+          />
+        </div>
+      </button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .selected-content {
+    align-items: center;
+    display: flex;
+    gap: var(--space-sm);
+  }
+</style>
