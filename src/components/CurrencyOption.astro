@@ -12,7 +12,7 @@ const { currencyCode, currencyName, defaultCode } = Astro.props;
 const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
 ---
 
-<div
+<li
   class="currency-option"
   data-value={currencyCode}
   data-selected={currencyCode === defaultCode}
@@ -20,7 +20,7 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
   <FlagImage countryCode={countryCode} />
   <span class="currency-code">{currencyCode}</span>
   <span class="currency-name muted-text">{currencyName}</span>
-</div>
+</li>
 
 <style lang="scss">
   .currency-option {

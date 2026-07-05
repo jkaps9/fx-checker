@@ -4,24 +4,50 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import currencies from "@data/currencies.json";
 import CurrencyOption from "@components/CurrencyOption.astro";
 import FlagImage from "@components/FlagImage.astro";
+
+const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 ---
 
 <BaseLayout pageTitle="Search">
   <section>
     <div class="container">
-      <button
-        class="select-button"
-        type="button"
-      >
-        <div class="selected-content">
-          <FlagImage countryCode="us" />
-          <span class="currency-code">USD</span>
-          <Icon
-            name="icon-chevron-down"
-            class="picker-icon"
+      <div class="custom-select">
+        <button
+          class="select-button"
+          type="button"
+        >
+          <div class="selected-content">
+            <FlagImage countryCode="us" />
+            <span class="currency-code">USD</span>
+            <Icon
+              name="icon-chevron-down"
+              class="picker-icon"
+            />
+          </div>
+        </button>
+
+        <div class="dropdown">
+          <input
+            type="text"
+            class="input-search"
+            placeholder="Search currencies..."
           />
+          <ul class="currencies-list">
+            <li class="currencies-list__label">POPULAR</li>
+            {
+              currencies
+                .filter((c) => c.popular)
+                .map((currency) => (
+                  <CurrencyOption
+                    currencyCode={currency.iso_code}
+                    currencyName={currency.name}
+                    defaultCode={defaultBase}
+                  />
+                ))
+            }
+          </ul>
         </div>
-      </button>
+      </div>
     </div>
   </section>
 </BaseLayout>
