@@ -85,7 +85,12 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   }
 
   .dropdown-menu {
+    background-color: var(--color-background-surface);
+    border-radius: var(--radius-8);
+    color: var(--color-body-text-muted);
+    font-size: 12px;
     left: 0;
+    padding: var(--space-sm);
     position: absolute;
     top: 100%;
     width: fit-content;
