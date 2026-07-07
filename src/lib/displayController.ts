@@ -369,9 +369,7 @@ const displayController = (function () {
         }
       });
 
-    // hidden inputs
-    baseSelect.value = target;
-    targetSelect.value = base;
+    updateCurrencies(target, base);
 
     // bottom row of form (e.g. 1 usd = 0.85 eur)
     const targetVal = outputAmount.value;
