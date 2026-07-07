@@ -80,6 +80,23 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     dropDownMenu.classList.toggle("visually-hidden");
     selectButton.classList.toggle("open");
   });
+
+  const searchInput = document.querySelector(
+    ".input-search",
+  ) as HTMLInputElement;
+  const currencyOptions = document.querySelectorAll(".currency-option");
+
+  searchInput.addEventListener("input", () => {
+    currencyOptions.forEach((option) => {
+      const currencyCode =
+        option.getAttribute("data-value")?.toLowerCase() || "";
+      if (currencyCode.includes(searchInput.value.toLowerCase())) {
+        option.classList.remove("visually-hidden");
+      } else {
+        option.classList.add("visually-hidden");
+      }
+    });
+  });
 </script>
 <style lang="scss">
   .custom-select {
