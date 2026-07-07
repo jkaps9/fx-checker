@@ -111,10 +111,8 @@ const displayController = (function () {
   let currentSection = "compare";
 
   const initialize = () => {
-    const formData = new FormData(form);
-    const base: string = formData.get("base")?.toString() ?? "";
-    const target: string = formData.get("target")?.toString() ?? "";
-    updateFavoriteButtonState(base, target);
+    const formData = getFormValues();
+    updateFavoriteButtonState(formData.base, formData.target);
     getApiData();
     getComparisons();
 
@@ -141,13 +139,16 @@ const displayController = (function () {
     });
 
     form.addEventListener("input", () => {
-      const formData = new FormData(form);
-      const base: string = formData.get("base")?.toString() ?? "";
-      const target: string = formData.get("target")?.toString() ?? "";
-      if (!base || !target || base === target) return;
+      const formData = getFormValues();
+      if (
+        !formData.base ||
+        !formData.target ||
+        formData.base === formData.target
+      )
+        return;
       getApiData();
       getComparisons();
-      updateCompareAmountText(base);
+      updateCompareAmountText(formData.base);
     });
 
     tabButtons.forEach((btn) => {
@@ -159,40 +160,41 @@ const displayController = (function () {
     });
 
     currencySwapBtn.addEventListener("click", () => {
-      const formData = new FormData(form);
-      const base: string = formData.get("base")?.toString() ?? "";
-      const target: string = formData.get("target")?.toString() ?? "";
-      swapCurrencies(base, target);
+      const formData = getFormValues();
+      swapCurrencies(formData.base, formData.target);
       getApiData();
-      updateCompareAmountText(target);
+      updateCompareAmountText(formData.target);
     });
 
     favoriteButton.addEventListener("click", () => {
-      const formData = new FormData(form);
-      const base: string = formData.get("base")?.toString() ?? "";
-      const target: string = formData.get("target")?.toString() ?? "";
-      if (base && target) {
-        if (storageManager.hasFavorite(base, target)) {
-          storageManager.removeFavorite(base, target);
+      const formData = getFormValues();
+      if (formData.base && formData.target) {
+        if (storageManager.hasFavorite(formData.base, formData.target)) {
+          storageManager.removeFavorite(formData.base, formData.target);
         } else {
-          storageManager.addFavorite(base, target);
+          storageManager.addFavorite(formData.base, formData.target);
         }
 
-        updateFavoriteButtonState(base, target);
+        updateFavoriteButtonState(formData.base, formData.target);
         updateFavorites();
       }
     });
 
     logConversionButton.addEventListener("click", () => {
-      const formData = new FormData(form);
       const now = new Date().toISOString();
-      const base: string = formData.get("base")?.toString() ?? "";
-      const target: string = formData.get("target")?.toString() ?? "";
+      const formData = getFormValues();
+
       const sendAmount = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
       const receiveAmount = Number(outputAmount.value.replaceAll(",", ""));
-      if (base && target && sendAmount && receiveAmount) {
+      if (formData.base && formData.target && sendAmount && receiveAmount) {
         if (!storageManager.hasLog(now)) {
-          storageManager.addLog(now, base, target, sendAmount, receiveAmount);
+          storageManager.addLog(
+            now,
+            formData.base,
+            formData.target,
+            sendAmount,
+            receiveAmount,
+          );
           logConversionButton.classList.add("active");
           setTimeout(() => {
             logConversionButton.classList.remove("active");
@@ -203,7 +205,7 @@ const displayController = (function () {
         // TODO: update the UX here
         alert("invalid log value");
         console.log(
-          `base: ${base}; target: ${target}; sendAmount: ${sendAmount}; receiveAmount: ${receiveAmount}`,
+          `base: ${formData.base}; target: ${formData.target}; sendAmount: ${sendAmount}; receiveAmount: ${receiveAmount}`,
         );
       }
     });
@@ -291,14 +293,17 @@ const displayController = (function () {
             });
             option.setAttribute("data-selected", "true");
             toggleMenu();
-            const formData = new FormData(form);
-            const base: string = formData.get("base")?.toString() ?? "";
-            const target: string = formData.get("target")?.toString() ?? "";
-            if (!base || !target || base === target) return;
+            const formData = getFormValues();
+            if (
+              !formData.base ||
+              !formData.target ||
+              formData.base === formData.target
+            )
+              return;
             getApiData();
             getComparisons();
-            updateCompareAmountText(base);
-            updateFavoriteButtonState(base, target);
+            updateCompareAmountText(formData.base);
+            updateFavoriteButtonState(formData.base, formData.target);
           }
         });
       });
@@ -377,21 +382,20 @@ const displayController = (function () {
   };
 
   const getApiData = () => {
-    const formData = new FormData(form);
-    const base: string = formData.get("base")?.toString() ?? "";
-    const target: string = formData.get("target")?.toString() ?? "";
-    if (!base || !target || base === target) return;
+    const formData = getFormValues();
+    if (!formData.base || !formData.target || formData.base === formData.target)
+      return;
     const endDate = new Date();
     const startDate = new Date();
 
     startDate.setDate(startDate.getDate() - dateOffsets.get(dateRange));
 
     updateBaseConversion("Fetching rates...");
-    updateFavoriteButtonState(base, target);
+    updateFavoriteButtonState(formData.base, formData.target);
     apiController
       .searchHistorical(
-        base,
-        target,
+        formData.base,
+        formData.target,
         startDate.toISOString().split("T")[0],
         endDate.toISOString().split("T")[0],
       )
@@ -426,15 +430,14 @@ const displayController = (function () {
   };
 
   const getComparisons = () => {
-    const formData = new FormData(form);
-    const base = formData.get("base")?.toString();
+    const formData = getFormValues();
     const quotes = ["GBP", "JPY", "CHF", "CAD", "AUD", "INR", "CNY", "BDT"];
     const compareCard = document.getElementById("compare-card") as HTMLElement;
     const comparePairAmount = document.getElementById(
       "compare-pairs",
     ) as HTMLElement;
 
-    if (!base) return;
+    if (!formData.base) return;
 
     const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
 
@@ -443,11 +446,11 @@ const displayController = (function () {
       return;
     }
 
-    apiController.searchAll(base, quotes).then((data) => {
+    apiController.searchAll(formData.base, quotes).then((data) => {
       if (data) {
         const dailySummaries = summarizeRates(data);
         const listItems = dailySummaries.map((n) => {
-          return createComparisonListItem(n, base);
+          return createComparisonListItem(n, formData.base);
         });
         compareCard.classList.remove("visually-hidden");
         comparisonList.replaceChildren();
@@ -659,10 +662,8 @@ const displayController = (function () {
       const arr = storageManager.getFavorites();
       numFavorites.textContent = `${arr.length}`;
       updateFavoriteCount(arr.length);
-      const formData = new FormData(form);
-      const base: string = formData.get("base")?.toString() ?? "";
-      const target: string = formData.get("target")?.toString() ?? "";
-      updateFavoriteButtonState(base, target);
+      const formData = getFormValues();
+      updateFavoriteButtonState(formData.base, formData.target);
       if (arr.length === 0) updateFavorites();
     });
     rightSide.appendChild(favButton);
@@ -714,6 +715,13 @@ const displayController = (function () {
     listItem.appendChild(rightSide);
 
     return listItem;
+  };
+
+  const getFormValues = () => {
+    const formData = new FormData(form);
+    const base = formData.get("base")?.toString() ?? "";
+    const target = formData.get("target")?.toString() ?? "";
+    return { base, target };
   };
 
   return { initialize };
