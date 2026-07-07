@@ -72,15 +72,11 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   </section>
 </BaseLayout>
 <script>
+  const customSelect = document.querySelector(".custom-select") as HTMLElement;
   const selectButton = document.querySelector(
     ".select-button",
   ) as HTMLButtonElement;
   const dropDownMenu = document.querySelector(".dropdown-menu") as HTMLElement;
-
-  selectButton.addEventListener("click", () => {
-    toggleMenu();
-  });
-
   const searchInput = dropDownMenu.querySelector(
     ".input-search",
   ) as HTMLInputElement;
@@ -94,6 +90,19 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   const currencyCode = selectedContent.querySelector(
     ".currency-code",
   ) as HTMLElement;
+
+  document.addEventListener("click", (e) => {
+    if (
+      !customSelect.contains(e.target as Node) &&
+      !dropDownMenu.classList.contains("visually-hidden")
+    ) {
+      toggleMenu();
+    }
+  });
+
+  selectButton.addEventListener("click", () => {
+    toggleMenu();
+  });
 
   searchInput.addEventListener("input", () => {
     currencyOptions.forEach((option) => {
