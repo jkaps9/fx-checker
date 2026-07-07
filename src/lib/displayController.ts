@@ -39,6 +39,12 @@ const displayController = (function () {
   ) as HTMLButtonElement;
 
   const customSelects = document.querySelectorAll(".custom-select");
+  const baseCustomSelect = document.getElementById(
+    "select-base-currency",
+  ) as HTMLElement;
+  const targetCustomSelect = document.getElementById(
+    "select-target-currency",
+  ) as HTMLElement;
 
   // tab buttons
   const tabButtons = document.querySelectorAll("button.tab");
@@ -234,12 +240,6 @@ const displayController = (function () {
       const selectedContent = customSelect.querySelector(
         ".selected-content",
       ) as HTMLElement;
-      const countryFlag = selectedContent.querySelector(
-        ".flag",
-      ) as HTMLImageElement;
-      const currencyCode = selectedContent.querySelector(
-        ".currency-code",
-      ) as HTMLElement;
 
       document.addEventListener("click", (e) => {
         if (
@@ -274,6 +274,12 @@ const displayController = (function () {
             const optionFlag = option.querySelector(
               ".flag",
             ) as HTMLImageElement;
+            const countryFlag = selectedContent.querySelector(
+              ".flag",
+            ) as HTMLImageElement;
+            const currencyCode = selectedContent.querySelector(
+              ".currency-code",
+            ) as HTMLElement;
             countryFlag.src = optionFlag.src;
             countryFlag.alt = optionFlag.alt;
             currencyCode.textContent = optionCode;
@@ -326,9 +332,40 @@ const displayController = (function () {
   };
 
   const swapCurrencies = (base: string, target: string) => {
+    // selected contents
+    const baseSelectedContent = baseCustomSelect.querySelector(
+      ".selected-content",
+    ) as HTMLElement;
+    const targetSelectedContent = targetCustomSelect.querySelector(
+      ".selected-content",
+    ) as HTMLElement;
+
+    const temp = baseSelectedContent.innerHTML;
+    baseSelectedContent.innerHTML = targetSelectedContent.innerHTML;
+    targetSelectedContent.innerHTML = temp;
+
+    // options selected states
+    baseCustomSelect.querySelectorAll(".currency-option")?.forEach((option) => {
+      option.setAttribute("data-selected", "false");
+      if (option.getAttribute("data-value") === target) {
+        option.setAttribute("data-selected", "true");
+      }
+    });
+
+    targetCustomSelect
+      .querySelectorAll(".currency-option")
+      ?.forEach((option) => {
+        option.setAttribute("data-selected", "false");
+        if (option.getAttribute("data-value") === base) {
+          option.setAttribute("data-selected", "true");
+        }
+      });
+
+    // hidden inputs
     baseSelect.value = target;
     targetSelect.value = base;
 
+    // bottom row of form (e.g. 1 usd = 0.85 eur)
     const targetVal = outputAmount.value;
     baseAmount.value = targetVal;
   };
