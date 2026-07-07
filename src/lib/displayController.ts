@@ -371,7 +371,7 @@ const displayController = (function () {
 
     updateCurrencies(target, base);
 
-    // bottom row of form (e.g. 1 usd = 0.85 eur)
+    // swap input and output
     const targetVal = outputAmount.value;
     baseAmount.value = targetVal;
   };
