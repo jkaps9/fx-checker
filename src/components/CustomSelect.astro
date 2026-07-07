@@ -13,8 +13,8 @@ const { defaultCurrency = "USD" } = Astro.props;
     type="button"
   >
     <div class="selected-content">
-      <FlagImage countryCode="us" />
-      <span class="currency-code">USD</span>
+      <FlagImage countryCode={defaultCurrency.slice(0, 2).toLowerCase()} />
+      <span class="currency-code">{defaultCurrency}</span>
       <Icon
         name="icon-chevron-down"
         class="picker-icon"
