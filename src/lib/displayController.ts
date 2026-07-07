@@ -38,6 +38,8 @@ const displayController = (function () {
     "log-conversion",
   ) as HTMLButtonElement;
 
+  const customSelects = document.querySelectorAll(".custom-select");
+
   // tab buttons
   const tabButtons = document.querySelectorAll("button.tab");
   const tabSections = document.querySelectorAll(
@@ -214,8 +216,6 @@ const displayController = (function () {
       storageManager.clearLog();
       updateConversionLog();
     });
-
-    const customSelects = document.querySelectorAll(".custom-select");
 
     customSelects.forEach((customSelect) => {
       const selectButton = customSelect.querySelector(
