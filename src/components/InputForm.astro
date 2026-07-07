@@ -20,7 +20,11 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
               name="base-amount"
               placeholder="0"
             />
-            <CustomSelect defaultCurrency={defaultBase} />
+            <CustomSelect
+              defaultCurrency={defaultBase}
+              name="base"
+              id="base-currency"
+            />
           </div>
         </div>
         <button
@@ -44,7 +48,11 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             >
               0
             </output>
-            <CustomSelect defaultCurrency={defaultTarget} />
+            <CustomSelect
+              defaultCurrency={defaultTarget}
+              name="target"
+              id="target-currency"
+            />
           </div>
         </div>
       </form>

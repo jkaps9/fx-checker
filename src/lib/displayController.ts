@@ -18,10 +18,10 @@ const displayController = (function () {
   const form = document.getElementById("fx-input") as HTMLFormElement;
   const baseSelect = document.getElementById(
     "base-currency",
-  ) as HTMLSelectElement;
+  ) as HTMLInputElement;
   const targetSelect = document.getElementById(
     "target-currency",
-  ) as HTMLSelectElement;
+  ) as HTMLInputElement;
 
   const baseAmount = document.getElementById("base-amount") as HTMLInputElement;
   const outputAmount = document.getElementById(
@@ -218,6 +218,9 @@ const displayController = (function () {
     });
 
     customSelects.forEach((customSelect) => {
+      const hiddenInput = customSelect.querySelector(
+        'input[type="hidden"]',
+      ) as HTMLInputElement;
       const selectButton = customSelect.querySelector(
         ".select-button",
       ) as HTMLButtonElement;
@@ -274,6 +277,7 @@ const displayController = (function () {
             countryFlag.src = optionFlag.src;
             countryFlag.alt = optionFlag.alt;
             currencyCode.textContent = optionCode;
+            hiddenInput.value = optionCode;
             searchInput.value = "";
             currencyOptions.forEach((option) => {
               option.classList.remove("visually-hidden");
