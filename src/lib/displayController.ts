@@ -291,6 +291,14 @@ const displayController = (function () {
             });
             option.setAttribute("data-selected", "true");
             toggleMenu();
+            const formData = new FormData(form);
+            const base: string = formData.get("base")?.toString() ?? "";
+            const target: string = formData.get("target")?.toString() ?? "";
+            if (!base || !target || base === target) return;
+            getApiData();
+            getComparisons();
+            updateCompareAmountText(base);
+            updateFavoriteButtonState(base, target);
           }
         });
       });
