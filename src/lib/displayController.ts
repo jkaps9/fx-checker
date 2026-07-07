@@ -82,6 +82,10 @@ const displayController = (function () {
   const compareAmount = document.getElementById(
     "compare-amount",
   ) as HTMLElement;
+  const compareCard = document.getElementById("compare-card") as HTMLElement;
+  const comparePairAmount = document.getElementById(
+    "compare-pairs",
+  ) as HTMLElement;
 
   // favorite elements
   const favoritesList = document.querySelector(
@@ -432,10 +436,6 @@ const displayController = (function () {
   const getComparisons = () => {
     const formData = getFormValues();
     const quotes = ["GBP", "JPY", "CHF", "CAD", "AUD", "INR", "CNY", "BDT"];
-    const compareCard = document.getElementById("compare-card") as HTMLElement;
-    const comparePairAmount = document.getElementById(
-      "compare-pairs",
-    ) as HTMLElement;
 
     if (!formData.base) return;
 
