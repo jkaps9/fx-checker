@@ -1,0 +1,178 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import currencies from "@data/currencies.json";
+import CurrencyOption from "@components/CurrencyOption.astro";
+import FlagImage from "@components/FlagImage.astro";
+
+const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
+---
+
+<div class="custom-select">
+  <button
+    class="select-button"
+    type="button"
+  >
+    <div class="selected-content">
+      <FlagImage countryCode="us" />
+      <span class="currency-code">USD</span>
+      <Icon
+        name="icon-chevron-down"
+        class="picker-icon"
+      />
+    </div>
+  </button>
+
+  <div class="dropdown-menu visually-hidden">
+    <input
+      type="text"
+      class="input-search"
+      placeholder="Search currencies..."
+    />
+    <ul class="currencies-list">
+      <li class="currencies-list__label">
+        <span>POPULAR</span><span>
+          {currencies.filter((c) => c.popular).length}
+        </span>
+      </li>
+      {
+        currencies
+          .filter((c) => c.popular)
+          .map((currency) => (
+            <CurrencyOption
+              currencyCode={currency.iso_code}
+              currencyName={currency.name}
+              defaultCode={defaultBase}
+            />
+          ))
+      }
+      <li class="currencies-list__label">
+        <span>OTHER CURRENCIES</span><span>
+          {currencies.filter((c) => !c.popular).length}
+        </span>
+      </li>
+      {
+        currencies
+          .filter((c) => !c.popular)
+          .map((currency) => (
+            <CurrencyOption
+              currencyCode={currency.iso_code}
+              currencyName={currency.name}
+              defaultCode={defaultBase}
+            />
+          ))
+      }
+    </ul>
+  </div>
+</div>
+
+<script>
+  const customSelect = document.querySelector(".custom-select") as HTMLElement;
+  const selectButton = document.querySelector(
+    ".select-button",
+  ) as HTMLButtonElement;
+  const dropDownMenu = document.querySelector(".dropdown-menu") as HTMLElement;
+  const searchInput = dropDownMenu.querySelector(
+    ".input-search",
+  ) as HTMLInputElement;
+  const currencyOptions = dropDownMenu.querySelectorAll(".currency-option");
+  const selectedContent = document.querySelector(
+    ".selected-content",
+  ) as HTMLElement;
+  const countryFlag = selectedContent.querySelector(
+    ".flag",
+  ) as HTMLImageElement;
+  const currencyCode = selectedContent.querySelector(
+    ".currency-code",
+  ) as HTMLElement;
+
+  document.addEventListener("click", (e) => {
+    if (
+      !customSelect.contains(e.target as Node) &&
+      !dropDownMenu.classList.contains("visually-hidden")
+    ) {
+      toggleMenu();
+    }
+  });
+
+  selectButton.addEventListener("click", () => {
+    toggleMenu();
+  });
+
+  searchInput.addEventListener("input", () => {
+    currencyOptions.forEach((option) => {
+      const optionCode = option.getAttribute("data-value")?.toLowerCase() || "";
+      if (optionCode.includes(searchInput.value.toLowerCase())) {
+        option.classList.remove("visually-hidden");
+      } else {
+        option.classList.add("visually-hidden");
+      }
+    });
+  });
+
+  currencyOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const optionCode = option.getAttribute("data-value")?.toUpperCase() || "";
+      if (optionCode !== "") {
+        const optionFlag = option.querySelector(".flag") as HTMLImageElement;
+        countryFlag.src = optionFlag.src;
+        countryFlag.alt = optionFlag.alt;
+        currencyCode.textContent = optionCode;
+        toggleMenu();
+      }
+    });
+  });
+
+  function toggleMenu() {
+    dropDownMenu.classList.toggle("visually-hidden");
+    selectButton.classList.toggle("open");
+  }
+</script>
+
+<style lang="scss">
+  .custom-select {
+    position: relative;
+    width: fit-content;
+  }
+
+  .selected-content {
+    align-items: center;
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .dropdown-menu {
+    background-color: var(--color-background-surface);
+    border-radius: var(--radius-8);
+    color: var(--color-body-text-muted);
+    font-size: 12px;
+    right: 0;
+    margin-block-start: var(--space-sm);
+    max-height: 400px;
+    overflow-y: auto;
+    padding: var(--space-sm);
+    position: absolute;
+    top: 100%;
+    width: fit-content;
+    z-index: 900;
+  }
+
+  .input-search {
+    background: none;
+    border: 1px solid var(--color-body-text-muted);
+    border-radius: var(--radius-6);
+    outline: none;
+    padding: calc(var(--space-sm) * 1.25);
+    font-size: 12px;
+    width: stretch;
+  }
+
+  .currencies-list__label {
+    @include flex-between;
+    border-bottom: 1px solid var(--color-border);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    margin-block: var(--space-xs);
+    padding-block: var(--space-sm);
+  }
+</style>
