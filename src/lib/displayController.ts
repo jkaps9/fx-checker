@@ -38,7 +38,8 @@ const displayController = (function () {
     "log-conversion",
   ) as HTMLButtonElement;
 
-  const customSelects = document.querySelectorAll(".custom-select");
+  const customSelects =
+    document.querySelectorAll<HTMLElement>(".custom-select");
   const baseCustomSelect = document.getElementById(
     "select-base-currency",
   ) as HTMLElement;
@@ -277,25 +278,12 @@ const displayController = (function () {
           const optionCode =
             option.getAttribute("data-value")?.toUpperCase() || "";
           if (optionCode !== "") {
-            const optionFlag = option.querySelector(
-              ".flag",
-            ) as HTMLImageElement;
-            const countryFlag = selectedContent.querySelector(
-              ".flag",
-            ) as HTMLImageElement;
-            const currencyCode = selectedContent.querySelector(
-              ".currency-code",
-            ) as HTMLElement;
-            countryFlag.src = optionFlag.src;
-            countryFlag.alt = optionFlag.alt;
-            currencyCode.textContent = optionCode;
+            updateCustomSelect(customSelect, optionCode);
             hiddenInput.value = optionCode;
             searchInput.value = "";
             currencyOptions.forEach((option) => {
               option.classList.remove("visually-hidden");
-              option.setAttribute("data-selected", "false");
             });
-            option.setAttribute("data-selected", "true");
             toggleMenu();
             const formData = getFormValues();
             if (
@@ -349,35 +337,6 @@ const displayController = (function () {
   };
 
   const swapCurrencies = (base: string, target: string) => {
-    // selected contents
-    const baseSelectedContent = baseCustomSelect.querySelector(
-      ".selected-content",
-    ) as HTMLElement;
-    const targetSelectedContent = targetCustomSelect.querySelector(
-      ".selected-content",
-    ) as HTMLElement;
-
-    const temp = baseSelectedContent.innerHTML;
-    baseSelectedContent.innerHTML = targetSelectedContent.innerHTML;
-    targetSelectedContent.innerHTML = temp;
-
-    // options selected states
-    baseCustomSelect.querySelectorAll(".currency-option")?.forEach((option) => {
-      option.setAttribute("data-selected", "false");
-      if (option.getAttribute("data-value") === target) {
-        option.setAttribute("data-selected", "true");
-      }
-    });
-
-    targetCustomSelect
-      .querySelectorAll(".currency-option")
-      ?.forEach((option) => {
-        option.setAttribute("data-selected", "false");
-        if (option.getAttribute("data-value") === base) {
-          option.setAttribute("data-selected", "true");
-        }
-      });
-
     updateCurrencies(target, base);
 
     // swap input and output
