@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import currencies from "@data/currencies.json";
 import CurrencyOption from "./CurrencyOption.astro";
+import CustomSelect from "./CustomSelect.astro";
 const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 ---
 
@@ -20,40 +21,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
               name="base-amount"
               placeholder="0"
             />
-            <select
-              name="base"
-              id="base-currency"
-            >
-              <button class="select-button">
-                <selectedcontent></selectedcontent>
-              </button>
-              <optgroup label="POPULAR">
-                {
-                  currencies
-                    .filter((c) => c.popular)
-                    .map((currency) => (
-                      <CurrencyOption
-                        currencyCode={currency.iso_code}
-                        currencyName={currency.name}
-                        defaultCode={defaultBase}
-                      />
-                    ))
-                }
-              </optgroup>
-              <optgroup label="OTHER CURRENCIES">
-                {
-                  currencies
-                    .filter((c) => !c.popular)
-                    .map((currency) => (
-                      <CurrencyOption
-                        currencyCode={currency.iso_code}
-                        currencyName={currency.name}
-                        defaultCode={defaultBase}
-                      />
-                    ))
-                }
-              </optgroup>
-            </select>
+            <CustomSelect defaultCurrency={defaultBase} />
           </div>
         </div>
         <button
@@ -77,40 +45,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             >
               0
             </output>
-            <select
-              name="target"
-              id="target-currency"
-            >
-              <button class="select-button">
-                <selectedcontent></selectedcontent>
-              </button>
-              <optgroup label="POPULAR">
-                {
-                  currencies
-                    .filter((c) => c.popular)
-                    .map((currency) => (
-                      <CurrencyOption
-                        currencyCode={currency.iso_code}
-                        currencyName={currency.name}
-                        defaultCode={defaultTarget}
-                      />
-                    ))
-                }
-              </optgroup>
-              <optgroup label="OTHER CURRENCIES">
-                {
-                  currencies
-                    .filter((c) => !c.popular)
-                    .map((currency) => (
-                      <CurrencyOption
-                        currencyCode={currency.iso_code}
-                        currencyName={currency.name}
-                        defaultCode={defaultTarget}
-                      />
-                    ))
-                }
-              </optgroup>
-            </select>
+            <CustomSelect defaultCurrency={defaultTarget} />
           </div>
         </div>
       </form>

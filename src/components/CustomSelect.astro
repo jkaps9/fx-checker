@@ -1,11 +1,10 @@
 ---
 import { Icon } from "astro-icon/components";
-import BaseLayout from "@layouts/BaseLayout.astro";
 import currencies from "@data/currencies.json";
 import CurrencyOption from "@components/CurrencyOption.astro";
 import FlagImage from "@components/FlagImage.astro";
 
-const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
+const { defaultCurrency = "USD" } = Astro.props;
 ---
 
 <div class="custom-select">
@@ -42,7 +41,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             <CurrencyOption
               currencyCode={currency.iso_code}
               currencyName={currency.name}
-              defaultCode={defaultBase}
+              defaultCode={defaultCurrency}
             />
           ))
       }
@@ -58,7 +57,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
             <CurrencyOption
               currencyCode={currency.iso_code}
               currencyName={currency.name}
-              defaultCode={defaultBase}
+              defaultCode={defaultCurrency}
             />
           ))
       }
