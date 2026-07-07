@@ -534,9 +534,51 @@ const displayController = (function () {
   const updateCurrencies = (base: string, target: string) => {
     // TODO: take in rate and update compared amount and 1 base = XX target text
     if (baseSelect.value !== base || targetSelect.value !== target) {
-      baseSelect.value = base;
-      targetSelect.value = target;
       updateFavoriteButtonState(base, target);
+    }
+
+    if (baseSelect.value !== base) {
+      baseSelect.value = base;
+      const countryFlag = baseCustomSelect.querySelector(
+        ".flag",
+      ) as HTMLImageElement;
+      const countryCode = base.slice(0, 2).toLowerCase();
+      countryFlag.src = `/images/flags/${countryCode}.webp`;
+      countryFlag.alt = `${countryCode} flag`;
+      const currencyCode = baseCustomSelect.querySelector(
+        ".currency-code",
+      ) as HTMLElement;
+      currencyCode.textContent = base;
+      baseCustomSelect
+        .querySelectorAll(".currency-option")
+        ?.forEach((option) => {
+          option.setAttribute("data-selected", "false");
+          if (option.getAttribute("data-value") === base) {
+            option.setAttribute("data-selected", "true");
+          }
+        });
+    }
+
+    if (targetSelect.value !== target) {
+      targetSelect.value = target;
+      const countryFlag = targetCustomSelect.querySelector(
+        ".flag",
+      ) as HTMLImageElement;
+      const countryCode = target.slice(0, 2).toLowerCase();
+      countryFlag.src = `/images/flags/${countryCode}.webp`;
+      countryFlag.alt = `${countryCode} flag`;
+      const currencyCode = targetCustomSelect.querySelector(
+        ".currency-code",
+      ) as HTMLElement;
+      currencyCode.textContent = target;
+      targetCustomSelect
+        .querySelectorAll(".currency-option")
+        ?.forEach((option) => {
+          option.setAttribute("data-selected", "false");
+          if (option.getAttribute("data-value") === target) {
+            option.setAttribute("data-selected", "true");
+          }
+        });
     }
   };
 
