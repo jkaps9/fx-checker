@@ -76,24 +76,45 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     ".select-button",
   ) as HTMLButtonElement;
   const dropDownMenu = document.querySelector(".dropdown-menu") as HTMLElement;
+
   selectButton.addEventListener("click", () => {
     dropDownMenu.classList.toggle("visually-hidden");
     selectButton.classList.toggle("open");
   });
 
-  const searchInput = document.querySelector(
+  const searchInput = dropDownMenu.querySelector(
     ".input-search",
   ) as HTMLInputElement;
-  const currencyOptions = document.querySelectorAll(".currency-option");
+  const currencyOptions = dropDownMenu.querySelectorAll(".currency-option");
+  const selectedContent = document.querySelector(
+    ".selected-content",
+  ) as HTMLElement;
+  const countryFlag = selectedContent.querySelector(
+    ".flag",
+  ) as HTMLImageElement;
+  const currencyCode = selectedContent.querySelector(
+    ".currency-code",
+  ) as HTMLElement;
 
   searchInput.addEventListener("input", () => {
     currencyOptions.forEach((option) => {
-      const currencyCode =
-        option.getAttribute("data-value")?.toLowerCase() || "";
-      if (currencyCode.includes(searchInput.value.toLowerCase())) {
+      const optionCode = option.getAttribute("data-value")?.toLowerCase() || "";
+      if (optionCode.includes(searchInput.value.toLowerCase())) {
         option.classList.remove("visually-hidden");
       } else {
         option.classList.add("visually-hidden");
+      }
+    });
+  });
+
+  currencyOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const optionCode = option.getAttribute("data-value")?.toUpperCase() || "";
+      if (optionCode !== "") {
+        const optionFlag = option.querySelector(".flag") as HTMLImageElement;
+        countryFlag.src = optionFlag.src;
+        countryFlag.alt = optionFlag.alt;
+        currencyCode.textContent = optionCode;
       }
     });
   });
