@@ -326,15 +326,8 @@ const displayController = (function () {
   };
 
   const swapCurrencies = (base: string, target: string) => {
-    const selectBase = document.getElementById(
-      "base-currency",
-    ) as HTMLSelectElement;
-    const selectTarget = document.getElementById(
-      "target-currency",
-    ) as HTMLSelectElement;
-
-    selectBase.value = target;
-    selectTarget.value = base;
+    baseSelect.value = target;
+    targetSelect.value = base;
 
     const targetVal = outputAmount.value;
     baseAmount.value = targetVal;
