@@ -78,8 +78,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
   const dropDownMenu = document.querySelector(".dropdown-menu") as HTMLElement;
 
   selectButton.addEventListener("click", () => {
-    dropDownMenu.classList.toggle("visually-hidden");
-    selectButton.classList.toggle("open");
+    toggleMenu();
   });
 
   const searchInput = dropDownMenu.querySelector(
@@ -115,9 +114,15 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
         countryFlag.src = optionFlag.src;
         countryFlag.alt = optionFlag.alt;
         currencyCode.textContent = optionCode;
+        toggleMenu();
       }
     });
   });
+
+  function toggleMenu() {
+    dropDownMenu.classList.toggle("visually-hidden");
+    selectButton.classList.toggle("open");
+  }
 </script>
 <style lang="scss">
   .custom-select {
