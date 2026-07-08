@@ -426,7 +426,10 @@ const displayController = (function () {
           closeAmountPara.textContent = `${close.toFixed(4)}`;
           changeAmountPara.textContent = `${change.toFixed(4)}`;
           changeAmountPara.className = `${change > 0 ? "positive" : "negative"}`;
-          changePercentagePara.textContent = `${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%`;
+          const icon =
+            changePercentage > 0 ? "▲" : changePercentage < 0 ? "▼" : "";
+
+          changePercentagePara.textContent = `${icon} ${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%`;
           changePercentagePara.className = `${change > 0 ? "positive" : "negative"}`;
           chartController.removeData();
           data.forEach((day) => {
