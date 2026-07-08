@@ -151,6 +151,11 @@ const displayController = (function () {
         formData.base === formData.target
       )
         return;
+
+      const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+      console.log(baseAmt);
+      if (baseAmt === 0) logConversionButton.disabled = true;
+      else logConversionButton.disabled = false;
       getApiData();
       getComparisons();
       updateCompareAmountText(formData.base);
@@ -720,9 +725,7 @@ const displayController = (function () {
   };
 
   const calculateTimeDiff = (startDate: Date, endDate: Date) => {
-    console.log(`${startDate} -> ${endDate}`);
     const diffInMs = endDate.getTime() - startDate.getTime();
-    console.log(diffInMs);
     if (diffInMs < 60000) {
       return "<1M";
     } else if (diffInMs < 3600000) {
