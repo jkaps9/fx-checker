@@ -687,9 +687,22 @@ const displayController = (function () {
     rightSide.classList.add("log-item__right-side");
     const rightContent = document.createElement("div");
     rightContent.classList.add("right-side__content");
-    rightContent.innerHTML = `<p>${conversion.sendAmount}</p><p class="accent-text">${conversion.receiveAmount}</p>`;
+    rightContent.innerHTML = `<p>${conversion.sendAmount.toLocaleString(
+      undefined,
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      },
+    )}</p><p class="accent-text">${conversion.receiveAmount.toLocaleString(
+      undefined,
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      },
+    )}</p>`;
     const deleteLogButton = document.createElement("button");
     deleteLogButton.classList.add("btn", "btn--delete");
+    deleteLogButton.style.color = "#ffffff";
     deleteLogButton.innerHTML = `<div class="icon">${deleteSVG}</div><div class="icon-filled">${filledDeleteSVG}</div>`;
     deleteLogButton.addEventListener("click", () => {
       storageManager.removeLog(conversion.dateTimeLogged);
