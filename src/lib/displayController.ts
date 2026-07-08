@@ -69,7 +69,13 @@ const displayController = (function () {
   const dateRangeButtons = document.querySelectorAll(
     ".date-range-buttons > button",
   );
-  const rateList = document.getElementById("rate-list") as HTMLElement;
+
+  const currencyPair = document.getElementById("currency-pair") as HTMLElement;
+  const conversionRate = document.getElementById(
+    "conversion-rate",
+  ) as HTMLElement;
+  const conversionDate = document.getElementById("date-time") as HTMLElement;
+
   const historicalChart = document.getElementById(
     "historyChart",
   ) as HTMLCanvasElement;
@@ -315,6 +321,29 @@ const displayController = (function () {
     results.textContent = str;
   };
 
+  const updateHistoryChartHeader = (
+    base: string,
+    target: string,
+    rate: string,
+  ) => {
+    currencyPair.textContent = `${base}/${target}`;
+    conversionRate.textContent = `${rate}`;
+    const date = new Date();
+    const month = date
+      .toLocaleString("en-US", { month: "short" })
+      .toUpperCase();
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const tZone =
+      String(date.toLocaleString("en-us", { timeZoneName: "short" }))
+        .trim()
+        .split(/\s+/)
+        .at(-1) ?? "";
+
+    conversionDate.textContent = `${month} ${day} ${hours}:${minutes} ${tZone}`;
+  };
+
   const updateTargetAmount = (amount: number, rate: number) => {
     const result = convertAmount(amount, rate);
     outputAmount.value = result.toLocaleString(undefined, {
@@ -372,6 +401,11 @@ const displayController = (function () {
           const lastIndex = data.length - 1;
           updateBaseConversion(
             `1 ${data[lastIndex].base} = ${data[lastIndex].rate.toFixed(4)} ${data[lastIndex].quote}`,
+          );
+          updateHistoryChartHeader(
+            data[lastIndex].base,
+            data[lastIndex].quote,
+            data[lastIndex].rate.toFixed(4),
           );
           const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
           if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
