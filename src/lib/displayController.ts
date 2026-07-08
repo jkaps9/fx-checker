@@ -352,13 +352,14 @@ const displayController = (function () {
     conversionDate.textContent = `${month} ${day} ${hours}:${minutes} ${tZone}`;
   };
 
-  const updateTargetAmount = (amount: number, rate: number) => {
-    const result = convertAmount(amount, rate);
-    outputAmount.value = result.toLocaleString(undefined, {
+  const updateTargetAmount = (symbol: string, amount: number, rate: number) => {
+    const result = convertAmount(amount, rate) || 0;
+    outputAmount.value = `${symbol}${result.toLocaleString(undefined, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
-    });
-    if (amount !== 0) outputAmount.classList.add("accent-text");
+    })}`;
+
+    if (result !== 0) outputAmount.classList.add("accent-text");
     else {
       outputAmount.classList.remove("accent-text");
       outputAmount.value = "0";
@@ -415,8 +416,10 @@ const displayController = (function () {
             data[lastIndex].quote,
             data[lastIndex].rate.toFixed(4),
           );
+          const currencySymbol = getCurrencySymbol(data[lastIndex].quote);
           const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
-          if (baseAmt) updateTargetAmount(baseAmt, data[lastIndex].rate);
+          if (baseAmt)
+            updateTargetAmount(currencySymbol, baseAmt, data[lastIndex].rate);
           if (!baseAmt) updateTargetAmount(0, 1);
 
           const open = data[0].rate;
@@ -800,8 +803,9 @@ const displayController = (function () {
 
   const symbolByCode = new Map(currencies.map((c) => [c.iso_code, c.symbol]));
 
-  const getCurrencySymbol = (isoCode: string): string | undefined => {
-    return symbolByCode.get(isoCode.toUpperCase());
+  const getCurrencySymbol = (isoCode: string): string => {
+    const symbol = symbolByCode.get(isoCode.toUpperCase()) || "";
+    return symbol;
   };
 
   return { initialize };
