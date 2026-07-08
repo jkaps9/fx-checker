@@ -592,6 +592,11 @@ const displayController = (function () {
       ) as HTMLElement;
       if (conversionArr.length > 0) {
         conversionsCard.classList.remove("visually-hidden");
+        conversionArr.sort((a, b) => {
+          const dateA = new Date(a.dateTimeLogged).getTime();
+          const dateB = new Date(b.dateTimeLogged).getTime();
+          return dateB - dateA;
+        });
         conversionArr.map((conversion) => {
           const listItem = createLogListItem(conversion);
           logList.appendChild(listItem);
