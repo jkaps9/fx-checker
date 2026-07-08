@@ -15,9 +15,6 @@ This is a solution to the [FX Checker challenge on Frontend Mentor](https://www.
   - [Useful resources](#useful-resources)
   - [AI Collaboration](#ai-collaboration)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -92,7 +89,9 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ## My process
 
-- Initially I built this with the API code in the various Astro components. However, I noticed that I was reusing a lot of code and could probably use the same API call to fill in various parts of the UI. So I built out individual functions by referring back to an old Odin project for structure. This helped reduce the codebase quite a bit and reduce API calls. Further optimization is required, but this works well for now.
+- Initially I built this with the API code in the various Astro components. However, I noticed that I was reusing a lot of code and could probably use the same API call to fill in various parts of the UI. So I built out individual functions by referring back to an old Odin project for structure. This helped reduce the codebase quite a bit and reduce API calls. Further optimization is required, but this will be easier to update.
+
+- For the currency picker I initially went with the modern select - see link in my resources section below which I'll leave because I like it. However, I ultimately needed a custom component so I could include the search feature. This set me back a bit having to refactor - but it was worth it in the end.
 
 ### Built with
 
@@ -101,6 +100,9 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
+- [Astro](https://astro.build/)
+- [SASS](https://sass-lang.com/)
+- [Chart JS](https://www.chartjs.org/)
 
 ### What I learned
 
@@ -137,11 +139,11 @@ Use this section to outline areas that you want to continue focusing on in futur
 ### Useful resources
 
 - [MDN Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
-- This helped me understand the fetch API for pulling the FX data
+  - This helped me understand the fetch API for pulling the FX data
 - [MDN Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)
-- This helped me understand how to store favorited currencies and pairs in local storage
+  - This helped me understand how to store favorited currencies and pairs in local storage
 - [Nice Select](https://nerdy.dev/nice-select)
-- This resource helped me with designing the select element for the currency selectors
+  - This resource helped me with designing the select element for the currency selectors
 
 ### AI Collaboration
 
@@ -150,9 +152,3 @@ I occasionally used Gemini to help debug issues with the code to pull API data a
 ## Author
 
 - Frontend Mentor - [@jkaps9](https://www.frontendmentor.io/profile/jkaps9)
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
