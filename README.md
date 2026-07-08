@@ -29,14 +29,15 @@ Your users should be able to:
 
 - [x] Enter an amount to send and see it convert in real time as they type
 - [x] Pick the "send" and "receive" currencies
-  - [ ] from a searchable currency picker
+  - [x] from a searchable currency picker
 - [x] See the live exchange rate for the active pair (for example, `1 USD = 0.8530 EUR`)
 - [x] Swap the send and receive currencies with the swap button
 - [x] Favorite the active pair, and log a conversion to their history
 
 #### Currency picker
 
-- [ ] Search the full list of available currencies by code or name
+- [x] Search the full list of available currencies by code
+  - [ ] or name
 - [x] See currencies grouped into "Popular" and "Other currencies", each row showing the flag, code, and name
 - [x] See a check against the currency that's currently selected
 
@@ -71,8 +72,8 @@ Your users should be able to:
 
 #### UI & accessibility
 
-- [ ] View the optimal layout for the interface depending on their device's screen size
-- [ ] See hover and focus states for all interactive elements on the page
+- [x] View the optimal layout for the interface depending on their device's screen size
+- [x] See hover and focus states for all interactive elements on the page
 - [ ] Navigate the entire app using only their keyboard
 
 ### Screenshot
