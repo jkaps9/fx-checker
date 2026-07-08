@@ -227,6 +227,13 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     justify-content: center;
     min-width: 135px;
     text-align: center;
+
+    &:disabled {
+      background-color: transparent;
+      border-color: var(--color-button-border);
+      color: var(--color-body-text-muted);
+      cursor: not-allowed;
+    }
   }
 
   .buttons {
