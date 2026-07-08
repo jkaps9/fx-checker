@@ -276,7 +276,14 @@ const displayController = (function () {
         currencyOptions.forEach((option) => {
           const optionCode =
             option.getAttribute("data-value")?.toLowerCase() || "";
-          if (optionCode.includes(searchInput.value.toLowerCase())) {
+          const currencyNameField = option.querySelector(
+            ".currency-name",
+          ) as HTMLElement;
+          const optionName = currencyNameField?.textContent.toLowerCase() || "";
+          if (
+            optionCode.includes(searchInput.value.toLowerCase()) ||
+            optionName.includes(searchInput.value.toLowerCase())
+          ) {
             option.classList.remove("visually-hidden");
           } else {
             option.classList.add("visually-hidden");
