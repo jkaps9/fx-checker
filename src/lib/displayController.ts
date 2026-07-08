@@ -668,25 +668,21 @@ const displayController = (function () {
     const listItem = document.createElement("li");
     listItem.classList.add("card--inner");
     listItem.classList.add("log__item");
-    const leftSide = document.createElement("div");
-    leftSide.classList.add("logupdateLogCount-item__left-side");
+
     const timeDiff = document.createElement("p");
     const currentTime = new Date();
     const logDate = new Date(conversion.dateTimeLogged);
     const diffInMs = currentTime.getTime() - logDate.getTime();
     const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
     timeDiff.textContent = `${logDate.toISOString().split("T")[0]}`;
-    leftSide.appendChild(timeDiff);
+    listItem.appendChild(timeDiff);
     const currencyPair = document.createElement("div");
     currencyPair.classList.add("log-item__currency-pair");
     currencyPair.innerHTML = `<p>${conversion.base}</p><span>-></span><p>${conversion.target}</p>`;
-    leftSide.appendChild(currencyPair);
-    listItem.appendChild(leftSide);
+    listItem.appendChild(currencyPair);
 
-    const rightSide = document.createElement("div");
-    rightSide.classList.add("log-item__right-side");
     const rightContent = document.createElement("div");
-    rightContent.classList.add("right-side__content");
+    rightContent.classList.add("log-item__amounts");
     rightContent.innerHTML = `<p>${conversion.sendAmount.toLocaleString(
       undefined,
       {
@@ -710,9 +706,9 @@ const displayController = (function () {
       updateLogCount();
       if (storageManager.getLog().length === 0) updateConversionLog();
     });
-    rightSide.appendChild(rightContent);
-    rightSide.appendChild(deleteLogButton);
-    listItem.appendChild(rightSide);
+
+    listItem.appendChild(rightContent);
+    listItem.appendChild(deleteLogButton);
 
     return listItem;
   };

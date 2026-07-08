@@ -56,12 +56,14 @@
 </style>
 <style lang="scss" is:global>
   .log__item {
-    @include flex-between;
+    @include flex-center;
+    gap: 1rem;
   }
 
   .log-item {
     &__currency-pair {
       display: flex;
+      flex: 1;
       gap: var(--space-sm);
     }
 
@@ -73,14 +75,9 @@
         width: 3rem;
       }
     }
-
-    &__right-side {
+    &__amounts {
       @include flex-center;
       gap: calc(var(--space-md) * 1.25);
-      .right-side__content {
-        @include flex-center;
-        gap: calc(var(--space-md) * 1.25);
-      }
     }
   }
 </style>
