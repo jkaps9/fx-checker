@@ -670,11 +670,10 @@ const displayController = (function () {
     listItem.classList.add("log__item");
 
     const timeDiff = document.createElement("p");
+    timeDiff.classList.add("log-item__time-diff");
     const currentTime = new Date();
     const logDate = new Date(conversion.dateTimeLogged);
-    const diffInMs = currentTime.getTime() - logDate.getTime();
-    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-    timeDiff.textContent = `${logDate.toISOString().split("T")[0]}`;
+    timeDiff.textContent = `${calculateTimeDiff(logDate, currentTime)}`;
     listItem.appendChild(timeDiff);
     const currencyPair = document.createElement("div");
     currencyPair.classList.add("log-item__currency-pair");
@@ -718,6 +717,29 @@ const displayController = (function () {
     const base = formData.get("base")?.toString() ?? "";
     const target = formData.get("target")?.toString() ?? "";
     return { base, target };
+  };
+
+  const calculateTimeDiff = (startDate: Date, endDate: Date) => {
+    console.log(`${startDate} -> ${endDate}`);
+    const diffInMs = endDate.getTime() - startDate.getTime();
+    console.log(diffInMs);
+    if (diffInMs < 60000) {
+      return "<1M";
+    } else if (diffInMs < 3600000) {
+      const minutes = Math.floor(diffInMs / 60000);
+      return `${minutes}M`;
+    } else if (diffInMs < 86400000) {
+      const minutes = Math.floor(diffInMs / 60000);
+      const hours = Math.floor(minutes / 60);
+      return `${hours}H`;
+    } else {
+      const day: number = startDate.getDate();
+      const monthName: string = startDate.toLocaleDateString("en-US", {
+        month: "long",
+      });
+
+      return `${day} ${monthName}`;
+    }
   };
 
   return { initialize };

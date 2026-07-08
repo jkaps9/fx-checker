@@ -61,20 +61,15 @@
   }
 
   .log-item {
+    &__time-diff {
+      width: 3rem;
+    }
     &__currency-pair {
       display: flex;
       flex: 1;
       gap: var(--space-sm);
     }
 
-    &__left-side {
-      @include flex-center;
-      gap: var(--space-md);
-
-      & > p {
-        width: 3rem;
-      }
-    }
     &__amounts {
       @include flex-center;
       gap: calc(var(--space-md) * 1.25);
