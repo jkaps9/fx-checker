@@ -122,7 +122,7 @@ const displayController = (function () {
   let currentSection = "compare";
 
   const initialize = () => {
-    const formData = getFormValues();
+    let formData = getFormValues();
     updateFavoriteButtonState(formData.base, formData.target);
     getApiData();
     getComparisons();
@@ -142,7 +142,8 @@ const displayController = (function () {
         parts[0] = Number(parts[0]).toLocaleString("en-US");
       }
 
-      target.value = parts.join(".");
+      formData = getFormValues();
+      target.value = `${getCurrencySymbol(formData.base)}${parts.join(".")}`;
     });
 
     form.addEventListener("submit", async (e) => {
@@ -500,10 +501,13 @@ const displayController = (function () {
 
     const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
     const result = convertAmount(baseAmt, rateSummary.close);
-    convertedAmount.textContent = result.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+
+    convertedAmount.textContent =
+      getCurrencySymbol(rateSummary.quote) +
+      result.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
     const rate = document.createElement("p");
     rate.classList.add("muted-text");
     rate.textContent = `@ ${rateSummary.close}`;
@@ -792,6 +796,12 @@ const displayController = (function () {
 
       return `${day} ${monthName}`;
     }
+  };
+
+  const symbolByCode = new Map(currencies.map((c) => [c.iso_code, c.symbol]));
+
+  const getCurrencySymbol = (isoCode: string): string | undefined => {
+    return symbolByCode.get(isoCode.toUpperCase());
   };
 
   return { initialize };

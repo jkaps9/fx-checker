@@ -51,6 +51,7 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
             <CurrencyOption
               currencyCode={currency.iso_code}
               currencyName={currency.name}
+              currencySymbol={currency.symbol}
               defaultCode={defaultCurrency}
             />
           ))
@@ -67,6 +68,7 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
             <CurrencyOption
               currencyCode={currency.iso_code}
               currencyName={currency.name}
+              currencySymbol={currency.symbol}
               defaultCode={defaultCurrency}
             />
           ))

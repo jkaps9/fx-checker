@@ -4,10 +4,11 @@ import { Icon } from "astro-icon/components";
 interface Props {
   currencyCode: string;
   currencyName: string;
+  currencySymbol: string;
   defaultCode: string;
 }
 
-const { currencyCode, currencyName, defaultCode } = Astro.props;
+const { currencyCode, currencyName, currencySymbol, defaultCode } = Astro.props;
 
 const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
 ---
@@ -15,6 +16,7 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
 <li
   class="currency-option"
   data-value={currencyCode}
+  data-symbol={currencySymbol}
   data-selected={currencyCode === defaultCode}
 >
   <FlagImage countryCode={countryCode} />
