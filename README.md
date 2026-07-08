@@ -28,8 +28,7 @@ Your users should be able to:
 #### Converter
 
 - [x] Enter an amount to send and see it convert in real time as they type
-- [x] Pick the "send" and "receive" currencies
-  - [x] from a searchable currency picker
+- [x] Pick the "send" and "receive" currencies from a searchable currency picker
 - [x] See the live exchange rate for the active pair (for example, `1 USD = 0.8530 EUR`)
 - [x] Swap the send and receive currencies with the swap button
 - [x] Favorite the active pair, and log a conversion to their history
@@ -66,7 +65,6 @@ Your users should be able to:
 #### Conversion log
 
 - [x] See a log of conversions they've made,each showing the relative time, the pair, and the send and receive amounts
-- [ ] need to fix relative time, currently just showing the logged date and time
 - [x] Clear the whole log
 - [x] Delete an individual entry
 
