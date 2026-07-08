@@ -35,8 +35,7 @@ Your users should be able to:
 
 #### Currency picker
 
-- [x] Search the full list of available currencies by code
-  - [ ] or name
+- [x] Search the full list of available currencies by code or name
 - [x] See currencies grouped into "Popular" and "Other currencies", each row showing the flag, code, and name
 - [x] See a check against the currency that's currently selected
 
