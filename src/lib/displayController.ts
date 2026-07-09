@@ -165,7 +165,6 @@ const displayController = (function () {
         return;
 
       const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
-      console.log(baseAmt);
       if (baseAmt === 0) logConversionButton.disabled = true;
       else logConversionButton.disabled = false;
       getApiData();
@@ -212,9 +211,9 @@ const displayController = (function () {
     logConversionButton.addEventListener("click", () => {
       const now = new Date().toISOString();
       const formData = getFormValues();
-
+      console.log(formData);
       const sendAmount = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
-      const receiveAmount = Number(outputAmount.value.replaceAll(",", ""));
+      const receiveAmount = Number(outputAmount.value.replace(/[^0-9.]/g, ""));
       if (formData.base && formData.target && sendAmount && receiveAmount) {
         if (!storageManager.hasLog(now)) {
           storageManager.addLog(
@@ -231,9 +230,8 @@ const displayController = (function () {
         }
         updateConversionLog();
       } else {
-        // TODO: update the UX here
-        alert("invalid log value");
-        console.log(
+        alert("invalid log value - check console");
+        console.error(
           `base: ${formData.base}; target: ${formData.target}; sendAmount: ${sendAmount}; receiveAmount: ${receiveAmount}`,
         );
       }
