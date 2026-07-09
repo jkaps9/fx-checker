@@ -1,27 +1,14 @@
 ---
-import type { ImageMetadata } from "astro";
-import Image from "astro/components/Image.astro";
-
 interface Props {
   countryCode: string;
 }
 const { countryCode } = Astro.props;
-
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/flags/*.webp",
-);
-
-const imagePath = `/src/assets/images/flags/${countryCode.toLowerCase()}.webp`;
-if (!images[imagePath])
-  throw new Error(
-    `"${imagePath}" does not exist in glob: "/src/assets/images/flags/*.webp"`,
-  );
 ---
 
-<Image
-  src={images[imagePath]()}
-  alt=`${countryCode} flag`
+<img
   class="flag"
+  src=`/fx-checker/images/flags/${countryCode}.webp`
+  alt=`${countryCode} flag`
 />
 
 <style lang="scss" is:global>
