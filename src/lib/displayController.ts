@@ -167,7 +167,7 @@ const displayController = (function () {
       const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
       if (baseAmt === 0) logConversionButton.disabled = true;
       else logConversionButton.disabled = false;
-      getApiData();
+      //getApiData();
       getComparisons();
       updateCompareAmountText(formData.base);
     });
@@ -190,6 +190,7 @@ const displayController = (function () {
     currencySwapBtn.addEventListener("click", () => {
       const formData = getFormValues();
       swapCurrencies(formData.base, formData.target);
+      getRate();
       getApiData();
       updateCompareAmountText(formData.target);
     });
@@ -321,6 +322,7 @@ const displayController = (function () {
               formData.base === formData.target
             )
               return;
+            getRate();
             getApiData();
             getComparisons();
             updateCompareAmountText(formData.base);
@@ -397,7 +399,38 @@ const displayController = (function () {
     baseAmount.value = targetVal;
   };
 
+  const getRate = () => {
+    /*
+     *just used to get the conversiom rrate
+     * */
+    const formData = getFormValues();
+    if (!formData.base || !formData.target) return 0;
+    if (formData.base === formData.target) return 1;
+
+    updateBaseConversion("Fetching rates...");
+    updateFavoriteButtonState(formData.base, formData.target);
+
+    apiController.search(formData.base, formData.target).then((data) => {
+      if (data) {
+        updateBaseConversion(
+          `1 ${data.base} = ${data.rate.toFixed(4)} ${data.quote}`,
+        );
+        updateHistoryChartHeader(data.base, data.quote, data.rate.toFixed(4));
+        const currencySymbol = getCurrencySymbol(data.quote);
+        const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+        if (baseAmt) updateTargetAmount(currencySymbol, baseAmt, data.rate);
+        if (!baseAmt) updateTargetAmount(currencySymbol, 0, 1);
+      } else {
+        updateBaseConversion("Error fetching rates. Please try again.");
+      }
+    });
+  };
+
   const getApiData = () => {
+    /*
+     * getApiData should just get historical
+     * data
+     * */
     const formData = getFormValues();
     if (!formData.base || !formData.target || formData.base === formData.target)
       return;
@@ -406,8 +439,6 @@ const displayController = (function () {
 
     startDate.setDate(startDate.getDate() - dateOffsets.get(dateRange));
 
-    updateBaseConversion("Fetching rates...");
-    updateFavoriteButtonState(formData.base, formData.target);
     apiController
       .searchHistorical(
         formData.base,
@@ -418,22 +449,9 @@ const displayController = (function () {
       .then((data) => {
         if (data) {
           const lastIndex = data.length - 1;
-          updateBaseConversion(
-            `1 ${data[lastIndex].base} = ${data[lastIndex].rate.toFixed(4)} ${data[lastIndex].quote}`,
-          );
-          updateHistoryChartHeader(
-            data[lastIndex].base,
-            data[lastIndex].quote,
-            data[lastIndex].rate.toFixed(4),
-          );
-          const currencySymbol = getCurrencySymbol(data[lastIndex].quote);
-          const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
-          if (baseAmt)
-            updateTargetAmount(currencySymbol, baseAmt, data[lastIndex].rate);
-          if (!baseAmt) updateTargetAmount(currencySymbol, 0, 1);
 
           const open = data[0].rate;
-          const close = data[data.length - 1].rate;
+          const close = data[lastIndex].rate;
           const change = close - open;
           const changePercentage = (change / open) * 100;
           openAmountPara.textContent = `${open.toFixed(4)}`;
@@ -449,8 +467,6 @@ const displayController = (function () {
           data.forEach((day) => {
             chartController.addData(`${day.date}`, day.rate);
           });
-        } else {
-          updateBaseConversion("Error fetching rates. Please try again.");
         }
       });
   };
