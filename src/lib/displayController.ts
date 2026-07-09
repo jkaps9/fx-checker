@@ -494,7 +494,7 @@ const displayController = (function () {
     const leftSide = document.createElement("div");
     leftSide.classList.add("left-side");
     const flag = document.createElement("img");
-    flag.src = `/images/flags/${rateSummary.quote.slice(0, 2).toLowerCase()}.webp`;
+    flag.src = `/fx-checker/images/flags/${rateSummary.quote.slice(0, 2).toLowerCase()}.webp`;
     flag.alt = `${rateSummary.quote.slice(0, 2).toLowerCase()} flag`;
     flag.classList.add("flag");
     const currencyInfo = document.createElement("div");
@@ -564,7 +564,7 @@ const displayController = (function () {
   ) => {
     const countryFlag = customSelect.querySelector(".flag") as HTMLImageElement;
     const countryCode = newCurrencyCode.slice(0, 2).toLowerCase();
-    countryFlag.src = `/images/flags/${countryCode}.webp`;
+    countryFlag.src = `/fx-checker/images/flags/${countryCode}.webp`;
     countryFlag.alt = `${countryCode} flag`;
     const currencyCode = customSelect.querySelector(
       ".currency-code",

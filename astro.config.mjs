@@ -4,7 +4,8 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com", //TODO: update me
+  site: "https://jkaps9.github.io",
+  base: "/fx-checker",
   integrations: [icon()],
   fonts: [
     {
