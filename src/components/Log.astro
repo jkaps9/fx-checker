@@ -54,25 +54,51 @@
     margin-block-start: 1.25rem;
   }
 </style>
+
 <style lang="scss" is:global>
   .log__item {
-    @include flex-center;
-    gap: 1rem;
+    align-items: end;
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: 1fr auto auto;
+    justify-content: space-between;
+    @include bp(md) {
+      @include flex-center;
+      gap: 1rem;
+    }
+
+    .btn--delete {
+      color: var(--color-body-text);
+      grid-row: span 2;
+    }
+  }
+
+  .card--inner {
+    padding-inline: clamp(0.75rem, 0.5739rem + 0.7512vw, 1.25rem);
   }
 
   .log-item {
     &__time-diff {
+      grid-column: 1;
+      grid-row: 1;
       width: 3rem;
     }
+
     &__currency-pair {
       display: flex;
       flex: 1;
       gap: var(--space-sm);
+      grid-column: 1;
+      grid-row: 2;
     }
 
     &__amounts {
-      @include flex-center;
-      gap: calc(var(--space-md) * 1.25);
+      column-gap: calc(var(--space-md) * 1.25);
+      display: flex;
+      flex-direction: column;
+      justify-self: center;
+      grid-row: 1 / span 2;
+      text-align: end;
     }
   }
 </style>

@@ -731,7 +731,7 @@ const displayController = (function () {
     listItem.classList.add("log__item");
 
     const timeDiff = document.createElement("p");
-    timeDiff.classList.add("log-item__time-diff");
+    timeDiff.classList.add("log-item__time-diff", "muted-text");
     const currentTime = new Date();
     const logDate = new Date(conversion.dateTimeLogged);
     timeDiff.textContent = `${calculateTimeDiff(logDate, currentTime)}`;
@@ -743,7 +743,7 @@ const displayController = (function () {
 
     const rightContent = document.createElement("div");
     rightContent.classList.add("log-item__amounts");
-    rightContent.innerHTML = `<p>${conversion.sendAmount.toLocaleString(
+    rightContent.innerHTML = `<p class="muted-text">${conversion.sendAmount.toLocaleString(
       undefined,
       {
         minimumFractionDigits: 2,
@@ -758,7 +758,6 @@ const displayController = (function () {
     )}</p>`;
     const deleteLogButton = document.createElement("button");
     deleteLogButton.classList.add("btn", "btn--delete");
-    deleteLogButton.style.color = "var(--color-body-text)";
     deleteLogButton.innerHTML = `<div class="icon">${deleteSVG}</div><div class="icon-filled">${filledDeleteSVG}</div>`;
     deleteLogButton.addEventListener("click", () => {
       storageManager.removeLog(conversion.dateTimeLogged);
