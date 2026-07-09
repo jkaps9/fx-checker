@@ -3,8 +3,16 @@ import type { FxRate } from "../types/fx";
 
 export class APIController {
   private frankfurterAPI = new FrankfurterAPI();
+  base: string;
+  target: string;
+  rate: number;
+  currentData: FxRate[];
 
-  constructor() {}
+  constructor() {
+    this.base = "";
+    this.target = "";
+    this.rate = 1;
+  }
 
   async search(
     base: string,
@@ -31,6 +39,10 @@ export class APIController {
     from: string,
     to: string,
   ): Promise<FxRate[] | undefined> {
+    if (base === this.base && target === this.target){ 
+alert("returning current data");
+return this.currentData;
+}
     try {
       const data = await this.frankfurterAPI.fetchHistoricalRates(
         base,
@@ -38,6 +50,11 @@ export class APIController {
         from,
         to,
       );
+      const lastIndex = data.length - 1;
+      this.base = data[lastIndex].base;
+      this.target = data[lastIndex].quote;
+      this.rate = data[lastIndex].rate;
+      this.currentData = data;
       return data;
     } catch (error) {
       console.error("Error fetching time series FX data:", error);
