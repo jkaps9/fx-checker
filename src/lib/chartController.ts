@@ -42,6 +42,7 @@ export class ChartController {
               color: "#2e2e2e",
             },
             ticks: {
+              count: 3,
               callback: function (value: string | number) {
                 return Number(value).toFixed(4);
               },
