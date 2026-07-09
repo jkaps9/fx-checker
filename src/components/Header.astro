@@ -7,6 +7,7 @@ import ThemeSwitcher from "./ThemeSwitcher.astro";
 
 <header>
   <div class="container">
+    <Icon name="logo-small" />
     <Icon name="logo" />
     <div class="header__right">
       <p class="header__content muted-text">
@@ -33,8 +34,23 @@ import ThemeSwitcher from "./ThemeSwitcher.astro";
   }
 
   [data-icon="logo"] {
-    height: clamp(1.25rem, 0.8922rem + 1.5267vw, 1.625rem);
-    width: auto;
+    @include bp-max(md) {
+      display: none;
+    }
+    @include bp(md) {
+      height: clamp(1.25rem, 0.8922rem + 1.5267vw, 1.625rem);
+      width: auto;
+    }
+  }
+
+  [data-icon="logo-small"] {
+    @include bp-max(md) {
+      height: 26px;
+      width: 26px;
+    }
+    @include bp(md) {
+      display: none;
+    }
   }
 
   .header__right {
