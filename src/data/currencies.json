@@ -5,7 +5,7 @@
     "name": "United Arab Emirates Dirham",
     "symbol": "د.إ",
     "start_date": "1996-04-11",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -14,7 +14,7 @@
     "name": "Argentine Peso",
     "symbol": "$",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -23,7 +23,7 @@
     "name": "Australian Dollar",
     "symbol": "$",
     "start_date": "1981-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -32,7 +32,7 @@
     "name": "Bangladeshi Taka",
     "symbol": "৳",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -41,7 +41,7 @@
     "name": "Bahraini Dinar",
     "symbol": "د.ب",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -50,7 +50,7 @@
     "name": "Brazilian Real",
     "symbol": "R$",
     "start_date": "1994-01-03",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -59,7 +59,7 @@
     "name": "Canadian Dollar",
     "symbol": "$",
     "start_date": "1953-05-11",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -68,7 +68,7 @@
     "name": "Swiss Franc",
     "symbol": "CHF",
     "start_date": "1949-12-21",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -77,16 +77,7 @@
     "name": "Chilean Peso",
     "symbol": "$",
     "start_date": "1982-08-09",
-    "end_date": "2026-06-15",
-    "popular": false
-  },
-  {
-    "iso_code": "CNH",
-    "iso_numeric": "",
-    "name": "Chinese Renminbi Yuan Offshore",
-    "symbol": "¥",
-    "start_date": "2011-08-19",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -95,7 +86,7 @@
     "name": "Chinese Renminbi Yuan",
     "symbol": "¥",
     "start_date": "1981-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -104,7 +95,7 @@
     "name": "Colombian Peso",
     "symbol": "$",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -113,7 +104,7 @@
     "name": "Czech Koruna",
     "symbol": "Kč",
     "start_date": "1991-01-01",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -122,7 +113,7 @@
     "name": "Danish Krone",
     "symbol": "kr.",
     "start_date": "1949-12-21",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -131,7 +122,7 @@
     "name": "Egyptian Pound",
     "symbol": "ج.م",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -139,8 +130,8 @@
     "iso_numeric": "978",
     "name": "Euro",
     "symbol": "€",
-    "start_date": "1993-01-04",
-    "end_date": "2026-06-15",
+    "start_date": "1999-01-04",
+    "end_date": "2026-07-09",
     "popular": true
   },
   {
@@ -149,7 +140,7 @@
     "name": "British Pound",
     "symbol": "£",
     "start_date": "1949-12-21",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": true
   },
   {
@@ -158,7 +149,7 @@
     "name": "Hong Kong Dollar",
     "symbol": "$",
     "start_date": "1981-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -167,7 +158,7 @@
     "name": "Honduran Lempira",
     "symbol": "L",
     "start_date": "1999-01-04",
-    "end_date": "2026-06-12",
+    "end_date": "2026-07-08",
     "popular": false
   },
   {
@@ -176,7 +167,7 @@
     "name": "Haitian Gourde",
     "symbol": "G",
     "start_date": "1999-01-04",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-08",
     "popular": false
   },
   {
@@ -185,7 +176,7 @@
     "name": "Hungarian Forint",
     "symbol": "Ft",
     "start_date": "1994-03-31",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -194,7 +185,7 @@
     "name": "Indonesian Rupiah",
     "symbol": "Rp",
     "start_date": "1993-01-05",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -203,7 +194,7 @@
     "name": "Indian Rupee",
     "symbol": "₹",
     "start_date": "1994-03-01",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -212,7 +203,7 @@
     "name": "Icelandic Króna",
     "symbol": "kr.",
     "start_date": "1980-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -221,7 +212,7 @@
     "name": "Jordanian Dinar",
     "symbol": "د.ا",
     "start_date": "1995-10-23",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -230,7 +221,7 @@
     "name": "Japanese Yen",
     "symbol": "¥",
     "start_date": "1969-12-01",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -239,7 +230,7 @@
     "name": "Kenyan Shilling",
     "symbol": "KSh",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-13",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -248,7 +239,7 @@
     "name": "South Korean Won",
     "symbol": "₩",
     "start_date": "1981-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -257,7 +248,7 @@
     "name": "Kuwaiti Dinar",
     "symbol": "د.ك",
     "start_date": "1994-03-01",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -266,7 +257,7 @@
     "name": "Lebanese Pound",
     "symbol": "ل.ل",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -275,7 +266,7 @@
     "name": "Sri Lankan Rupee",
     "symbol": "₨",
     "start_date": "1999-01-04",
-    "end_date": "2026-06-12",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -284,7 +275,7 @@
     "name": "Moroccan Dirham",
     "symbol": "د.م.",
     "start_date": "1998-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -293,7 +284,7 @@
     "name": "Mexican Peso",
     "symbol": "$",
     "start_date": "1991-11-12",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -302,7 +293,7 @@
     "name": "Malaysian Ringgit",
     "symbol": "RM",
     "start_date": "1988-01-08",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -311,7 +302,7 @@
     "name": "Nigerian Naira",
     "symbol": "₦",
     "start_date": "1999-01-04",
-    "end_date": "2026-06-13",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -320,7 +311,7 @@
     "name": "Norwegian Krone",
     "symbol": "kr",
     "start_date": "1949-12-21",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -329,7 +320,7 @@
     "name": "Nepalese Rupee",
     "symbol": "Rs.",
     "start_date": "1999-01-04",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -338,7 +329,7 @@
     "name": "New Zealand Dollar",
     "symbol": "$",
     "start_date": "1990-05-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -347,7 +338,7 @@
     "name": "Omani Rial",
     "symbol": "ر.ع.",
     "start_date": "1986-01-01",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -356,7 +347,7 @@
     "name": "Peruvian Sol",
     "symbol": "S/",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-08",
     "popular": false
   },
   {
@@ -365,7 +356,7 @@
     "name": "Philippine Peso",
     "symbol": "₱",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -374,7 +365,7 @@
     "name": "Pakistani Rupee",
     "symbol": "₨",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -383,7 +374,7 @@
     "name": "Polish Złoty",
     "symbol": "zł",
     "start_date": "1994-03-31",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -392,7 +383,7 @@
     "name": "Qatari Riyal",
     "symbol": "ر.ق",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -401,7 +392,7 @@
     "name": "Romanian Leu",
     "symbol": "Lei",
     "start_date": "1996-05-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -410,7 +401,7 @@
     "name": "Russian Ruble",
     "symbol": "₽",
     "start_date": "1993-01-04",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -419,7 +410,7 @@
     "name": "Saudi Riyal",
     "symbol": "ر.س",
     "start_date": "1986-06-01",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -428,7 +419,7 @@
     "name": "Swedish Krona",
     "symbol": "kr",
     "start_date": "1949-12-21",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -437,7 +428,7 @@
     "name": "Singapore Dollar",
     "symbol": "$",
     "start_date": "1981-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -446,7 +437,7 @@
     "name": "Thai Baht",
     "symbol": "฿",
     "start_date": "1990-12-31",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -455,7 +446,7 @@
     "name": "Turkish Lira",
     "symbol": "₺",
     "start_date": "1996-04-16",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -464,7 +455,7 @@
     "name": "New Taiwan Dollar",
     "symbol": "$",
     "start_date": "1981-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -473,7 +464,7 @@
     "name": "Ukrainian Hryvnia",
     "symbol": "₴",
     "start_date": "1996-09-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -482,7 +473,7 @@
     "name": "United States Dollar",
     "symbol": "$",
     "start_date": "1948-06-21",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": true
   },
   {
@@ -491,7 +482,7 @@
     "name": "Vietnamese Đồng",
     "symbol": "₫",
     "start_date": "1998-07-07",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   },
   {
@@ -500,7 +491,7 @@
     "name": "South African Rand",
     "symbol": "R",
     "start_date": "1987-01-02",
-    "end_date": "2026-06-15",
+    "end_date": "2026-07-09",
     "popular": false
   }
 ]
