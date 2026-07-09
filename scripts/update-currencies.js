@@ -77,6 +77,7 @@ async function fetchCurrencies() {
     const result = await response.json();
     const updatedResults = result
       .filter((r) => flags.includes(r.iso_code.slice(0, 2).toLowerCase()))
+      .filter((c) => c.iso_code !== "CNH")
       .map((item) => ({
         ...item,
         popular: popularCurrencies.includes(item.iso_code),
