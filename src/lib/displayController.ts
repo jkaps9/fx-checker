@@ -420,7 +420,7 @@ const displayController = (function () {
           const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
           if (baseAmt)
             updateTargetAmount(currencySymbol, baseAmt, data[lastIndex].rate);
-          if (!baseAmt) updateTargetAmount(0, 1);
+          if (!baseAmt) updateTargetAmount(currencySymbol, 0, 1);
 
           const open = data[0].rate;
           const close = data[data.length - 1].rate;
@@ -758,7 +758,7 @@ const displayController = (function () {
     )}</p>`;
     const deleteLogButton = document.createElement("button");
     deleteLogButton.classList.add("btn", "btn--delete");
-    deleteLogButton.style.color = "#ffffff";
+    deleteLogButton.style.color = "var(--color-body-text)";
     deleteLogButton.innerHTML = `<div class="icon">${deleteSVG}</div><div class="icon-filled">${filledDeleteSVG}</div>`;
     deleteLogButton.addEventListener("click", () => {
       storageManager.removeLog(conversion.dateTimeLogged);
