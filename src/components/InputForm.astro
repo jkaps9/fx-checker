@@ -184,20 +184,6 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     );
   }
 
-  optgroup {
-    background-color: var(--color-background-surface);
-    color: var(--color-body-text-muted);
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
-    &:first-of-type {
-      padding-block-start: var(--space-xs);
-    }
-    &:not(:last-of-type) {
-      padding-block-end: var(--space-xs);
-    }
-  }
-
   .input-row {
     @include flex-between;
     flex: 1;
