@@ -279,7 +279,7 @@ output {
 
 input,
 output {
-  font-size: 40px;
+  font-size: clamp(2rem, 1.8239rem + 0.7512vw, 2.5rem);
   &::placeholder {
     color: var(--color-body-text-muted);
   }

@@ -120,7 +120,18 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
     font-family: inherit;
     border: none;
     outline: none;
-    width: 75%;
+    width: 65%;
+    @include bp(md) {
+      width: 75%;
+    }
+  }
+
+  output {
+    overflow: hidden;
+    width: 65%;
+    @include bp(md) {
+      width: 75%;
+    }
   }
 
   select {
@@ -188,6 +199,7 @@ const { defaultBase = "USD", defaultTarget = "EUR" } = Astro.props;
 
   .input-row {
     @include flex-between;
+    min-width: 0;
   }
 
   .bottom-row {
