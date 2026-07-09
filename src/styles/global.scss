@@ -263,6 +263,9 @@ section {
   &#compare,
   &#favorites,
   &#log {
+    @include bp-max(md) {
+      padding-block: 1rem;
+    }
     &:not(.active) {
       @include visually-hidden;
     }
@@ -337,7 +340,7 @@ select,
 
 .card {
   background-color: var(--color-background-card);
-  border-radius: var(--radius-20);
+  border-radius: clamp(var(--radius-16), 0.912rem + 0.3756vw, var(--radius-20));
   display: grid;
   gap: 1.25rem;
   padding: 1.25rem;
