@@ -1,10 +1,15 @@
 ---
-
+import { Icon } from "astro-icon/components";
 ---
 
 <section class="tab-switcher">
   <div class="container">
-    <div class="tab-list">
+    <button id="tab-dropdown">
+      <span id="current-tab">HISTORY</span>
+      <Icon name="icon-dropdown" />
+    </button>
+
+    <div class="tab-list active">
       <button
         class="tab active"
         data-tab="history"
@@ -34,18 +39,55 @@
 </section>
 
 <style lang="scss">
+  .container {
+    position: relative;
+  }
+
   .tab-switcher {
     padding-block-end: 0;
   }
+
+  #tab-dropdown {
+    @include flex-between;
+    background-color: var(--color-background-card);
+    border-radius: var(--radius-8);
+    min-height: 2.5rem;
+    padding-inline: 0.75rem;
+    width: 100%;
+    @include bp(md) {
+      display: none;
+    }
+  }
+
   .tab-list {
-    border-bottom: 1px solid var(--color-border);
-    display: flex;
-    gap: var(--space-sm);
+    @include bp-max(md) {
+      background-color: var(--color-background-card);
+      display: none;
+      left: 0;
+      margin-top: 0.25rem;
+      margin-inline: var(--container-padding);
+      padding: var(--space-sm);
+      position: absolute;
+      right: 0;
+      z-index: 900;
+
+      &.active {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+    }
+
+    @include bp(md) {
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      gap: var(--space-sm);
+    }
   }
 
   .tab {
     display: flex;
-    font-size: clamp(0.875rem, 0.831rem + 0.1878vw, 1rem);
+    font-size: 1rem;
     gap: var(--space-sm);
     min-height: 40px;
 
