@@ -110,6 +110,9 @@ import HistoryChart from "./HistoryChart.astro";
 
       &.active,
       &:hover {
+        :root[data-theme="light"] & {
+          background-color: var(--color-primary);
+        }
         background-color: var(--color-border);
       }
     }
