@@ -11,15 +11,15 @@ import HistoryChart from "./HistoryChart.astro";
       <div class="rate-display">
         <div class="row">
           <div class="rate-cards">
-            <div class="card--inner">
+            <div class="card">
               <h3>Open</h3>
               <p id="open-amount">0.0000</p>
             </div>
-            <div class="card--inner">
+            <div class="card">
               <h3>Close</h3>
               <p id="close-amount">0.0000</p>
             </div>
-            <div class="card--inner">
+            <div class="card">
               <h3>Change</h3>
               <p
                 class=""
@@ -28,7 +28,7 @@ import HistoryChart from "./HistoryChart.astro";
                 0.0000
               </p>
             </div>
-            <div class="card--inner">
+            <div class="card">
               <h3>% Change</h3>
               <p
                 class=""
@@ -133,14 +133,17 @@ import HistoryChart from "./HistoryChart.astro";
     padding-inline: clamp(0.75rem, 0.5739rem + 0.7512vw, 1.25rem);
   }
 
-  .card--inner {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    min-width: 140px;
-    p {
-      font-size: 1.25rem;
-      letter-spacing: -0.5px;
+  .rate-cards {
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-width: 140px;
+      padding: calc(var(--space-md) * 0.75) calc(var(--space-md) * 1.25);
+      p {
+        font-size: 1.25rem;
+        letter-spacing: -0.5px;
+      }
     }
   }
 
