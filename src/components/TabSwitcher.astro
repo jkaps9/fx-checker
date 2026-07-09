@@ -51,12 +51,18 @@ import { Icon } from "astro-icon/components";
     @include flex-between;
     background-color: var(--color-background-card);
     border-radius: var(--radius-8);
+    gap: 1rem;
     min-height: 2.5rem;
     padding-inline: 0.75rem;
     width: 100%;
     @include bp(md) {
       display: none;
     }
+  }
+
+  #current-tab {
+    @include flex-between;
+    width: 100%;
   }
 
   .tab-list {

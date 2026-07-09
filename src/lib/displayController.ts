@@ -52,6 +52,11 @@ const displayController = (function () {
   const tabSections = document.querySelectorAll(
     "#history, #compare, #favorites, #log",
   );
+  const tabList = document.querySelector(".tab-list") as HTMLElement;
+  const tabDropdownButton = document.getElementById(
+    "tab-dropdown",
+  ) as HTMLButtonElement;
+  const currentTabName = document.getElementById("current-tab") as HTMLElement;
 
   // historical elements
   const openAmountPara = document.getElementById(
@@ -173,7 +178,14 @@ const displayController = (function () {
         updateElementClasses(tabButtons, btn, "active");
         currentSection = btn.getAttribute("data-tab") ?? "";
         updateActiveSection();
+        tabList.classList.remove("active");
+        currentTabName.innerHTML = btn.innerHTML;
       });
+    });
+
+    tabDropdownButton.addEventListener("click", () => {
+      tabList.classList.toggle("active");
+      tabDropdownButton.classList.toggle("open");
     });
 
     currencySwapBtn.addEventListener("click", () => {
