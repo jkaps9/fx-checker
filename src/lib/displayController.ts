@@ -199,6 +199,7 @@ const displayController = (function () {
       swapCurrencies(formData.base, formData.target);
       getRate();
       getApiData();
+      getComparisons();
       updateCompareAmountText(formData.target);
     });
 
