@@ -38,8 +38,9 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
   </button>
 
   <div
-    class="dropdown-menu visually-hidden"
+    class="dropdown-menu"
     id=`${id}-dropdown`
+    hidden
   >
     <div class="input-wrapper">
       <input

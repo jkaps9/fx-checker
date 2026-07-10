@@ -41,6 +41,10 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
     gap: var(--space-sm);
     padding-block: calc(var(--space-sm) * 1.25);
 
+    &[hidden] {
+      display: none !important;
+    }
+
     &:hover {
       border-color: var(--color-body-text-muted);
       cursor: pointer;
@@ -51,7 +55,7 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
       margin-inline-start: auto;
     }
 
-    &[data-selected="true"] {
+    &[aria-selected="true"] {
       [data-icon="icon-check"] {
         display: block;
       }

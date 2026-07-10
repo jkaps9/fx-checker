@@ -271,17 +271,89 @@ const displayController = (function () {
       const searchInput = dropDownMenu.querySelector(
         ".input-search",
       ) as HTMLInputElement;
-      const currencyOptions = dropDownMenu.querySelectorAll(".currency-option");
+      const currencyOptions = Array.from(
+        dropDownMenu.querySelectorAll<HTMLElement>(".currency-option"),
+      );
       const selectedContent = customSelect.querySelector(
         ".selected-content",
       ) as HTMLElement;
 
-      document.addEventListener("click", (e) => {
+      let activeIndex = -1;
+
+      // Helper functions
+      function visibleOptions() {
+        return currencyOptions.filter((option) => !option.hidden);
+      }
+
+      function setActiveDescendant(index: number) {
+        const options = visibleOptions();
+        options.forEach((option) => option.classList.remove("highlighted"));
+        activeIndex = index;
+        if (index >= 0 && options[index]) {
+          options[index].classList.add("highlighted");
+          searchInput.setAttribute("aria-activedescendant", options[index].id);
+          options[index].scrollIntoView({ block: "nearest" });
+        } else {
+          searchInput.removeAttribute("aria-activedescendant");
+        }
+      }
+
+      function isOpen() {
+        return !dropDownMenu.hidden;
+      }
+
+      function openMenu() {
+        dropDownMenu.hidden = false;
+        selectButton.classList.add("open");
+        selectButton.setAttribute("aria-expanded", "true");
+        searchInput.focus();
+        const selected = visibleOptions().findIndex(
+          (option) => option.getAttribute("aria-selected") === "true",
+        );
+        setActiveDescendant(selected);
+      }
+
+      function closeMenu(returnFocus = true) {
+        dropDownMenu.hidden = true;
+        selectButton.classList.remove("open");
+        selectButton.setAttribute("aria-expanded", "false");
+        searchInput.removeAttribute("aria-activedescendant");
+        activeIndex = -1;
+        if (returnFocus) selectButton.focus();
+      }
+
+      function toggleMenu() {
+        isOpen() ? closeMenu(false) : openMenu();
+      }
+
+      function selectOption(option: HTMLElement) {
+        const optionCode =
+          option.getAttribute("data-value")?.toUpperCase() || "";
+        if (optionCode === "") return;
+
+        updateCustomSelect(customSelect, optionCode);
+        hiddenInput.value = optionCode;
+
+        searchInput.value = "";
+        currencyOptions.forEach((opt) => (opt.hidden = false));
+        closeMenu();
+
+        const formData = getFormValues();
         if (
-          !customSelect.contains(e.target as Node) &&
-          !dropDownMenu.classList.contains("visually-hidden")
+          !formData.base ||
+          !formData.target ||
+          formData.base === formData.target
         ) {
-          toggleMenu();
+          return;
+        }
+        refreshForNewPair(formData.base, formData.target);
+      }
+
+      // Listeners
+
+      document.addEventListener("click", (e) => {
+        if (!customSelect.contains(e.target as Node) && isOpen()) {
+          closeMenu(false);
         }
       });
 
@@ -290,52 +362,72 @@ const displayController = (function () {
       });
 
       searchInput.addEventListener("input", () => {
+        const query = searchInput.value.toLowerCase();
+
         currencyOptions.forEach((option) => {
           const optionCode =
             option.getAttribute("data-value")?.toLowerCase() || "";
           const currencyNameField = option.querySelector(
             ".currency-name",
           ) as HTMLElement;
-          const optionName = currencyNameField?.textContent.toLowerCase() || "";
-          if (
-            optionCode.includes(searchInput.value.toLowerCase()) ||
-            optionName.includes(searchInput.value.toLowerCase())
-          ) {
-            option.classList.remove("visually-hidden");
-          } else {
-            option.classList.add("visually-hidden");
-          }
+          const optionName =
+            currencyNameField?.textContent?.toLowerCase() || "";
+          option.hidden = !(
+            optionCode.includes(query) || optionName.includes(query)
+          );
         });
+        setActiveDescendant(-1);
       });
 
       currencyOptions.forEach((option) => {
-        option.addEventListener("click", () => {
-          const optionCode =
-            option.getAttribute("data-value")?.toUpperCase() || "";
-          if (optionCode !== "") {
-            updateCustomSelect(customSelect, optionCode);
-            hiddenInput.value = optionCode;
-            searchInput.value = "";
-            currencyOptions.forEach((option) => {
-              option.classList.remove("visually-hidden");
-            });
-            toggleMenu();
-            const formData = getFormValues();
-            if (
-              !formData.base ||
-              !formData.target ||
-              formData.base === formData.target
-            ) {
-              return;
-            }
-            refreshForNewPair(formData.base, formData.target);
-          }
-        });
+        option.addEventListener("click", () => selectOption(option));
       });
-      function toggleMenu() {
-        dropDownMenu.classList.toggle("visually-hidden");
-        selectButton.classList.toggle("open");
-      }
+
+      // Keyboard support
+      selectButton.addEventListener("keydown", (e) => {
+        if (isOpen()) return;
+        switch (e.key) {
+          case "ArrowDown":
+          case "ArrowUp":
+          case "Enter":
+          case " ":
+            e.preventDefault();
+            openMenu();
+            break;
+        }
+      });
+
+      searchInput.addEventListener("keydown", (e) => {
+        const options = visibleOptions();
+        switch (e.key) {
+          case "ArrowDown":
+            e.preventDefault();
+            setActiveDescendant(Math.min(activeIndex + 1, options.length - 1));
+            break;
+          case "ArrowUp":
+            e.preventDefault();
+            setActiveDescendant(Math.max(activeIndex - 1, 0));
+            break;
+          case "Home":
+            e.preventDefault();
+            setActiveDescendant(0);
+            break;
+          case "End":
+            e.preventDefault();
+            setActiveDescendant(options.length - 1);
+            break;
+          case "Enter":
+            e.preventDefault();
+            if (options[activeIndex]) selectOption(options[activeIndex]);
+            break;
+          case "Escape":
+            closeMenu();
+            break;
+          case "Tab":
+            closeMenu();
+            break;
+        }
+      });
     });
   };
 
@@ -562,16 +654,28 @@ const displayController = (function () {
     const countryFlag = customSelect.querySelector(".flag") as HTMLImageElement;
     const countryCode = newCurrencyCode.slice(0, 2).toLowerCase();
     countryFlag.src = `/fx-checker/images/flags/${countryCode}.webp`;
-    countryFlag.alt = `${countryCode} flag`;
+    countryFlag.alt = ""; // decorative — code/name already shown as text
+
     const currencyCode = customSelect.querySelector(
       ".currency-code",
     ) as HTMLElement;
     currencyCode.textContent = newCurrencyCode;
+
+    const selectButton = customSelect.querySelector(
+      ".select-button",
+    ) as HTMLButtonElement;
+    const hiddenInput = customSelect.querySelector(
+      'input[type="hidden"]',
+    ) as HTMLInputElement;
+    const label = hiddenInput.name === "base" ? "Base" : "Target";
+    selectButton.setAttribute(
+      "aria-label",
+      `${label} currency, currently ${newCurrencyCode}`,
+    );
+
     customSelect.querySelectorAll(".currency-option")?.forEach((option) => {
-      option.setAttribute("data-selected", "false");
-      if (option.getAttribute("data-value") === newCurrencyCode) {
-        option.setAttribute("data-selected", "true");
-      }
+      const isSelected = option.getAttribute("data-value") === newCurrencyCode;
+      option.setAttribute("aria-selected", String(isSelected));
     });
   };
 
