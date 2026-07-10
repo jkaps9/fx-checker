@@ -460,6 +460,10 @@ select,
   }
 }
 
+.sr-only {
+  @include visually-hidden;
+}
+
 .visually-hidden {
   @include visually-hidden;
 
