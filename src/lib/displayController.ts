@@ -166,7 +166,7 @@ const displayController = (function () {
       )
         return;
 
-      const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+      const baseAmt = getBaseAmount();
       if (baseAmt === 0) logConversionButton.disabled = true;
       else logConversionButton.disabled = false;
 
@@ -212,7 +212,7 @@ const displayController = (function () {
       const now = new Date().toISOString();
       const formData = getFormValues();
       console.log(formData);
-      const sendAmount = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+      const sendAmount = getBaseAmount();
       const receiveAmount = Number(outputAmount.value.replace(/[^0-9.]/g, ""));
       if (formData.base && formData.target && sendAmount && receiveAmount) {
         if (!storageManager.hasLog(now)) {
@@ -407,7 +407,7 @@ const displayController = (function () {
         );
         updateHistoryChartHeader(data.base, data.quote, data.rate.toFixed(4));
         const currencySymbol = getCurrencySymbol(data.quote);
-        const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+        const baseAmt = getBaseAmount();
         if (baseAmt) updateTargetAmount(currencySymbol, baseAmt, data.rate);
         if (!baseAmt) updateTargetAmount(currencySymbol, 0, 1);
       } else {
@@ -463,7 +463,7 @@ const displayController = (function () {
 
     if (!formData.base) return;
 
-    const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+    const baseAmt = getBaseAmount();
 
     if (baseAmt === 0) {
       compareCard.classList.add("visually-hidden");
@@ -514,7 +514,7 @@ const displayController = (function () {
     const rateInfo = document.createElement("div");
     const convertedAmount = document.createElement("p");
 
-    const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+    const baseAmt = getBaseAmount();
     const result = convertAmount(baseAmt, rateSummary.close);
 
     convertedAmount.textContent =
@@ -816,6 +816,8 @@ const displayController = (function () {
     return !isFavorite;
   };
 
+  const getBaseAmount = (): number =>
+    Number(baseAmount.value.replace(/[^0-9.]/g, ""));
   return { initialize };
 })();
 export default displayController;
