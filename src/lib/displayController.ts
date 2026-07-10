@@ -369,10 +369,7 @@ const displayController = (function () {
 
   const updateTargetAmount = (symbol: string, amount: number, rate: number) => {
     const result = convertAmount(amount, rate) || 0;
-    outputAmount.value = `${symbol}${result.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
+    outputAmount.value = `${symbol}${formatAmount(result)}`;
 
     if (result !== 0) outputAmount.classList.add("accent-text");
     else {
@@ -528,11 +525,7 @@ const displayController = (function () {
     const result = convertAmount(baseAmt, rateSummary.close);
 
     convertedAmount.textContent =
-      getCurrencySymbol(rateSummary.quote) +
-      result.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
+      getCurrencySymbol(rateSummary.quote) + formatAmount(result);
     const rate = document.createElement("p");
     rate.classList.add("muted-text");
     rate.textContent = `@ ${rateSummary.close}`;
@@ -759,19 +752,7 @@ const displayController = (function () {
 
     const rightContent = document.createElement("div");
     rightContent.classList.add("log-item__amounts");
-    rightContent.innerHTML = `<p class="muted-text">${conversion.sendAmount.toLocaleString(
-      undefined,
-      {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      },
-    )}</p><p class="accent-text">${conversion.receiveAmount.toLocaleString(
-      undefined,
-      {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      },
-    )}</p>`;
+    rightContent.innerHTML = `<p class="muted-text">${formatAmount(conversion.sendAmount)}</p><p class="accent-text">${formatAmount(conversion.receiveAmount)}</p>`;
     const deleteLogButton = document.createElement("button");
     deleteLogButton.classList.add("btn", "btn--delete");
     deleteLogButton.innerHTML = `<div class="icon">${deleteSVG}</div><div class="icon-filled">${filledDeleteSVG}</div>`;
@@ -830,6 +811,12 @@ const displayController = (function () {
     updateCompareAmountText(base);
     updateFavoriteButtonState(base, target);
   };
+
+  const formatAmount = (amount: number): string =>
+    amount.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 
   return { initialize };
 })();
