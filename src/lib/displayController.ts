@@ -204,14 +204,7 @@ const displayController = (function () {
     favoriteButton.addEventListener("click", () => {
       const formData = getFormValues();
       if (formData.base && formData.target) {
-        if (storageManager.hasFavorite(formData.base, formData.target)) {
-          storageManager.removeFavorite(formData.base, formData.target);
-        } else {
-          storageManager.addFavorite(formData.base, formData.target);
-        }
-
-        updateFavoriteButtonState(formData.base, formData.target);
-        updateFavorites();
+        toggleFavorite(formData.base, formData.target);
       }
     });
 
@@ -536,13 +529,7 @@ const displayController = (function () {
     favoriteButton.innerHTML = `<div class="star">${starSVG}</div><div class="star-filled">${filledStarSVG}</div>`;
     favoriteButton.addEventListener("click", () => {
       favoriteButton.classList.toggle("active");
-      if (storageManager.hasFavorite(base, rateSummary.quote)) {
-        storageManager.removeFavorite(base, rateSummary.quote);
-      } else {
-        storageManager.addFavorite(base, rateSummary.quote);
-      }
-      updateFavoriteButtonState(base, rateSummary.quote);
-      updateFavorites();
+      toggleFavorite(base, rateSummary.quote);
     });
     rateInfo.appendChild(convertedAmount);
     rateInfo.appendChild(rate);
@@ -817,6 +804,17 @@ const displayController = (function () {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+
+  const toggleFavorite = (base: string, target: string): boolean => {
+    const isFavorite = storageManager.hasFavorite(base, target);
+    if (isFavorite) storageManager.removeFavorite(base, target);
+    else storageManager.addFavorite(base, target);
+
+    updateFavoriteButtonState(base, target);
+    updateFavorites();
+
+    return !isFavorite;
+  };
 
   return { initialize };
 })();
