@@ -657,7 +657,7 @@ const displayController = (function () {
       if (favoritesArr.length > 0) {
         favoritesCard.classList.remove("visually-hidden");
         favoritesList.replaceChildren();
-        favoritesArr.map((favorite) => {
+        favoritesArr.forEach((favorite) => {
           const listItem = createFavoriteListItem(favorite);
           favoritesList.appendChild(listItem);
         });
@@ -679,7 +679,7 @@ const displayController = (function () {
           const dateB = new Date(b.dateTimeLogged).getTime();
           return dateB - dateA;
         });
-        conversionArr.map((conversion) => {
+        conversionArr.forEach((conversion) => {
           const listItem = createLogListItem(conversion);
           logList.appendChild(listItem);
         });
