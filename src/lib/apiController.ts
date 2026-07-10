@@ -5,13 +5,18 @@ export class APIController {
   private frankfurterAPI = new FrankfurterAPI();
   base: string;
   target: string;
+  from: string;
+  to: string;
   rate: number;
   currentData: FxRate[];
 
   constructor() {
     this.base = "";
     this.target = "";
+    this.from = "";
+    this.to = "";
     this.rate = 1;
+    this.currentData = [];
   }
 
   async search(
@@ -39,10 +44,14 @@ export class APIController {
     from: string,
     to: string,
   ): Promise<FxRate[] | undefined> {
-    if (base === this.base && target === this.target){ 
-alert("returning current data");
-return this.currentData;
-}
+    if (
+      base === this.base &&
+      target === this.target &&
+      from === this.from &&
+      to === this.to
+    ) {
+      return this.currentData;
+    }
     try {
       const data = await this.frankfurterAPI.fetchHistoricalRates(
         base,
@@ -53,6 +62,8 @@ return this.currentData;
       const lastIndex = data.length - 1;
       this.base = data[lastIndex].base;
       this.target = data[lastIndex].quote;
+      this.from = from;
+      this.to = to;
       this.rate = data[lastIndex].rate;
       this.currentData = data;
       return data;

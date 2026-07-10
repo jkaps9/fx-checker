@@ -408,7 +408,7 @@ const displayController = (function () {
 
   const getRate = () => {
     /*
-     *just used to get the conversiom rrate
+     *just used to get the conversion rate
      * */
     const formData = getFormValues();
     if (!formData.base || !formData.target) return 0;
@@ -435,8 +435,7 @@ const displayController = (function () {
 
   const getApiData = () => {
     /*
-     * getApiData should just get historical
-     * data
+     * getApiData should just get historical data
      * */
     const formData = getFormValues();
     if (!formData.base || !formData.target || formData.base === formData.target)
