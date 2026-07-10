@@ -132,10 +132,7 @@ const displayController = (function () {
 
   const initialize = () => {
     let formData = getFormValues();
-    updateFavoriteButtonState(formData.base, formData.target);
-    getRate();
-    getApiData();
-    getComparisons();
+    refreshForNewPair(formData.base, formData.target);
 
     updateFavorites();
     updateConversionLog();
@@ -201,10 +198,7 @@ const displayController = (function () {
     currencySwapBtn.addEventListener("click", () => {
       const formData = getFormValues();
       swapCurrencies(formData.base, formData.target);
-      getRate();
-      getApiData();
-      getComparisons();
-      updateCompareAmountText(formData.target);
+      refreshForNewPair(formData.target, formData.base);
     });
 
     favoriteButton.addEventListener("click", () => {
@@ -332,13 +326,10 @@ const displayController = (function () {
               !formData.base ||
               !formData.target ||
               formData.base === formData.target
-            )
+            ) {
               return;
-            getRate();
-            getApiData();
-            getComparisons();
-            updateCompareAmountText(formData.base);
-            updateFavoriteButtonState(formData.base, formData.target);
+            }
+            refreshForNewPair(formData.base, formData.target);
           }
         });
       });
@@ -836,6 +827,14 @@ const displayController = (function () {
   const getCurrencySymbol = (isoCode: string): string => {
     const symbol = symbolByCode.get(isoCode.toUpperCase()) || "";
     return symbol;
+  };
+
+  const refreshForNewPair = (base: string, target: string) => {
+    getRate();
+    getApiData();
+    getComparisons();
+    updateCompareAmountText(base);
+    updateFavoriteButtonState(base, target);
   };
 
   return { initialize };
