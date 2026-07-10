@@ -129,6 +129,7 @@ const displayController = (function () {
   const initialize = () => {
     let formData = getFormValues();
     updateFavoriteButtonState(formData.base, formData.target);
+    getRate();
     getApiData();
     getComparisons();
 
@@ -167,7 +168,13 @@ const displayController = (function () {
       const baseAmt = Number(baseAmount.value.replace(/[^0-9.]/g, ""));
       if (baseAmt === 0) logConversionButton.disabled = true;
       else logConversionButton.disabled = false;
-      //getApiData();
+
+      const currencySymbol = getCurrencySymbol(formData.target);
+      if (baseAmt) {
+        updateTargetAmount(currencySymbol, baseAmt, apiController.rate);
+      } else {
+        updateTargetAmount(currencySymbol, 0, 1);
+      }
       getComparisons();
       updateCompareAmountText(formData.base);
     });
