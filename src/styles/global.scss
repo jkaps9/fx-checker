@@ -60,6 +60,8 @@
 }
 
 [data-theme="light"] {
+  --color-primary: #{$lime-750};
+
   --color-background: #{$lime-50};
   --color-background-card: #{$neutral-50};
   --color-background-surface: #{$lime-50};
