@@ -526,6 +526,7 @@ const displayController = (function () {
     favoriteButton.classList.add("btn", "btn--favorite");
     if (storageManager.hasFavorite(base, rateSummary.quote))
       favoriteButton.classList.add("active");
+    favoriteButton.ariaLabel = "toggle favorite";
     favoriteButton.innerHTML = `<div class="star">${starSVG}</div><div class="star-filled">${filledStarSVG}</div>`;
     favoriteButton.addEventListener("click", () => {
       favoriteButton.classList.toggle("active");
@@ -698,6 +699,7 @@ const displayController = (function () {
 
     const favButton = document.createElement("button");
     favButton.classList.add("btn", "btn--favorite", "active");
+    favButton.ariaLabel = "unfavorite currency pair";
     favButton.innerHTML = `<div class="star">${starSVG}</div><div class="star-filled">${filledStarSVG}</div>`;
     favButton.classList.add("btn");
     favButton.addEventListener("click", () => {
@@ -742,6 +744,7 @@ const displayController = (function () {
     rightContent.innerHTML = `<p class="muted-text">${formatAmount(conversion.sendAmount)}</p><p class="accent-text">${formatAmount(conversion.receiveAmount)}</p>`;
     const deleteLogButton = document.createElement("button");
     deleteLogButton.classList.add("btn", "btn--delete");
+    deleteLogButton.ariaLabel = "delete log item";
     deleteLogButton.innerHTML = `<div class="icon">${deleteSVG}</div><div class="icon-filled">${filledDeleteSVG}</div>`;
     deleteLogButton.addEventListener("click", () => {
       storageManager.removeLog(conversion.dateTimeLogged);
