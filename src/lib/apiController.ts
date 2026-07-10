@@ -89,6 +89,7 @@ export class APIController {
       return this.currentComparisonData;
     try {
       const data = await this.frankfurterAPI.fetchAllRates(base, quotes);
+      this.base = base;
       this.quotes = quotes;
       this.currentComparisonData = data;
       return data;
