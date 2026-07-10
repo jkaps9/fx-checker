@@ -107,12 +107,16 @@ const displayController = (function () {
   const favoriteCounter = document.getElementById(
     "favorite-counter",
   ) as HTMLElement;
+  const favoritesCard = document.getElementById(
+    "favorites-card",
+  ) as HTMLElement;
 
   // log elements
   const logList = document.querySelector(".log__list") as HTMLElement;
   const numLogged = document.getElementById("num-logged") as HTMLElement;
   const logCounter = document.getElementById("log-counter") as HTMLElement;
   const clearLogBtn = document.getElementById("clear-log") as HTMLButtonElement;
+  const conversionsCard = document.getElementById("log-card") as HTMLElement;
 
   // TODO: include ticker list script here
   let dateRange = "1M";
@@ -648,11 +652,8 @@ const displayController = (function () {
     const favoritesArr = storageManager.getFavorites();
     if (favoritesArr) {
       numFavorites.textContent = `${favoritesArr.length}`;
-      favoritesList.replaceChildren();
       updateFavoriteCount(favoritesArr.length);
-      const favoritesCard = document.getElementById(
-        "favorites-card",
-      ) as HTMLElement;
+
       if (favoritesArr.length > 0) {
         favoritesCard.classList.remove("visually-hidden");
         favoritesList.replaceChildren();
@@ -671,9 +672,6 @@ const displayController = (function () {
     if (conversionArr) {
       logList.replaceChildren();
       updateLogCount();
-      const conversionsCard = document.getElementById(
-        "log-card",
-      ) as HTMLElement;
       if (conversionArr.length > 0) {
         conversionsCard.classList.remove("visually-hidden");
         conversionArr.sort((a, b) => {
