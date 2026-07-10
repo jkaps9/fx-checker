@@ -403,9 +403,6 @@ const displayController = (function () {
   };
 
   const getRate = () => {
-    /*
-     *just used to get the conversion rate
-     * */
     const formData = getFormValues();
     if (!formData.base || !formData.target) return 0;
     if (formData.base === formData.target) return 1;
@@ -430,9 +427,6 @@ const displayController = (function () {
   };
 
   const getApiData = () => {
-    /*
-     * getApiData should just get historical data
-     * */
     const formData = getFormValues();
     if (!formData.base || !formData.target || formData.base === formData.target)
       return;
