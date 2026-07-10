@@ -32,12 +32,15 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
   </button>
 
   <div class="dropdown-menu visually-hidden">
-    <input
-      type="text"
-      class="input-search"
-      name="currencySearch"
-      placeholder="Search currencies..."
-    />
+    <div class="input-wrapper">
+      <input
+        type="text"
+        class="input-search"
+        name="currencySearch"
+        placeholder="Search currencies..."
+      />
+      <Icon name="icon-search" />
+    </div>
     <ul class="currencies-list">
       <li class="currencies-list__label">
         <span>POPULAR</span><span>
@@ -105,18 +108,31 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
     z-index: 900;
   }
 
+  .input-wrapper {
+    position: relative;
+  }
   .input-search {
     background: none;
     border: 1px solid var(--color-body-text-muted);
     border-radius: var(--radius-6);
     outline: none;
     padding: calc(var(--space-sm) * 1.25);
+    padding-inline-start: calc(var(--space-sm) * 4);
     font-size: 12px;
     width: stretch;
 
     &:focus-visible {
       border-color: var(--color-primary);
     }
+  }
+
+  [data-icon="icon-search"] {
+    height: 0.75rem;
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
   }
 
   .currencies-list__label {
