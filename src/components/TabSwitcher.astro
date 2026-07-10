@@ -101,15 +101,25 @@ import { Icon } from "astro-icon/components";
   }
 
   .tab {
+    align-items: center;
+    border-bottom: 2px solid transparent;
+
     display: flex;
     font-size: 1rem;
     gap: var(--space-sm);
     min-height: 40px;
-
+    padding: 0 1rem;
     &.active {
       @include bp(md) {
-        border-bottom: 2px solid var(--color-primary);
+        border-bottom-color: var(--color-primary);
       }
+    }
+
+    &:active {
+      border-radius: var(--radius-4);
+      box-shadow:
+        0 0 0 2px var(--color-text-on-primary),
+        0 0 0 4px var(--color-primary);
     }
   }
 
