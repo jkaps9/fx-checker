@@ -9,27 +9,51 @@ import { Icon } from "astro-icon/components";
       <Icon name="icon-dropdown" />
     </button>
 
-    <div class="tab-list">
+    <div
+      class="tab-list"
+      role="tablist"
+      aria-label="FX data views"
+    >
       <button
         class="tab active"
+        role="tab"
+        id="tab-history"
+        aria-selected="true"
+        aria-controls="history"
+        tabindex="0"
         data-tab="history"
       >
         HISTORY
       </button>
       <button
         class="tab"
+        role="tab"
+        id="tab-compare"
+        aria-selected="false"
+        aria-controls="compare"
+        tabindex="-1"
         data-tab="compare"
       >
         COMPARE
       </button>
       <button
         class="tab"
+        role="tab"
+        id="tab-favorites"
+        aria-selected="false"
+        aria-controls="favorites"
+        tabindex="-1"
         data-tab="favorites"
       >
         FAVORITES<span id="favorite-counter">0</span>
       </button>
       <button
         class="tab"
+        role="tab"
+        id="tab-log"
+        aria-selected="false"
+        aria-controls="log"
+        tabindex="-1"
         data-tab="log"
       >
         LOG<span id="log-counter">0</span>

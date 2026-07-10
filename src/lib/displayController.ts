@@ -183,6 +183,12 @@ const displayController = (function () {
     tabButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         updateElementClasses(tabButtons, btn, "active");
+        tabButtons.forEach((b) => {
+          b.setAttribute("tabindex", "-1");
+          b.setAttribute("aria-selected", "false");
+        });
+        btn.setAttribute("tabindex", "0");
+        btn.setAttribute("aria-selected", "true");
         currentSection = btn.getAttribute("data-tab") ?? "";
         updateActiveSection();
         tabList.classList.remove("active");
