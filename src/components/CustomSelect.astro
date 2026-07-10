@@ -20,6 +20,11 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
   <button
     class="select-button"
     type="button"
+    id=`${id}-button`
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-controls=`${id}-listbox`
+    aria-label=`${name} currency, currently ${defaultCurrency}`
   >
     <div class="selected-content">
       <FlagImage countryCode={defaultCurrency.slice(0, 2).toLowerCase()} />
@@ -27,22 +32,42 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
       <Icon
         name="icon-chevron-down"
         class="picker-icon"
+        aria-hidden="true"
       />
     </div>
   </button>
 
-  <div class="dropdown-menu visually-hidden">
+  <div
+    class="dropdown-menu visually-hidden"
+    id=`${id}-dropdown`
+  >
     <div class="input-wrapper">
       <input
         type="text"
         class="input-search"
         name="currencySearch"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls=`${id}-listbox`
+        aria-autocomplete="list"
+        aria-label="Search currencies"
         placeholder="Search currencies..."
       />
-      <Icon name="icon-search" />
+      <Icon
+        name="icon-search"
+        aria-hidden="true"
+      />
     </div>
-    <ul class="currencies-list">
-      <li class="currencies-list__label">
+    <ul
+      class="currencies-list"
+      id=`${id}-listbox`
+      role="listbox"
+      aria-label="Currencies"
+    >
+      <li
+        class="currencies-list__label"
+        role="presentation"
+      >
         <span>POPULAR</span><span>
           {currencies.filter((c) => c.popular).length}
         </span>
@@ -59,7 +84,10 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
             />
           ))
       }
-      <li class="currencies-list__label">
+      <li
+        class="currencies-list__label"
+        role="presentation"
+      >
         <span>OTHER CURRENCIES</span><span>
           {currencies.filter((c) => !c.popular).length}
         </span>

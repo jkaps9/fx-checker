@@ -15,6 +15,9 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
 
 <li
   class="currency-option"
+  role="option"
+  id=`option-${currencyCode}`
+  aria-selected="false"
   data-value={currencyCode}
   data-symbol={currencySymbol}
   data-selected={currencyCode === defaultCode}
@@ -22,7 +25,10 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
   <FlagImage countryCode={countryCode} />
   <span class="currency-code">{currencyCode}</span>
   <span class="currency-name muted-text">{currencyName}</span>
-  <Icon name="icon-check" />
+  <Icon
+    name="icon-check"
+    aria-hidden="true"
+  />
 </li>
 
 <style lang="scss">
