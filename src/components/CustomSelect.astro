@@ -113,6 +113,10 @@ const { defaultCurrency = "USD", name, id } = Astro.props;
     padding: calc(var(--space-sm) * 1.25);
     font-size: 12px;
     width: stretch;
+
+    &:focus-visible {
+      border-color: var(--color-primary);
+    }
   }
 
   .currencies-list__label {
