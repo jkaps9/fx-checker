@@ -9,6 +9,8 @@ export class APIController {
   to: string;
   rate: number;
   currentData: FxRate[];
+  quotes: string[];
+  currentComparisonData: FxRate[];
 
   constructor() {
     this.base = "";
@@ -17,6 +19,12 @@ export class APIController {
     this.to = "";
     this.rate = 1;
     this.currentData = [];
+    this.quotes = [];
+    this.currentComparisonData = [];
+  }
+
+  private quotesMatch(a: string[], b: string[]): boolean {
+    return a.length === b.length && a.every((val, index) => val === b[index]);
   }
 
   async search(
@@ -77,8 +85,12 @@ export class APIController {
     base: string,
     quotes: string[],
   ): Promise<FxRate[] | undefined> {
+    if (this.base === base && this.quotesMatch(this.quotes, quotes))
+      return this.currentComparisonData;
     try {
       const data = await this.frankfurterAPI.fetchAllRates(base, quotes);
+      this.quotes = quotes;
+      this.currentComparisonData = data;
       return data;
     } catch (error) {
       console.error("Error fetching all rates:", error);
