@@ -26,17 +26,12 @@ export function summarizeRates(rawRates: FxRate[]): RateSummary[] {
       const changeAmount = close - open;
       const changePercent = (changeAmount / open) * 100;
 
-      let trend: "up" | "down" | "flat" = "flat";
-      if (changeAmount > 0) trend = "up";
-      if (changeAmount < 0) trend = "down";
-
       return {
         quote,
         open,
         close,
-        changeAmount: Number(changeAmount.toFixed(4)), // Keeps the UI clean
+        changeAmount: Number(changeAmount.toFixed(4)),
         changePercent: Number(changePercent.toFixed(2)),
-        trend,
       };
     },
   );

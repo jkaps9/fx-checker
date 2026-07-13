@@ -545,12 +545,11 @@ const displayController = (function () {
           openAmountPara.textContent = `${open.toFixed(4)}`;
           closeAmountPara.textContent = `${close.toFixed(4)}`;
           changeAmountPara.textContent = `${change.toFixed(4)}`;
-          changeAmountPara.className = `${change > 0 ? "positive" : "negative"}`;
-          const icon =
-            changePercentage > 0 ? "▲" : changePercentage < 0 ? "▼" : "";
+          const trendDisplay = getTrendDisplay(change);
+          changeAmountPara.className = trendDisplay.className;
 
-          changePercentagePara.textContent = `${icon} ${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%`;
-          changePercentagePara.className = `${change > 0 ? "positive" : "negative"}`;
+          changePercentagePara.textContent = `${trendDisplay.icon} ${change > 0 ? "+" : ""}${changePercentage.toFixed(2)}%`;
+          changePercentagePara.className = trendDisplay.className;
           chartController.removeData();
           data.forEach((day) => {
             chartController.addData(`${day.date}`, day.rate);
@@ -804,9 +803,10 @@ const displayController = (function () {
           const changePercentage = (change / open) * 100;
           const decimals =
             close >= 1000 ? 1 : close >= 100 ? 2 : close >= 10 ? 3 : 4;
+          const trendDisplay = getTrendDisplay(change);
           rightContent.innerHTML = `<p>${close.toFixed(decimals)}</p>
-      <p class="percent-change ${changePercentage > 0 ? "positive" : changePercentage < 0 ? "negative" : ""}">
-        <span>${changePercentage > 0 ? "▲" : changePercentage < 0 ? "▼" : "-"}</span>
+      <p class="percent-change ${trendDisplay.className}">
+        <span>${trendDisplay.icon}</span>
          ${changePercentage > 0 ? "+" : ""}${changePercentage.toFixed(2)}%</p>`;
         }
       });
@@ -936,6 +936,15 @@ const displayController = (function () {
   const getBaseAmount = (): number =>
     Number(baseAmount.value.replace(/[^0-9.]/g, ""));
 
+  const getTrendDisplay = (value: number) => {
+    const className = `${value > 0 ? "positive" : value < 0 ? "negative" : ""}`;
+    const icon = value > 0 ? "▲" : value < 0 ? "▼" : "";
+    return {
+      className,
+      icon,
+    };
+  };
+
   const updateTicker = () => {
     popularCurrencies.forEach((currency) => {
       apiController
@@ -954,23 +963,13 @@ const displayController = (function () {
               currencyRate.className = "rate";
               currencyRate.textContent = `${n.close}`;
 
+              const trendDisplay = getTrendDisplay(n.changeAmount);
               const trend = document.createElement("span");
-              trend.className =
-                n.trend === "up"
-                  ? "positive"
-                  : n.trend === "down"
-                    ? "negative"
-                    : "";
-              trend.textContent =
-                n.trend === "up" ? "▲" : n.trend === "down" ? "▼" : "-";
+              trend.className = trendDisplay.className;
+              trend.textContent = trendDisplay.icon;
 
               const percentChange = document.createElement("span");
-              percentChange.className =
-                n.trend === "up"
-                  ? "positive"
-                  : n.trend === "down"
-                    ? "negative"
-                    : "";
+              percentChange.className = trendDisplay.className;
               percentChange.textContent = `${n.changePercent > 0 ? "+" : ""}${n.changePercent}%`;
 
               item.appendChild(currencyPair);

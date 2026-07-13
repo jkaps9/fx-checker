@@ -11,5 +11,4 @@ export interface RateSummary {
   close: number;
   changeAmount: number;
   changePercent: number;
-  trend: "up" | "down" | "flat";
 }
