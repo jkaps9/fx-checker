@@ -12,60 +12,6 @@
   </div>
 </section>
 
-<script>
-  import { FrankfurterAPI } from "@lib/frankfurter_api";
-  import { summarizeRates } from "@utils/fxUtils";
-  import currencies from "@data/currencies.json";
-
-  const popularCurrencies = currencies.filter((c) => c.popular);
-  const allCurrencies = currencies.map((c) => c.iso_code);
-  const frankfurterAPI = new FrankfurterAPI();
-  const tickerList = document.querySelector(".ticker__list") as HTMLElement;
-  async function getRates(currency: string) {
-    if (!currency || currency === "" || currency.length !== 3) return;
-    try {
-      const data = await frankfurterAPI.fetchAllRates(currency, allCurrencies);
-
-      const dailySummaries = summarizeRates(data);
-
-      const listItems = dailySummaries.map((n) => {
-        const item = document.createElement("li");
-
-        const currencyPair = document.createElement("span");
-        currencyPair.className = "currency-pair muted-text";
-        currencyPair.textContent = `${currency}/${n.quote}`;
-
-        const currencyRate = document.createElement("span");
-        currencyRate.className = "rate";
-        currencyRate.textContent = `${n.close}`;
-
-        const trend = document.createElement("span");
-        trend.className =
-          n.trend === "up" ? "positive" : n.trend === "down" ? "negative" : "";
-        trend.textContent =
-          n.trend === "up" ? "▲" : n.trend === "down" ? "▼" : "-";
-
-        const percentChange = document.createElement("span");
-        percentChange.className =
-          n.trend === "up" ? "positive" : n.trend === "down" ? "negative" : "";
-        percentChange.textContent = `${n.changePercent > 0 ? "+" : ""}${n.changePercent}%`;
-
-        item.appendChild(currencyPair);
-        item.appendChild(currencyRate);
-        item.appendChild(trend);
-        item.appendChild(percentChange);
-        return item;
-      });
-
-      listItems.forEach((item) => tickerList.appendChild(item));
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  popularCurrencies.forEach((currency) => getRates(currency.iso_code));
-</script>
-
 <style lang="scss">
   .ticker {
     align-items: center;

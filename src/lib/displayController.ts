@@ -118,7 +118,11 @@ const displayController = (function () {
   const clearLogBtn = document.getElementById("clear-log") as HTMLButtonElement;
   const conversionsCard = document.getElementById("log-card") as HTMLElement;
 
-  // TODO: include ticker list script here
+  // ticker
+  const popularCurrencies = currencies.filter((c) => c.popular);
+  const allCurrencies = currencies.map((c) => c.iso_code);
+  const tickerList = document.querySelector(".ticker__list") as HTMLElement;
+
   let dateRange = "1M";
   const dateOffsets = new Map();
   dateOffsets.set("1D", 1);
@@ -131,9 +135,9 @@ const displayController = (function () {
   let currentSection = "compare";
 
   const initialize = () => {
+    updateTicker();
     let formData = getFormValues();
     refreshForNewPair(formData.base, formData.target);
-
     updateFavorites();
     updateConversionLog();
 
@@ -931,6 +935,57 @@ const displayController = (function () {
 
   const getBaseAmount = (): number =>
     Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+
+  const updateTicker = () => {
+    popularCurrencies.forEach((currency) => {
+      apiController
+        .fetchTickerRates(currency.iso_code, allCurrencies)
+        .then((data) => {
+          if (data) {
+            const dailySummaries = summarizeRates(data);
+            const listItems = dailySummaries.map((n) => {
+              const item = document.createElement("li");
+
+              const currencyPair = document.createElement("span");
+              currencyPair.className = "currency-pair muted-text";
+              currencyPair.textContent = `${currency.iso_code}/${n.quote}`;
+
+              const currencyRate = document.createElement("span");
+              currencyRate.className = "rate";
+              currencyRate.textContent = `${n.close}`;
+
+              const trend = document.createElement("span");
+              trend.className =
+                n.trend === "up"
+                  ? "positive"
+                  : n.trend === "down"
+                    ? "negative"
+                    : "";
+              trend.textContent =
+                n.trend === "up" ? "▲" : n.trend === "down" ? "▼" : "-";
+
+              const percentChange = document.createElement("span");
+              percentChange.className =
+                n.trend === "up"
+                  ? "positive"
+                  : n.trend === "down"
+                    ? "negative"
+                    : "";
+              percentChange.textContent = `${n.changePercent > 0 ? "+" : ""}${n.changePercent}%`;
+
+              item.appendChild(currencyPair);
+              item.appendChild(currencyRate);
+              item.appendChild(trend);
+              item.appendChild(percentChange);
+              return item;
+            });
+
+            listItems.forEach((item) => tickerList.appendChild(item));
+          }
+        });
+    });
+  };
+
   return { initialize };
 })();
 export default displayController;
