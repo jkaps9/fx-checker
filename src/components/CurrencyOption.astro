@@ -41,6 +41,10 @@ const countryCode = `${currencyCode.slice(0, 2).toLowerCase()}`;
     gap: var(--space-sm);
     padding-block: calc(var(--space-sm) * 1.25);
 
+    &.highlighted {
+      border-color: #7df9ff;
+    }
+
     &[hidden] {
       display: none !important;
     }
