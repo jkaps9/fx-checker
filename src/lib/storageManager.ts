@@ -1,12 +1,6 @@
 const storageManager = (function () {
   let favorites: string[] = [];
-  let conversionLog: {
-    dateTimeLogged: string;
-    base: string;
-    target: string;
-    sendAmount: number;
-    receiveAmount: number;
-  }[] = [];
+  let conversionLog: LogEntry[] = [];
 
   const isStorageAvailable = () => {
     let storage;
@@ -57,7 +51,7 @@ const storageManager = (function () {
     }
   };
 
-  const getFavorites = () => {
+  const getFavorites = (): Favorite[] => {
     const arr = [...favorites];
     return arr.map((value) => {
       return {
@@ -114,7 +108,7 @@ const storageManager = (function () {
     return index !== -1;
   };
 
-  const getLog = () => {
+  const getLog = (): LogEntry[] => {
     const arr = [...conversionLog];
     return arr;
   };
@@ -148,3 +142,15 @@ const storageManager = (function () {
 })();
 
 export default storageManager;
+export interface Favorite {
+  base: string;
+  target: string;
+}
+
+export interface LogEntry {
+  dateTimeLogged: string;
+  base: string;
+  target: string;
+  sendAmount: number;
+  receiveAmount: number;
+}

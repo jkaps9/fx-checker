@@ -4,7 +4,7 @@ import { updateElementClasses } from "@utils/generalUtils";
 import type { RateSummary } from "../types/fx";
 import { summarizeRates } from "@utils/fxUtils";
 import currencies from "@data/currencies.json" with { type: "json" };
-import storageManager from "./storageManager";
+import storageManager, { type Favorite, type LogEntry } from "./storageManager";
 import { ChartController } from "./chartController";
 import starSVG from "../icons/icon-star.svg?raw";
 import filledStarSVG from "../icons/icon-star-filled.svg?raw";
@@ -781,7 +781,7 @@ const displayController = (function () {
     }
   };
 
-  const createFavoriteListItem = (favorite: any) => {
+  const createFavoriteListItem = (favorite: Favorite) => {
     const listItem = document.createElement("li");
     listItem.classList.add("card--inner");
     listItem.classList.add("favorites__item");
@@ -850,7 +850,7 @@ const displayController = (function () {
     return listItem;
   };
 
-  const createLogListItem = (conversion: any) => {
+  const createLogListItem = (conversion: LogEntry) => {
     const listItem = document.createElement("li");
     listItem.classList.add("card--inner");
     listItem.classList.add("log__item");
