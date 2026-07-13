@@ -10,6 +10,7 @@ import starSVG from "../icons/icon-star.svg?raw";
 import filledStarSVG from "../icons/icon-star-filled.svg?raw";
 import deleteSVG from "../icons/icon-delete.svg?raw";
 import filledDeleteSVG from "../icons/icon-delete-filled.svg?raw";
+import { COMPARISON_QUOTES, DATE_RANGE_OFFSETS } from "./fxConfig";
 
 const displayController = (function () {
   const apiController = new APIController();
@@ -124,13 +125,6 @@ const displayController = (function () {
   const tickerList = document.querySelector(".ticker__list") as HTMLElement;
 
   let dateRange = "1M";
-  const dateOffsets = new Map();
-  dateOffsets.set("1D", 1);
-  dateOffsets.set("1W", 7);
-  dateOffsets.set("1M", 30);
-  dateOffsets.set("3M", 90);
-  dateOffsets.set("1Y", 365);
-  dateOffsets.set("5Y", 1825); // 365 * 5 = 1,825
 
   let currentSection = "compare";
 
@@ -538,7 +532,7 @@ const displayController = (function () {
     const endDate = new Date();
     const startDate = new Date();
 
-    startDate.setDate(startDate.getDate() - dateOffsets.get(dateRange));
+    startDate.setDate(startDate.getDate() - DATE_RANGE_OFFSETS[dateRange]);
 
     apiController
       .searchHistorical(
@@ -573,7 +567,6 @@ const displayController = (function () {
 
   const getComparisons = () => {
     const formData = getFormValues();
-    const quotes = ["GBP", "JPY", "CHF", "CAD", "AUD", "INR", "CNY", "BDT"];
 
     if (!formData.base) return;
 
@@ -584,7 +577,7 @@ const displayController = (function () {
       return;
     }
 
-    apiController.searchAll(formData.base, quotes).then((data) => {
+    apiController.searchAll(formData.base, COMPARISON_QUOTES).then((data) => {
       if (data) {
         const dailySummaries = summarizeRates(data);
         const listItems = dailySummaries.map((n) => {
@@ -811,7 +804,7 @@ const displayController = (function () {
     const endDate = new Date();
     const startDate = new Date();
 
-    startDate.setDate(startDate.getDate() - dateOffsets.get(dateRange));
+    startDate.setDate(startDate.getDate() - DATE_RANGE_OFFSETS[dateRange]);
 
     apiController
       .searchHistorical(
