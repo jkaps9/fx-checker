@@ -72,7 +72,7 @@ Your users should be able to:
 
 #### Extras
 
-- [] persist currency pairs in the URL so a conversion can be bookmarked or shared
+- [x] persist currency pairs in the URL so a conversion can be bookmarked or shared
 
 ### Screenshot
 
