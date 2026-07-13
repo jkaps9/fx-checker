@@ -327,6 +327,7 @@ const displayController = (function () {
         selectButton.classList.add("open");
         selectButton.setAttribute("aria-expanded", "true");
         searchInput.focus();
+        searchInput.setAttribute("aria-expanded", "true");
         const selected = visibleOptions().findIndex(
           (option) => option.getAttribute("aria-selected") === "true",
         );
@@ -335,9 +336,11 @@ const displayController = (function () {
 
       function closeMenu(returnFocus = true) {
         dropDownMenu.hidden = true;
+
         selectButton.classList.remove("open");
         selectButton.setAttribute("aria-expanded", "false");
         searchInput.removeAttribute("aria-activedescendant");
+        searchInput.setAttribute("aria-expanded", "false");
         activeIndex = -1;
         if (returnFocus) selectButton.focus();
       }
