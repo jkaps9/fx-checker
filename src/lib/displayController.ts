@@ -894,7 +894,7 @@ const displayController = (function () {
     } else {
       const day: number = startDate.getDate();
       const monthName: string = startDate.toLocaleDateString("en-US", {
-        month: "long",
+        month: "short",
       });
 
       return `${day} ${monthName}`;
