@@ -1,8 +1,8 @@
 import { APIController } from "./apiController";
-import { convertAmount } from "@utils/fxMath";
-import { updateElementClasses } from "@utils/generalUtils";
+import { convertAmount } from "@lib/fxMath";
+import { updateElementClasses } from "@lib/generalUtils";
 import type { RateSummary } from "../types/fx";
-import { summarizeRates } from "@utils/fxUtils";
+import { summarizeRates } from "@lib/fxUtils";
 import currencies from "@data/currencies.json" with { type: "json" };
 import storageManager, { type Favorite, type LogEntry } from "./storageManager";
 import { ChartController } from "./chartController";
