@@ -596,7 +596,7 @@ const displayController = (function () {
     const leftSide = document.createElement("div");
     leftSide.classList.add("left-side");
     const flag = document.createElement("img");
-    flag.src = `/fx-checker/images/flags/${rateSummary.quote.slice(0, 2).toLowerCase()}.webp`;
+    flag.src = getFlagPath(rateSummary.quote);
     flag.alt = `${rateSummary.quote.slice(0, 2).toLowerCase()} flag`;
     flag.classList.add("flag");
     const currencyInfo = document.createElement("div");
@@ -657,9 +657,8 @@ const displayController = (function () {
     newCurrencyCode: string,
   ) => {
     const countryFlag = customSelect.querySelector(".flag") as HTMLImageElement;
-    const countryCode = newCurrencyCode.slice(0, 2).toLowerCase();
-    countryFlag.src = `/fx-checker/images/flags/${countryCode}.webp`;
-    countryFlag.alt = ""; // decorative — code/name already shown as text
+    countryFlag.src = getFlagPath(newCurrencyCode);
+    countryFlag.alt = "";
 
     const currencyCode = customSelect.querySelector(
       ".currency-code",
@@ -950,6 +949,9 @@ const displayController = (function () {
 
   const getBaseAmount = (): number =>
     Number(baseAmount.value.replace(/[^0-9.]/g, ""));
+
+  const getFlagPath = (currencyCode: string): string =>
+    `/fx-checker/images/flags/${currencyCode.slice(0, 2).toLowerCase()}.webp`;
 
   const getTrendDisplay = (value: number) => {
     const className = `${value > 0 ? "positive" : value < 0 ? "negative" : ""}`;
