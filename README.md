@@ -110,11 +110,11 @@ Your users should be able to:
 
 ### What I learned
 
-I further developed my JavaScript/Typescript skills over the course of this project. I also brought back into my memory some patterns I had used in the past but not much since. This helped reinforce my learning.
+I further developed my JavaScript/Typescript skills over the course of this project. I also brought back into my memory some patterns I had used in the past but not much since. This helped reinforce my learning of IIFES, separating out functionality to specific controllers, etc.
 
 ### Continued development
 
-I know that my code is not as clean as it could be and so I could certainly use some improvement on that front.
+I know that my code is not as clean as it could be and so I could certainly use some improvement on that front. For example, I struggled with knowing where to separate out logic to various components. Such as in the DOMController I'm sure some items could be separated out to controllers, but it's difficult when they are so interlinked with the DOM.
 
 ### Useful resources
 
