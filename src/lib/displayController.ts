@@ -128,6 +128,14 @@ const displayController = (function () {
 
   let currentSection = "compare";
 
+  type SelectController = {
+    customSelect: HTMLElement;
+    isOpen: () => boolean;
+    closeMenu: (returnFocus?: boolean) => void;
+  };
+
+  const selectControllers: SelectController[] = [];
+
   const initialize = () => {
     storageManager.initialize();
     updateTicker();
@@ -255,21 +263,6 @@ const displayController = (function () {
     clearLogBtn.addEventListener("click", () => {
       storageManager.clearLog();
       updateConversionLog();
-    });
-
-    document.addEventListener("click", (e) => {
-      customSelects.forEach((customSelect) => {
-        const dropDownMenu = customSelect.querySelector(
-          ".dropdown-menu",
-        ) as HTMLElement;
-        const selectButton = customSelect.querySelector(
-          ".select-button",
-        ) as HTMLButtonElement;
-        if (!customSelect.contains(e.target as Node) && !dropDownMenu.hidden) {
-          dropDownMenu.classList.toggle("visually-hidden");
-          selectButton.classList.toggle("open");
-        }
-      });
     });
 
     customSelects.forEach((customSelect) => {
@@ -438,6 +431,18 @@ const displayController = (function () {
             closeMenu();
             break;
         }
+      });
+
+      selectControllers.push({ customSelect, isOpen, closeMenu });
+    });
+
+    document.addEventListener("click", (e) => {
+      customSelects.forEach((customSelect) => {
+        selectControllers.forEach(({ customSelect, isOpen, closeMenu }) => {
+          if (isOpen() && !customSelect.contains(e.target as Node)) {
+            closeMenu(false);
+          }
+        });
       });
     });
   };
