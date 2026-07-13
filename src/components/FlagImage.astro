@@ -1,14 +1,17 @@
 ---
+import { getCountryName } from "@lib/generalUtils";
 interface Props {
   countryCode: string;
 }
+
 const { countryCode } = Astro.props;
+const countryName = getCountryName(countryCode);
 ---
 
 <img
   class="flag"
   src=`/fx-checker/images/flags/${countryCode}.webp`
-  alt=`${countryCode} flag`
+  alt=`${countryName} flag`
 />
 
 <style lang="scss" is:global>

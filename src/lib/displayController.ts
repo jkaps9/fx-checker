@@ -1,6 +1,6 @@
 import { APIController } from "./apiController";
 import { convertAmount } from "@lib/fxMath";
-import { updateElementClasses } from "@lib/generalUtils";
+import { updateElementClasses, getCountryName } from "@lib/generalUtils";
 import type { RateSummary } from "../types/fx";
 import { summarizeRates } from "@lib/fxUtils";
 import currencies from "@data/currencies.json" with { type: "json" };
@@ -607,7 +607,8 @@ const displayController = (function () {
     leftSide.classList.add("left-side");
     const flag = document.createElement("img");
     flag.src = getFlagPath(rateSummary.quote);
-    flag.alt = `${rateSummary.quote.slice(0, 2).toLowerCase()} flag`;
+    const countryName = getCountryName(rateSummary.quote.slice(0, 2));
+    flag.alt = `${countryName} flag`;
     flag.classList.add("flag");
     const currencyInfo = document.createElement("div");
     const currency = document.createElement("p");
@@ -668,7 +669,7 @@ const displayController = (function () {
   ) => {
     const countryFlag = customSelect.querySelector(".flag") as HTMLImageElement;
     countryFlag.src = getFlagPath(newCurrencyCode);
-    countryFlag.alt = "";
+    countryFlag.alt = `${getCountryName(newCurrencyCode.slice(0, 2))} flag`;
 
     const currencyCode = customSelect.querySelector(
       ".currency-code",
