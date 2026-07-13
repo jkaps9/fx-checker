@@ -631,7 +631,8 @@ const displayController = (function () {
       favoriteButton.classList.add("active");
     favoriteButton.ariaLabel = "toggle favorite";
     favoriteButton.innerHTML = `<div class="star">${starSVG}</div><div class="star-filled">${filledStarSVG}</div>`;
-    favoriteButton.addEventListener("click", () => {
+    favoriteButton.addEventListener("click", (e) => {
+      e.stopPropagation();
       favoriteButton.classList.toggle("active");
       toggleFavorite(base, rateSummary.quote);
     });
@@ -874,7 +875,8 @@ const displayController = (function () {
     deleteLogButton.classList.add("btn", "btn--delete");
     deleteLogButton.ariaLabel = "delete log item";
     deleteLogButton.innerHTML = `<div class="icon">${deleteSVG}</div><div class="icon-filled">${filledDeleteSVG}</div>`;
-    deleteLogButton.addEventListener("click", () => {
+    deleteLogButton.addEventListener("click", (e) => {
+      e.stopPropagation();
       storageManager.removeLog(conversion.dateTimeLogged);
       logList.removeChild(listItem);
       updateLogCount();
