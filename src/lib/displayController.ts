@@ -263,6 +263,21 @@ const displayController = (function () {
       updateConversionLog();
     });
 
+    document.addEventListener("click", (e) => {
+      customSelects.forEach((customSelect) => {
+        const dropDownMenu = customSelect.querySelector(
+          ".dropdown-menu",
+        ) as HTMLElement;
+        const selectButton = customSelect.querySelector(
+          ".select-button",
+        ) as HTMLButtonElement;
+        if (!customSelect.contains(e.target as Node) && !dropDownMenu.hidden) {
+          dropDownMenu.classList.toggle("visually-hidden");
+          selectButton.classList.toggle("open");
+        }
+      });
+    });
+
     customSelects.forEach((customSelect) => {
       const hiddenInput = customSelect.querySelector(
         'input[type="hidden"]',
@@ -355,12 +370,6 @@ const displayController = (function () {
       }
 
       // Listeners
-
-      document.addEventListener("click", (e) => {
-        if (!customSelect.contains(e.target as Node) && isOpen()) {
-          closeMenu(false);
-        }
-      });
 
       selectButton.addEventListener("click", () => {
         toggleMenu();
