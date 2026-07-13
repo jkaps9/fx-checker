@@ -136,6 +136,7 @@ const displayController = (function () {
 
   const initialize = () => {
     updateTicker();
+    applyUrlPair();
     let formData = getFormValues();
     refreshForNewPair(formData.base, formData.target);
     updateFavorites();
@@ -683,9 +684,21 @@ const displayController = (function () {
   };
 
   const updateCurrencies = (base: string, target: string) => {
-    // TODO: take in rate and update compared amount and 1 base = XX target text
+    const validCurrencyCodes = new Set(currencies.map((c) => c.iso_code));
+
+    if (
+      !validCurrencyCodes.has(base.toUpperCase()) ||
+      !validCurrencyCodes.has(target.toUpperCase())
+    ) {
+      return;
+    }
+
     if (baseSelect.value !== base || targetSelect.value !== target) {
       updateFavoriteButtonState(base, target);
+      const url = new URL(window.location.href);
+      url.searchParams.set("base", base);
+      url.searchParams.set("target", target);
+      history.replaceState(null, "", url);
     }
 
     if (baseSelect.value !== base) {
@@ -983,6 +996,15 @@ const displayController = (function () {
           }
         });
     });
+  };
+
+  const applyUrlPair = () => {
+    const parameters = new URLSearchParams(window.location.search);
+    const base = parameters.get("base")?.toUpperCase();
+    const target = parameters.get("target")?.toUpperCase();
+    if (base && target && base !== target) {
+      updateCurrencies(base, target);
+    }
   };
 
   return { initialize };

@@ -70,6 +70,10 @@ Your users should be able to:
 - [x] See hover and focus states for all interactive elements on the page
 - [x] Navigate the entire app using only their keyboard
 
+#### Extras
+
+- [] persist currency pairs in the URL so a conversion can be bookmarked or shared
+
 ### Screenshot
 
 ![](./screenshot.jpg)
