@@ -133,8 +133,6 @@ const storageManager = (function () {
     }
   };
 
-  initialize();
-
   return {
     addFavorite,
     removeFavorite,
@@ -145,6 +143,7 @@ const storageManager = (function () {
     clearLog,
     hasLog,
     getLog,
+    initialize,
   };
 })();
 

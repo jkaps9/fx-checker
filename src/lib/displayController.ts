@@ -135,6 +135,7 @@ const displayController = (function () {
   let currentSection = "compare";
 
   const initialize = () => {
+    storageManager.initialize();
     updateTicker();
     applyUrlPair();
     let formData = getFormValues();
