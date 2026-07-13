@@ -223,7 +223,6 @@ const displayController = (function () {
     logConversionButton.addEventListener("click", () => {
       const now = new Date().toISOString();
       const formData = getFormValues();
-      console.log(formData);
       const sendAmount = getBaseAmount();
       const receiveAmount = Number(outputAmount.value.replace(/[^0-9.]/g, ""));
       if (formData.base && formData.target && sendAmount && receiveAmount) {
